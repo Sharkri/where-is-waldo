@@ -1,11 +1,18 @@
 import React from "react";
+import "../css/Header.css";
 import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <header className="header">
-      <Link to="/">Home</Link>
-      <Link to="/leaderboard">Leaderboard</Link>
+      <ul className="links">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/leaderboard">Leaderboard</Link>
+        </li>
+      </ul>
     </header>
   );
 }

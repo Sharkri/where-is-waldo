@@ -1,0 +1,13 @@
+header {
+  background-color: var(--secondary-main-bg);
+  padding: 18px;
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+}
+
+.links a {
+  color: var(--main-text-color);
+}
