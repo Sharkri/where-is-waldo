@@ -7,7 +7,9 @@ function Header() {
     <header className="header">
       <ul className="links">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/" aria-label="home">
+            <i className="fa-solid fa-house" />
+          </Link>
         </li>
         <li>
           <Link to="/leaderboard">Leaderboard</Link>

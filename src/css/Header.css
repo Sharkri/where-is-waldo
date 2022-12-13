@@ -8,6 +8,6 @@ header {
   gap: 16px;
 }
 
-.links a {
+.links > li > * {
   color: var(--main-text-color);
 }
