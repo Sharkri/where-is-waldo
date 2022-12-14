@@ -14,10 +14,12 @@ function toTimeUnitAbbreviation(duration) {
 }
 
 function filterZeroUnits(duration, ...excludedUnits) {
-  Object.keys(duration).forEach((unit) => {
+  const filteredDuration = { ...duration };
+  Object.keys(filteredDuration).forEach((unit) => {
     if (excludedUnits.includes(unit)) return;
-    if (duration[unit] === 0) delete duration[unit];
+    if (filteredDuration[unit] === 0) delete filteredDuration[unit];
   });
+  return filteredDuration;
 }
 
 function getNumber(num) {
@@ -46,9 +48,14 @@ export default function formatTimeDuration(start, end) {
   const timeElapsed = end - start;
   if (timeElapsed === 0) return "0ms";
 
-  const duration = intervalToDuration({ start, end });
+  let duration = filterZeroUnits(
+    intervalToDuration({ start, end }),
+    "minutes",
+    "seconds"
+  );
   // delete all zero units except excluded (minutes and seconds)
-  filterZeroUnits(duration, "minutes", "seconds");
+  duration = filterZeroUnits(duration, "minutes", "seconds");
+
   let formattedDuration = formatDuration(duration, { zero: true });
   // abbreviate time units
   formattedDuration = toTimeUnitAbbreviation(formattedDuration);
