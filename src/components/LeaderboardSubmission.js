@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { format } from "date-fns";
+import { format, formatDistanceToNowStrict } from "date-fns";
 import formatTimeDuration from "../helper/formatTimeDuration";
 
 function getNumberWithOrdinal(number) {
@@ -11,6 +11,11 @@ function getNumberWithOrdinal(number) {
 
 function LeaderboardSubmission({ submission }) {
   const formattedDate = format(submission.dateSubmitted, "MMM d, y");
+  const distanceToNow = formatDistanceToNowStrict(
+    new Date(submission.dateSubmitted),
+    { addSuffix: true }
+  );
+
   return (
     <tr className="leaderboard-submission">
       <td className="submission-place">
@@ -20,7 +25,9 @@ function LeaderboardSubmission({ submission }) {
       <td className="submission-time">
         {formatTimeDuration(submission.startTime, submission.endTime)}
       </td>
-      <td className="submission-date">{formattedDate}</td>
+      <td className="submission-date" title={distanceToNow}>
+        {formattedDate}
+      </td>
     </tr>
   );
 }

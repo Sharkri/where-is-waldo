@@ -14,7 +14,13 @@ it("should display place, name, time, and date of submission", () => {
     endTime: new Date(secToMs(120)), // 120 sec -> 2 mins
     dateSubmitted: new Date("1/1/1970"),
   };
-  render(<LeaderboardSubmission submission={leaderboardSubmission} />);
+  render(
+    <table>
+      <tbody>
+        <LeaderboardSubmission submission={leaderboardSubmission} />
+      </tbody>
+    </table>
+  );
   expect(screen.getByText("129th")).toBeInTheDocument();
   expect(screen.getByText("Alice")).toBeInTheDocument();
   expect(screen.getByText("2m 00s")).toBeInTheDocument();
