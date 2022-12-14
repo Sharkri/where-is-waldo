@@ -1,16 +1,31 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import LeaderboardSubmission from "./LeaderboardSubmission";
+import "../css/Leaderboard.css";
 
 function Leaderboard({ leaderboard }) {
   return (
-    <table>
-      <tbody className="leaderboard">
-        {leaderboard.map((submission) => (
-          <LeaderboardSubmission submission={submission} key={submission.id} />
-        ))}
-      </tbody>
-    </table>
+    <div className="leaderboard">
+      <h1 className="leaderboard-title">Leaderboard</h1>
+      <table className="leaderboard-table">
+        <thead>
+          <tr>
+            <th scope="col">Place</th>
+            <th scope="col">Name</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboard.map((submission) => (
+            <LeaderboardSubmission
+              submission={submission}
+              key={submission.id}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
