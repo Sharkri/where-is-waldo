@@ -3,11 +3,19 @@ import PropTypes from "prop-types";
 import { format } from "date-fns";
 import formatTimeDuration from "../helper/formatTimeDuration";
 
+function getNumberWithOrdinal(number) {
+  const ordinals = ["th", "st", "nd", "rd"];
+  const tens = number % 100;
+  return number + (ordinals[(tens - 20) % 10] || ordinals[tens] || ordinals[0]);
+}
+
 function LeaderboardSubmission({ submission }) {
   const formattedDate = format(submission.dateSubmitted, "MMM d, y");
   return (
     <tr className="leaderboard-submission">
-      <td className="submission-place">{submission.place}</td>
+      <td className="submission-place">
+        {getNumberWithOrdinal(submission.place)}
+      </td>
       <td className="submission-name">{submission.name}</td>
       <td className="submission-time">
         {formatTimeDuration(submission.startTime, submission.endTime)}

@@ -15,7 +15,7 @@ it("should display place, name, time, and date of submission", () => {
     dateSubmitted: new Date("1/1/1970"),
   };
   render(<LeaderboardSubmission submission={leaderboardSubmission} />);
-  expect(screen.getByText("129")).toBeInTheDocument();
+  expect(screen.getByText("129th")).toBeInTheDocument();
   expect(screen.getByText("Alice")).toBeInTheDocument();
   expect(screen.getByText("2m 00s")).toBeInTheDocument();
   expect(screen.getByText("Jan 1, 1970"));
