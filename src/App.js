@@ -1,5 +1,5 @@
 import "./css/App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import React from "react";
 import Leaderboard from "./components/Leaderboard";
 import Header from "./components/Header";
@@ -10,14 +10,22 @@ import PhotoPage from "./components/PhotoPage";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/levels/:id" element={<PhotoPage />} />
-          <Route
-            path="/leaderboard"
-            element={
+      <Routes>
+        <Route path="/levels/:id" element={<PhotoPage />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Home />
+            </>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            <>
+              <Header />
               <Leaderboard
                 leaderboard={[
                   // FAKE LEADERBOARD TO VISUALIZE (CHANGE LATER)
@@ -54,11 +62,11 @@ function App() {
                     id: 4,
                   },
                 ]}
-              />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+              />{" "}
+            </>
+          }
+        />
+      </Routes>
     </div>
   );
 }

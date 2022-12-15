@@ -25,7 +25,7 @@ jest.mock("../../levels.js", () => [
   },
 ]);
 
-it.only("should get correct level based on initial entry", () => {
+it("should get correct level based on initial entry", () => {
   render(
     <MemoryRouter initialEntries={["/levels/1"]}>
       <Routes>

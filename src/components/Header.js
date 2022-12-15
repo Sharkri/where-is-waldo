@@ -1,8 +1,9 @@
 import React from "react";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 
-function Header() {
+function Header({ children }) {
   return (
     <header className="header">
       <ul className="links">
@@ -15,8 +16,17 @@ function Header() {
           <Link to="/leaderboard">Leaderboard</Link>
         </li>
       </ul>
+      {children}
     </header>
   );
 }
+
+Header.defaultProps = {
+  children: null,
+};
+
+Header.propTypes = {
+  children: PropTypes.node,
+};
 
 export default Header;
