@@ -1,11 +1,14 @@
 import React from "react";
 import PhotoLevel from "./PhotoLevel";
-import retro from "../images/retro.png";
+import "../css/Home.css";
+import levels from "../levels";
 
 function Home() {
   return (
     <div className="home">
-      <PhotoLevel photo={retro} name="teststts" />
+      {levels.map((level) => (
+        <PhotoLevel name={level.name} photo={level.photo} key={level.id} />
+      ))}
     </div>
   );
 }
