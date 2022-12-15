@@ -5,6 +5,7 @@ import Leaderboard from "./components/Leaderboard";
 import Header from "./components/Header";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Home from "./components/Home";
+import PhotoPage from "./components/PhotoPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/levels/:id" element={<PhotoPage />} />
           <Route
             path="/leaderboard"
             element={

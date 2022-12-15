@@ -3,37 +3,49 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import PhotoPage from "../PhotoPage";
 
 jest.mock("../Characters.js", () => ({ characters }) => (
   <div data-testid="characters">{JSON.stringify(characters)}</div>
 ));
 
-const onClickMock = jest.fn();
+jest.mock("../../levels.js", () => [
+  { id: 0 },
+  {
+    id: 1,
+    photo: {
+      src: "unknown.png",
+      alt: "test alt",
+    },
+    characters: [
+      {
+        name: "john doe",
+        photo: "johndoe.jpg",
+      },
+    ],
+  },
+]);
 
-const photo = { src: "./photo.png", alt: "photo" };
-const characters = [
-  { name: "Mario", photo: "./mario.png", id: 0 },
-  { name: "Luigi", photo: "./luigi.png", id: 1 },
-];
-
-it("should render background photo", () => {
+it.only("should get correct level based on initial entry", () => {
   render(
-    <PhotoPage photo={photo} characters={characters} onClick={onClickMock} />
+    <MemoryRouter initialEntries={["/levels/1"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<PhotoPage />} />
+      </Routes>
+    </MemoryRouter>
   );
 
-  const image = screen.getByRole("img", { name: "photo" });
-  expect(image).toHaveAttribute("src", "./photo.png");
-});
+  const photo = screen.getByRole("img", { name: "test alt" });
+  expect(photo).toHaveAttribute("src", "unknown.png");
 
-it("should pass in correct params to characters component", () => {
-  render(
-    <PhotoPage photo={photo} characters={characters} onClick={onClickMock} />
-  );
-
-  expect(JSON.parse(screen.getByTestId("characters").textContent)).toEqual(
-    characters
-  );
+  const characters = screen.getByTestId("characters");
+  expect(JSON.parse(characters.textContent)).toEqual([
+    {
+      name: "john doe",
+      photo: "johndoe.jpg",
+    },
+  ]);
 });
 
 // will implement later

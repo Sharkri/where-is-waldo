@@ -1,28 +1,18 @@
-import { PropTypes } from "prop-types";
 import React from "react";
+import { useParams } from "react-router-dom";
+import getLevelById from "../helper/getLevelById";
 import Characters from "./Characters";
 
-function PhotoPage({ photo, characters }) {
+function PhotoPage() {
+  const { id } = useParams();
+  const level = getLevelById(Number(id));
+
   return (
     <div className="photo-page">
-      <img src={photo.src} alt={photo.alt} />
-      <Characters characters={characters} />
+      <img src={level.photo.src} alt={level.photo.alt} />
+      <Characters characters={level.characters} />
     </div>
   );
 }
-
-PhotoPage.propTypes = {
-  photo: PropTypes.shape({
-    src: PropTypes.node.isRequired,
-    alt: PropTypes.string.isRequired,
-  }).isRequired,
-
-  characters: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      photo: PropTypes.node.isRequired,
-    })
-  ).isRequired,
-};
 
 export default PhotoPage;
