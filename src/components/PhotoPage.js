@@ -9,7 +9,7 @@ function PhotoPage() {
 
   return (
     <div className="photo-page">
-      <img src={level.photo.src} alt={level.photo.alt} />
+      <img src={level.photo} alt={level.name} />
       <Characters characters={level.characters} />
     </div>
   );

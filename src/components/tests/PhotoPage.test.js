@@ -14,10 +14,8 @@ jest.mock("../../levels.js", () => [
   { id: 0 },
   {
     id: 1,
-    photo: {
-      src: "unknown.png",
-      alt: "test alt",
-    },
+    photo: "unknown.png",
+    name: "test level",
     characters: [
       {
         name: "john doe",
@@ -36,7 +34,7 @@ it.only("should get correct level based on initial entry", () => {
     </MemoryRouter>
   );
 
-  const photo = screen.getByRole("img", { name: "test alt" });
+  const photo = screen.getByRole("img", { name: "test level" });
   expect(photo).toHaveAttribute("src", "unknown.png");
 
   const characters = screen.getByTestId("characters");
