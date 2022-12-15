@@ -12,8 +12,8 @@ jest.mock("../Character.js", () => ({ character }) => (
 
 it("should display multiple characters", () => {
   const characters = [
-    { name: "Yoshi", photo: "yoshi.jpg" },
-    { name: "Bowser", photo: "bowser_image.avif" },
+    { name: "Yoshi", photo: "yoshi.jpg", id: 0 },
+    { name: "Bowser", photo: "bowser_image.avif", id: 1 },
   ];
 
   render(<Characters characters={characters} />);

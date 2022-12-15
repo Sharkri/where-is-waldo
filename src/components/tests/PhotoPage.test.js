@@ -13,8 +13,8 @@ const onClickMock = jest.fn();
 
 const photo = { src: "./photo.png", alt: "photo" };
 const characters = [
-  { name: "Mario", photo: "./mario.png" },
-  { name: "Luigi", photo: "./luigi.png" },
+  { name: "Mario", photo: "./mario.png", id: 0 },
+  { name: "Luigi", photo: "./luigi.png", id: 1 },
 ];
 
 it("should render background photo", () => {

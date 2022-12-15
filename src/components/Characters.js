@@ -6,7 +6,7 @@ function Characters({ characters }) {
   return (
     <div className="characters">
       {characters.map((character) => (
-        <Character character={character} />
+        <Character character={character} key={character.id} />
       ))}
     </div>
   );
@@ -18,6 +18,8 @@ Characters.propTypes = {
       {
         name: PropTypes.string.isRequired,
         photo: PropTypes.node.isRequired,
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          .isRequired,
       }.isRequired
     )
   ).isRequired,
