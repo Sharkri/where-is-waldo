@@ -9,15 +9,10 @@ jest.mock("../../levels.js", () => [
   { name: "awesome level", photo: "awesome-level.png", id: 1 },
 ]);
 
-jest.mock("../PhotoLevel.js", () => ({ level, onClick }) => (
-  <>
-    <div data-testid="photo-level">
-      {level.name} {level.photo}
-    </div>
-    <button data-testid="onClick" type="button" onClick={onClick}>
-      on click button
-    </button>
-  </>
+jest.mock("../PhotoLevel.js", () => ({ level }) => (
+  <div data-testid="photo-level">
+    {level.name} {level.photo}
+  </div>
 ));
 
 it("should map through levels and pass in correct props", () => {
@@ -29,5 +24,3 @@ it("should map through levels and pass in correct props", () => {
   expect(levels[0].textContent).toBe("cool level cool-level.png");
   expect(levels[1].textContent).toBe("awesome level awesome-level.png");
 });
-
-it.todo("test onclick");

@@ -1,31 +1,36 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
-import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import PhotoLevel from "../PhotoLevel";
 
-const onClickMock = jest.fn();
+const mockLevel = {
+  name: "insert level name here",
+  photo: "./dummy.png",
+  id: 0,
+};
 
 it("should show photo and level name", () => {
-  const level = { name: "insert level name here", photo: "./dummy.png" };
+  render(
+    <MemoryRouter>
+      <PhotoLevel level={mockLevel} />
+    </MemoryRouter>
+  );
 
-  render(<PhotoLevel level={level} onClick={onClickMock} />);
-
-  const img = screen.getByRole("img", { name: level.name });
-  expect(img).toHaveAttribute("src", level.photo);
+  const img = screen.getByRole("img", { name: mockLevel.name });
+  expect(img).toHaveAttribute("src", mockLevel.photo);
   expect(screen.getByText("insert level name here")).toBeInTheDocument();
 });
 
-it("should call onClick", () => {
-  const level = { name: "level name or something", photo: "./img.png" };
+it("renders correct link", () => {
+  render(
+    <MemoryRouter>
+      <PhotoLevel level={mockLevel} />
+    </MemoryRouter>
+  );
 
-  render(<PhotoLevel level={level} onClick={onClickMock} />);
-  expect(onClickMock).not.toBeCalled();
-
-  const levelButton = screen.getByRole("button");
-  userEvent.click(levelButton);
-
-  expect(onClickMock).toHaveBeenCalledTimes(1);
+  const link = screen.getByRole("link", { name: "link to level" });
+  expect(link).toHaveAttribute("href", "/levels/0");
 });
 
 describe("bad inputs", () => {
@@ -36,27 +41,41 @@ describe("bad inputs", () => {
     const level = {
       name: ["NOT A STRING LOL", "ALSO NOT A STRING"],
       photo: "./image.png",
+      id: 0,
     };
 
-    render(<PhotoLevel level={level} onClick={onClickMock} />);
+    render(
+      <MemoryRouter>
+        <PhotoLevel level={level} />
+      </MemoryRouter>
+    );
   });
 
   it("should warn for level src", () => {
     const level = {
       name: "actually a string",
       photo: () => "not an image src!!",
+      id: 0,
     };
 
-    render(<PhotoLevel level={level} onClick={onClickMock} />);
+    render(
+      <MemoryRouter>
+        <PhotoLevel level={level} />
+      </MemoryRouter>
+    );
   });
 
-  it("should warn for onClick", () => {
+  it("should give warning for id that isn't of type string nor number", () => {
     const level = {
       name: "also actually a string",
       photo: "./image.png",
+      id: () => {},
     };
-    const onClick = "not a function lol";
 
-    render(<PhotoLevel level={level} onClick={onClick} />);
+    render(
+      <MemoryRouter>
+        <PhotoLevel level={level} />
+      </MemoryRouter>
+    );
   });
 });
