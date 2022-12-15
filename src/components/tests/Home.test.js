@@ -9,13 +9,18 @@ jest.mock("../../levels.js", () => [
   { name: "awesome level", photo: "awesome-level.png", id: 1 },
 ]);
 
-jest.mock("../PhotoLevel.js", () => ({ name, photo }) => (
-  <div data-testid="photo-level">
-    {name} {photo}
-  </div>
+jest.mock("../PhotoLevel.js", () => ({ level, onClick }) => (
+  <>
+    <div data-testid="photo-level">
+      {level.name} {level.photo}
+    </div>
+    <button data-testid="onClick" type="button" onClick={onClick}>
+      on click button
+    </button>
+  </>
 ));
 
-it("should map through levels properly", () => {
+it("should map through levels and pass in correct props", () => {
   render(<Home />);
 
   const levels = screen.getAllByTestId("photo-level");

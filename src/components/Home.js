@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="home">
       {levels.map((level) => (
-        <PhotoLevel name={level.name} photo={level.photo} key={level.id} />
+        <PhotoLevel level={level} onClick={() => {}} key={level.id} />
       ))}
     </div>
   );
