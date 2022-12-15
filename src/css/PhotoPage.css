@@ -1,0 +1,7 @@
+.photo-page > header {
+  display: flex;
+}
+
+.game-image-container img {
+  width: 100%;
+}

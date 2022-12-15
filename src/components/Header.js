@@ -5,7 +5,7 @@ import { PropTypes } from "prop-types";
 
 function Header({ children }) {
   return (
-    <header className="header">
+    <header>
       <ul className="links">
         <li>
           <Link to="/" aria-label="home">
