@@ -1,15 +1,18 @@
 .photo-level {
   max-height: 100%;
-  max-width: 200px;
+  max-width: 250px;
   position: relative;
   border-radius: 8px;
   background-color: transparent;
   border: none;
   transition: box-shadow 0.25s ease-in-out 0s;
+  /* Change to block since links are inline */
+  display: block;
 }
 
 .photo-level-image-container {
   overflow: hidden;
+  border-radius: inherit;
 }
 
 .photo-level-image {
