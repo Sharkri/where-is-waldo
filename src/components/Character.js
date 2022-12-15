@@ -4,8 +4,12 @@ import { PropTypes } from "prop-types";
 function Character({ character }) {
   return (
     <div className="character">
-      <img src={character.photo} alt={character.name} />
-      <p>{character.name}</p>
+      <img
+        src={character.photo}
+        alt={character.name}
+        className="character-image"
+      />
+      <p className="character-name">{character.name}</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 .photo-page > header {
   display: flex;
+  align-items: center;
 }
 
 .game-image-container img {

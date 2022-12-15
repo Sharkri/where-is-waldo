@@ -1,0 +1,17 @@
+.characters {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 24px;
+  margin: 0 8px;
+}
+
+.character {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.character > .character-image {
+  max-height: 55px;
+}
