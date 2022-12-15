@@ -1,11 +1,14 @@
 import { PropTypes } from "prop-types";
 import React from "react";
+import "../css/PhotoLevel.css";
 
 function PhotoLevel({ photo, name, onClick }) {
   return (
     <button className="photo-level" type="button" onClick={onClick}>
-      <p>{name}</p>
-      <img src={photo} alt={name} />
+      <h1 className="photo-level-name">{name}</h1>
+      <div className="photo-level-image-container">
+        <img src={photo} alt={name} className="photo-level-image" />
+      </div>
     </button>
   );
 }
