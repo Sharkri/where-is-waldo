@@ -6,12 +6,14 @@ import "../css/GameLevelInstructions.css";
 function GameLevelInstructions({ level, onStart }) {
   return (
     <div className="game-level-instructions">
-      <h1>{level.name}</h1>
-      <img src={level.photo} alt={level.name} />
-      <Characters characters={level.characters} />
-      <button type="button" onClick={onStart}>
-        Start Game
-      </button>
+      <div className="game-level-instructions-content">
+        <h1>{level.name}</h1>
+        <img src={level.photo} alt={level.name} />
+        <Characters characters={level.characters} />
+        <button type="button" onClick={onStart}>
+          Start Game
+        </button>
+      </div>
     </div>
   );
 }
