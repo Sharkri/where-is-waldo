@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import React from "react";
@@ -48,6 +48,10 @@ jest.mock(
     ({ children }) =>
       children
 );
+
+jest.mock("../GameTimer.js", () => ({ startTime, currentTime }) => (
+  <div data-testid="time-elapsed">{currentTime - startTime}</div>
+));
 
 it("hides instructions when start game button is clicked", () => {
   render(
@@ -99,6 +103,27 @@ it("should toggle open characters list", () => {
   expect(screen.queryByText("john doe")).not.toBeInTheDocument();
 });
 
+it("should display timer in real time", () => {
+  jest.useFakeTimers();
+
+  render(
+    <MemoryRouter initialEntries={["/levels/0"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  // Timer should not have ticked yet
+  expect(screen.getByTestId("time-elapsed").textContent).toBe("0");
+
+  // Start game (Timer should now begin)
+  userEvent.click(screen.getByTestId("mock-start-game"));
+  // Advance 1000 ms
+  act(() => jest.advanceTimersByTime(1000));
+  // Timer should have been ticked to 1000 ms
+  expect(screen.getByTestId("time-elapsed").textContent).toBe("1000");
+});
+
 // will implement later
 it.todo("should show dropdown of characters on click of image");
-it.todo("call onClick");
+it.todo("when game ends, interval should be cleared");

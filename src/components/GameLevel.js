@@ -5,12 +5,21 @@ import getLevelById from "../helper/getLevelById";
 import "../css/GameLevel.css";
 import GameInstructions from "./GameInstructions";
 import Character from "./Character";
+import GameTimer from "./GameTimer";
 
 function GameLevel() {
   const { id } = useParams();
   const level = getLevelById(Number(id));
   const [isStarted, setIsStarted] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [startTime, setStartTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const onStart = () => {
+    setIsStarted(true);
+    setStartTime(Date.now());
+    setInterval(() => setCurrentTime(Date.now()), 1);
+  };
 
   if (!isStarted) {
     // Stop scroll if game not started
@@ -19,9 +28,7 @@ function GameLevel() {
 
   return (
     <>
-      {!isStarted && (
-        <GameInstructions onStart={() => setIsStarted(true)} level={level} />
-      )}
+      {!isStarted && <GameInstructions onStart={onStart} level={level} />}
       <div className="game-level">
         <Header>
           <div className="characters-dropdown">
@@ -39,6 +46,7 @@ function GameLevel() {
               </div>
             )}
           </div>
+          <GameTimer startTime={startTime} currentTime={currentTime} />
         </Header>
         <div className="game-image-container">
           <img src={level.photo} alt={level.name} />
