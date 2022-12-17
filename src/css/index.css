@@ -12,6 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   --main-bg: #1c2128;
   --secondary-main-bg: #2d333b;
+  --btn-bg-color: #444c56;
   --main-text-color: #cdd9e5;
   background-color: var(--main-bg);
   color: var(--main-text-color);

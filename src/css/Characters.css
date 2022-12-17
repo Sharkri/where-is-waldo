@@ -1,6 +1,7 @@
 .characters {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   flex-grow: 1;
   gap: 24px;
   margin: 0 8px;
