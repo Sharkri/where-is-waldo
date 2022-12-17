@@ -26,7 +26,11 @@ function GameLevel() {
 
   const handleImageClick = (e) => {
     setIsDropdownOpen(!isDropdownOpen);
-    setCoords({ x: e.clientX, y: e.clientY });
+    const rect = e.target.getBoundingClientRect();
+    setCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
   };
 
   if (!isStarted) {
@@ -63,16 +67,16 @@ function GameLevel() {
             alt={level.name}
             onClick={handleImageClick}
           />
+          {isDropdownOpen && (
+            <Dropdown x={coords.x} y={coords.y}>
+              {level.characters.map((character) => (
+                <option value={character.id} key={character.id}>
+                  {character.name}
+                </option>
+              ))}
+            </Dropdown>
+          )}
         </div>
-        {isDropdownOpen && (
-          <Dropdown x={coords.x} y={coords.y}>
-            {level.characters.map((character) => (
-              <option value={character.id} key={character.id}>
-                {character.name}
-              </option>
-            ))}
-          </Dropdown>
-        )}
       </div>
     </>
   );

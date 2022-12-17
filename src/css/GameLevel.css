@@ -31,10 +31,10 @@
   margin: 0 8px;
 }
 
-.game-image-container input[type="image"] {
-  width: 100%;
+.game-image-container {
+  position: relative;
 }
 
-.characters-select {
-  position: absolute;
+.game-image-container input[type="image"] {
+  width: 100%;
 }
