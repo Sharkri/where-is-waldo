@@ -7,12 +7,20 @@ function GameInstructions({ level, onStart }) {
   return (
     <div className="game-instructions">
       <div className="game-instructions-content">
-        <h1>{level.name}</h1>
-        <img src={level.photo} alt={level.name} />
-        <Characters characters={level.characters} />
-        <button type="button" onClick={onStart}>
-          Start Game
-        </button>
+        <div className="game-instructions-image-container">
+          <img
+            src={level.photo}
+            alt={level.name}
+            className="game-instructions-image"
+          />
+        </div>
+        <div className="game-instructions-info">
+          <h1 className="game-instructions-level-name">{level.name}</h1>
+          <Characters characters={level.characters} />
+          <button type="button" onClick={onStart} className="start-game">
+            Start Game
+          </button>
+        </div>
       </div>
     </div>
   );
