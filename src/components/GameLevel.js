@@ -5,11 +5,13 @@ import getLevelById from "../helper/getLevelById";
 import Characters from "./Characters";
 import "../css/GameLevel.css";
 import GameInstructions from "./GameInstructions";
+import Options from "./Options";
 
 function GameLevel() {
   const { id } = useParams();
   const level = getLevelById(Number(id));
   const [isStarted, setIsStarted] = useState(false);
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   return (
     <>
@@ -18,9 +20,15 @@ function GameLevel() {
       )}
       <div className="game-level">
         <Header>
-          <div className="game-level-characters">
+          <Options className="game-level-characters" isOpen={isOptionsOpen}>
             <Characters characters={level.characters} />
-          </div>
+          </Options>
+          <button
+            type="button"
+            onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+          >
+            open characters list
+          </button>
         </Header>
         <div className="game-image-container">
           <img src={level.photo} alt={level.name} />

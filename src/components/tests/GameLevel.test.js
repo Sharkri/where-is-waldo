@@ -11,6 +11,15 @@ jest.mock("../Characters.js", () => ({ characters }) => (
   <div data-testid="characters">{JSON.stringify(characters)}</div>
 ));
 
+jest.mock("../Options.js", () => ({ isOpen, children }) => {
+  return (
+    <>
+      <div data-testid="is-open">{isOpen.toString()}</div>
+      <div data-testid="options-children">{children}</div>
+    </>
+  );
+});
+
 jest.mock("../../levels.js", () => [
   {
     id: 0,
@@ -93,6 +102,43 @@ it("passes in correct level to instructions", () => {
     name: "level zero",
     characters: [],
   });
+});
+
+it("should toggle open characters list", () => {
+  render(
+    <MemoryRouter initialEntries={["/levels/1"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  // Should be closed by default
+  expect(screen.getByTestId("is-open").textContent).toBe("false");
+
+  userEvent.click(screen.getByRole("button", { name: "open characters list" }));
+  expect(screen.getByTestId("is-open").textContent).toBe("true");
+
+  userEvent.click(screen.getByRole("button", { name: "open characters list" }));
+  expect(screen.getByTestId("is-open").textContent).toBe("false");
+});
+
+it("should pass in correct characters list", () => {
+  render(
+    <MemoryRouter initialEntries={["/levels/1"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  expect(
+    JSON.parse(screen.getByTestId("options-children").textContent)
+  ).toEqual([
+    {
+      name: "john doe",
+      photo: "johndoe.jpg",
+    },
+  ]);
 });
 
 // will implement later
