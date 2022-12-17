@@ -7,12 +7,16 @@ function LevelPreviewCard({ level }) {
   return (
     <Link
       to={`levels/${level.id}`}
-      className="photo-level"
+      className="level-preview-card"
       aria-label="link to level"
     >
-      <h1 className="photo-level-name">{level.name}</h1>
-      <div className="photo-level-image-container">
-        <img src={level.photo} alt={level.name} className="photo-level-image" />
+      <h1 className="level-preview-card-name">{level.name}</h1>
+      <div className="level-preview-card-image-container">
+        <img
+          src={level.photo}
+          alt={level.name}
+          className="level-preview-card-image"
+        />
       </div>
     </Link>
   );

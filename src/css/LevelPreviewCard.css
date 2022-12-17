@@ -1,4 +1,4 @@
-.photo-level {
+.level-preview-card {
   max-height: 100%;
   max-width: 250px;
   position: relative;
@@ -9,18 +9,18 @@
   display: block;
 }
 
-.photo-level-image-container {
+.level-preview-card-image-container {
   overflow: hidden;
   border-radius: inherit;
 }
 
-.photo-level-image {
+.level-preview-card-image {
   width: 100%;
   border-radius: inherit;
   transition: 250ms;
 }
 
-.photo-level-name {
+.level-preview-card-name {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -33,11 +33,11 @@
   z-index: 1;
 }
 
-.photo-level:hover .photo-level-name {
+.level-preview-card:hover .level-preview-card-name {
   visibility: visible;
   opacity: 1;
 }
 
-.photo-level:hover .photo-level-image {
+.level-preview-card:hover .level-preview-card-image {
   transform: scale(1.17);
 }

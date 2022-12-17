@@ -1,10 +1,11 @@
 import { PropTypes } from "prop-types";
 import React from "react";
 import Characters from "./Characters";
+import "../css/GameLevelInstructions.css";
 
 function GameLevelInstructions({ level, onStart }) {
   return (
-    <div className="photo-level-instructions">
+    <div className="game-level-instructions">
       <h1>{level.name}</h1>
       <img src={level.photo} alt={level.name} />
       <Characters characters={level.characters} />

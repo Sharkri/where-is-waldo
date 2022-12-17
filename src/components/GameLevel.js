@@ -19,7 +19,7 @@ function GameLevel() {
           level={level}
         />
       )}
-      <div className="photo-page">
+      <div className="game-level">
         <Header>
           <Characters characters={level.characters} />
         </Header>
