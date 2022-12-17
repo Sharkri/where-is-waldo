@@ -7,18 +7,9 @@ import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import GameLevel from "../GameLevel";
 
-jest.mock("../Characters.js", () => ({ characters }) => (
-  <div data-testid="characters">{JSON.stringify(characters)}</div>
+jest.mock("../Character.js", () => ({ character }) => (
+  <div>{character.name}</div>
 ));
-
-jest.mock("../Options.js", () => ({ isOpen, children }) => {
-  return (
-    <>
-      <div data-testid="is-open">{isOpen.toString()}</div>
-      <div data-testid="options-children">{children}</div>
-    </>
-  );
-});
 
 jest.mock("../../levels.js", () => [
   {
@@ -29,13 +20,14 @@ jest.mock("../../levels.js", () => [
   },
 
   {
-    id: 1,
+    id: 1234,
     photo: "unknown.png",
     name: "test level",
     characters: [
       {
         name: "john doe",
         photo: "johndoe.jpg",
+        id: 0,
       },
     ],
   },
@@ -43,33 +35,12 @@ jest.mock("../../levels.js", () => [
 
 jest.mock("../GameInstructions.js", () => ({ onStart, level }) => (
   <div data-testid="instructions">
-    <div data-testid="level-string">{JSON.stringify(level)}</div>
+    <div data-testid="level">{level.id}</div>
     <button type="button" onClick={onStart} data-testid="mock-start-game">
       start game
     </button>
   </div>
 ));
-
-it("should get correct level based on initial entry", () => {
-  render(
-    <MemoryRouter initialEntries={["/levels/1"]}>
-      <Routes>
-        <Route path="/levels/:id" element={<GameLevel />} />
-      </Routes>
-    </MemoryRouter>
-  );
-
-  const photo = screen.getByRole("img", { name: "test level" });
-  expect(photo).toHaveAttribute("src", "unknown.png");
-
-  const characters = screen.getByTestId("characters");
-  expect(JSON.parse(characters.textContent)).toEqual([
-    {
-      name: "john doe",
-      photo: "johndoe.jpg",
-    },
-  ]);
-});
 
 it("hides instructions when start game button is clicked", () => {
   render(
@@ -89,57 +60,38 @@ it("hides instructions when start game button is clicked", () => {
 
 it("passes in correct level to instructions", () => {
   render(
-    <MemoryRouter initialEntries={["/levels/0"]}>
+    <MemoryRouter initialEntries={["/levels/1234"]}>
       <Routes>
         <Route path="/levels/:id" element={<GameLevel />} />
       </Routes>
     </MemoryRouter>
   );
 
-  expect(JSON.parse(screen.getByTestId("level-string").textContent)).toEqual({
-    id: 0,
-    photo: "levelzero.png",
-    name: "level zero",
-    characters: [],
-  });
+  expect(screen.getByTestId("level").textContent).toBe("1234");
 });
 
 it("should toggle open characters list", () => {
   render(
-    <MemoryRouter initialEntries={["/levels/1"]}>
+    <MemoryRouter initialEntries={["/levels/1234"]}>
       <Routes>
         <Route path="/levels/:id" element={<GameLevel />} />
       </Routes>
     </MemoryRouter>
   );
-  // Should be closed by default
-  expect(screen.getByTestId("is-open").textContent).toBe("false");
+  // Characters should be appear by default
+  expect(screen.queryByText("john doe")).not.toBeInTheDocument();
 
-  userEvent.click(screen.getByRole("button", { name: "open characters list" }));
-  expect(screen.getByTestId("is-open").textContent).toBe("true");
+  const openCharactersList = screen.getByRole("button", {
+    name: "open characters list",
+  });
 
-  userEvent.click(screen.getByRole("button", { name: "open characters list" }));
-  expect(screen.getByTestId("is-open").textContent).toBe("false");
-});
+  userEvent.click(openCharactersList);
+  expect(screen.getByText("john doe")).toBeInTheDocument();
 
-it("should pass in correct characters list", () => {
-  render(
-    <MemoryRouter initialEntries={["/levels/1"]}>
-      <Routes>
-        <Route path="/levels/:id" element={<GameLevel />} />
-      </Routes>
-    </MemoryRouter>
-  );
-
-  expect(
-    JSON.parse(screen.getByTestId("options-children").textContent)
-  ).toEqual([
-    {
-      name: "john doe",
-      photo: "johndoe.jpg",
-    },
-  ]);
+  userEvent.click(openCharactersList);
+  expect(screen.queryByText("john doe")).not.toBeInTheDocument();
 });
 
 // will implement later
+it.todo("should show dropdown of characters on click of image");
 it.todo("call onClick");
