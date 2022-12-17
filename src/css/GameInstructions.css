@@ -1,4 +1,4 @@
-.game-level-instructions {
+.game-instructions {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -9,6 +9,6 @@
   align-items: center;
 }
 
-.game-level-instructions-content {
+.game-instructions-content {
   border: 1px solid red;
 }

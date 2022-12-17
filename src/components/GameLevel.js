@@ -4,7 +4,7 @@ import Header from "./Header";
 import getLevelById from "../helper/getLevelById";
 import Characters from "./Characters";
 import "../css/GameLevel.css";
-import GameLevelInstructions from "./GameLevelInstructions";
+import GameInstructions from "./GameInstructions";
 
 function GameLevel() {
   const { id } = useParams();
@@ -14,10 +14,7 @@ function GameLevel() {
   return (
     <>
       {!isStarted && (
-        <GameLevelInstructions
-          onStart={() => setIsStarted(true)}
-          level={level}
-        />
+        <GameInstructions onStart={() => setIsStarted(true)} level={level} />
       )}
       <div className="game-level">
         <Header>

@@ -32,7 +32,7 @@ jest.mock("../../levels.js", () => [
   },
 ]);
 
-jest.mock("../GameLevelInstructions.js", () => ({ onStart, level }) => (
+jest.mock("../GameInstructions.js", () => ({ onStart, level }) => (
   <div data-testid="instructions">
     <div data-testid="level-string">{JSON.stringify(level)}</div>
     <button type="button" onClick={onStart} data-testid="mock-start-game">

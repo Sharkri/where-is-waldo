@@ -1,12 +1,12 @@
 import { PropTypes } from "prop-types";
 import React from "react";
 import Characters from "./Characters";
-import "../css/GameLevelInstructions.css";
+import "../css/GameInstructions.css";
 
-function GameLevelInstructions({ level, onStart }) {
+function GameInstructions({ level, onStart }) {
   return (
-    <div className="game-level-instructions">
-      <div className="game-level-instructions-content">
+    <div className="game-instructions">
+      <div className="game-instructions-content">
         <h1>{level.name}</h1>
         <img src={level.photo} alt={level.name} />
         <Characters characters={level.characters} />
@@ -18,7 +18,7 @@ function GameLevelInstructions({ level, onStart }) {
   );
 }
 
-GameLevelInstructions.propTypes = {
+GameInstructions.propTypes = {
   level: PropTypes.shape({
     photo: PropTypes.node.isRequired,
     name: PropTypes.string.isRequired,
@@ -33,4 +33,4 @@ GameLevelInstructions.propTypes = {
   onStart: PropTypes.func.isRequired,
 };
 
-export default GameLevelInstructions;
+export default GameInstructions;
