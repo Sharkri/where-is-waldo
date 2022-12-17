@@ -16,7 +16,9 @@ function GameInstructions({ level, onStart }) {
         </div>
         <div className="game-instructions-info">
           <h1 className="game-instructions-level-name">{level.name}</h1>
-          <Characters characters={level.characters} />
+          <div className="game-info-characters">
+            <Characters characters={level.characters} />
+          </div>
           <button type="button" onClick={onStart} className="start-game">
             Start Game
           </button>

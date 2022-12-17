@@ -1,15 +1,14 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import Character from "./Character";
-import "../css/Characters.css";
 
 function Characters({ characters }) {
   return (
-    <div className="characters">
+    <>
       {characters.map((character) => (
         <Character character={character} key={character.id} />
       ))}
-    </div>
+    </>
   );
 }
 

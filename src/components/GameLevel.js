@@ -18,7 +18,9 @@ function GameLevel() {
       )}
       <div className="game-level">
         <Header>
-          <Characters characters={level.characters} />
+          <div className="game-level-characters">
+            <Characters characters={level.characters} />
+          </div>
         </Header>
         <div className="game-image-container">
           <img src={level.photo} alt={level.name} />

@@ -38,9 +38,10 @@
   margin: 12px 0;
 }
 
-.game-instructions-info > .characters {
-  flex-grow: unset;
+.game-info-characters {
+  display: flex;
   flex-direction: column;
+  gap: 24px;
 }
 
 .start-game {

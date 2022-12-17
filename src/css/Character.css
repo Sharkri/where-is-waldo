@@ -1,0 +1,10 @@
+.character {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+}
+
+.character > .character-image {
+  max-height: 55px;
+}
