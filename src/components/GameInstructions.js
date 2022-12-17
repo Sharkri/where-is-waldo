@@ -18,7 +18,7 @@ function GameInstructions({ level, onStart }) {
           <h1 className="game-instructions-level-name">{level.name}</h1>
           <div className="game-info-characters">
             {level.characters.map((character) => (
-              <Character character={character} />
+              <Character character={character} key={character.id} />
             ))}
           </div>
           <button type="button" onClick={onStart} className="start-game">
