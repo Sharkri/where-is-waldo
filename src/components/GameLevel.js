@@ -6,6 +6,7 @@ import "../css/GameLevel.css";
 import GameInstructions from "./GameInstructions";
 import Character from "./Character";
 import GameTimer from "./GameTimer";
+import Dropdown from "./Dropdown";
 
 function GameLevel() {
   const { id } = useParams();
@@ -15,11 +16,17 @@ function GameLevel() {
   const [startTime, setStartTime] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
 
   const onStart = () => {
     setIsStarted(true);
     setStartTime(Date.now());
     setInterval(() => setCurrentTime(Date.now()), 1);
+  };
+
+  const handleImageClick = (e) => {
+    setIsDropdownOpen(!isDropdownOpen);
+    setCoords({ x: e.clientX, y: e.clientY });
   };
 
   if (!isStarted) {
@@ -54,17 +61,17 @@ function GameLevel() {
             type="image"
             src={level.photo}
             alt={level.name}
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            onClick={handleImageClick}
           />
         </div>
         {isDropdownOpen && (
-          <select>
+          <Dropdown x={coords.x} y={coords.y}>
             {level.characters.map((character) => (
               <option value={character.id} key={character.id}>
                 {character.name}
               </option>
             ))}
-          </select>
+          </Dropdown>
         )}
       </div>
     </>

@@ -34,3 +34,7 @@
 .game-image-container input[type="image"] {
   width: 100%;
 }
+
+.characters-select {
+  position: absolute;
+}
