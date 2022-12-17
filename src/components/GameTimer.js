@@ -20,8 +20,12 @@ function GameTimer({ startTime, currentTime }) {
 }
 
 GameTimer.propTypes = {
-  startTime: PropTypes.instanceOf(Date).isRequired,
-  currentTime: PropTypes.instanceOf(Date).isRequired,
+  startTime: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+    .isRequired,
+  currentTime: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.instanceOf(Date),
+  ]).isRequired,
 };
 
 export default GameTimer;
