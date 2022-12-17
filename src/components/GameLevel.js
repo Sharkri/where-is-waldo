@@ -20,15 +20,17 @@ function GameLevel() {
       )}
       <div className="game-level">
         <Header>
-          <Options className="game-level-characters" isOpen={isOptionsOpen}>
-            <Characters characters={level.characters} />
-          </Options>
-          <button
-            type="button"
-            onClick={() => setIsOptionsOpen(!isOptionsOpen)}
-          >
-            open characters list
-          </button>
+          <div className="characters-dropdown">
+            <button
+              type="button"
+              onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+            >
+              open characters list
+            </button>
+            <Options className="game-level-characters" isOpen={isOptionsOpen}>
+              <Characters characters={level.characters} />
+            </Options>
+          </div>
         </Header>
         <div className="game-image-container">
           <img src={level.photo} alt={level.name} />
