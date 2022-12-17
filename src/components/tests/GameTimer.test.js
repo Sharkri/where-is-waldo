@@ -22,12 +22,12 @@ it("should display ms", () => {
   intervalToDuration.mockReturnValueOnce({ seconds: 0, minutes: 0 });
   render(<GameTimer startTime={new Date(0)} currentTime={new Date(125)} />);
 
-  expect(screen.getByText("00:00:125"));
+  expect(screen.getByText("00:00:12"));
 });
 
 it("should pad zero", () => {
   intervalToDuration.mockReturnValueOnce({ seconds: 5, minutes: 5 });
   render(<GameTimer startTime={new Date(0)} currentTime={new Date(50)} />);
 
-  expect(screen.getByText("05:05:50"));
+  expect(screen.getByText("05:05:05"));
 });

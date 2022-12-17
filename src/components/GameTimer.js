@@ -9,7 +9,9 @@ function padZero(num) {
 function GameTimer({ startTime, currentTime }) {
   const duration = intervalToDuration({ start: startTime, end: currentTime });
   // Manually add ms since duration doesn't give it
-  duration.ms = Number.parseInt((currentTime - startTime) % 1000, 10);
+  duration.ms = Math.floor(
+    Number.parseInt((currentTime - startTime) % 1000, 10) / 10
+  ).toFixed(0);
   // Pad all times with a zero
   Object.keys(duration).forEach((timeUnit) => {
     duration[timeUnit] = padZero(duration[timeUnit]);
