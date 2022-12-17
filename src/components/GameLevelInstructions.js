@@ -2,7 +2,7 @@ import { PropTypes } from "prop-types";
 import React from "react";
 import Characters from "./Characters";
 
-function PhotoLevelInstructions({ level, onStart }) {
+function GameLevelInstructions({ level, onStart }) {
   return (
     <div className="photo-level-instructions">
       <h1>{level.name}</h1>
@@ -15,7 +15,7 @@ function PhotoLevelInstructions({ level, onStart }) {
   );
 }
 
-PhotoLevelInstructions.propTypes = {
+GameLevelInstructions.propTypes = {
   level: PropTypes.shape({
     photo: PropTypes.node.isRequired,
     name: PropTypes.string.isRequired,
@@ -30,4 +30,4 @@ PhotoLevelInstructions.propTypes = {
   onStart: PropTypes.func.isRequired,
 };
 
-export default PhotoLevelInstructions;
+export default GameLevelInstructions;

@@ -3,7 +3,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import PhotoLevelInstructions from "../PhotoLevelInstructions";
+import GameLevelInstructions from "../GameLevelInstructions";
 import "@testing-library/jest-dom";
 
 jest.mock("../Characters.js", () => ({ characters }) => (
@@ -26,7 +26,7 @@ const fakeLevel = {
 const mockOnStart = jest.fn();
 
 it("should call onClick when start game is clicked", () => {
-  render(<PhotoLevelInstructions level={fakeLevel} onStart={mockOnStart} />);
+  render(<GameLevelInstructions level={fakeLevel} onStart={mockOnStart} />);
 
   expect(mockOnStart).not.toBeCalled();
 
@@ -36,7 +36,7 @@ it("should call onClick when start game is clicked", () => {
 });
 
 it("should render level title and photo", () => {
-  render(<PhotoLevelInstructions level={fakeLevel} onStart={mockOnStart} />);
+  render(<GameLevelInstructions level={fakeLevel} onStart={mockOnStart} />);
 
   expect(
     screen.getByRole("heading", { name: "Fake Level" })
@@ -49,7 +49,7 @@ it("should render level title and photo", () => {
 });
 
 it("should pass in correct props to characters component", () => {
-  render(<PhotoLevelInstructions level={fakeLevel} onStart={mockOnStart} />);
+  render(<GameLevelInstructions level={fakeLevel} onStart={mockOnStart} />);
 
   expect(JSON.parse(screen.getByTestId("characters").textContent)).toEqual(
     fakeLevel.characters

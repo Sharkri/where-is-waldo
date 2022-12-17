@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import PhotoLevel from "../PhotoLevel";
+import LevelPreviewCard from "../LevelPreviewCard";
 
 const mockLevel = {
   name: "insert level name here",
@@ -13,7 +13,7 @@ const mockLevel = {
 it("should show photo and level name", () => {
   render(
     <MemoryRouter>
-      <PhotoLevel level={mockLevel} />
+      <LevelPreviewCard level={mockLevel} />
     </MemoryRouter>
   );
 
@@ -25,7 +25,7 @@ it("should show photo and level name", () => {
 it("renders correct link", () => {
   render(
     <MemoryRouter>
-      <PhotoLevel level={mockLevel} />
+      <LevelPreviewCard level={mockLevel} />
     </MemoryRouter>
   );
 
@@ -46,7 +46,7 @@ describe("bad inputs", () => {
 
     render(
       <MemoryRouter>
-        <PhotoLevel level={level} />
+        <LevelPreviewCard level={level} />
       </MemoryRouter>
     );
   });
@@ -60,7 +60,7 @@ describe("bad inputs", () => {
 
     render(
       <MemoryRouter>
-        <PhotoLevel level={level} />
+        <LevelPreviewCard level={level} />
       </MemoryRouter>
     );
   });
@@ -74,7 +74,7 @@ describe("bad inputs", () => {
 
     render(
       <MemoryRouter>
-        <PhotoLevel level={level} />
+        <LevelPreviewCard level={level} />
       </MemoryRouter>
     );
   });

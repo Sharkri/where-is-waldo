@@ -9,7 +9,7 @@ jest.mock("../../levels.js", () => [
   { name: "awesome level", photo: "awesome-level.png", id: 1 },
 ]);
 
-jest.mock("../PhotoLevel.js", () => ({ level }) => (
+jest.mock("../LevelPreviewCard.js", () => ({ level }) => (
   <div data-testid="photo-level">
     {level.name} {level.photo}
   </div>

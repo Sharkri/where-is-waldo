@@ -1,5 +1,5 @@
 import React from "react";
-import PhotoLevel from "./PhotoLevel";
+import LevelPreviewCard from "./LevelPreviewCard";
 import "../css/Home.css";
 import levels from "../levels";
 
@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="home">
       {levels.map((level) => (
-        <PhotoLevel level={level} key={level.id} />
+        <LevelPreviewCard level={level} key={level.id} />
       ))}
     </div>
   );

@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import Header from "./Header";
 import getLevelById from "../helper/getLevelById";
 import Characters from "./Characters";
-import "../css/PhotoPage.css";
-import PhotoLevelInstructions from "./PhotoLevelInstructions";
+import "../css/GameLevel.css";
+import GameLevelInstructions from "./GameLevelInstructions";
 
-function PhotoPage() {
+function GameLevel() {
   const { id } = useParams();
   const level = getLevelById(Number(id));
   const [isStarted, setIsStarted] = useState(false);
@@ -14,7 +14,7 @@ function PhotoPage() {
   return (
     <>
       {!isStarted && (
-        <PhotoLevelInstructions
+        <GameLevelInstructions
           onStart={() => setIsStarted(true)}
           level={level}
         />
@@ -31,4 +31,4 @@ function PhotoPage() {
   );
 }
 
-export default PhotoPage;
+export default GameLevel;

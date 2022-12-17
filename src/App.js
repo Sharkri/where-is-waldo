@@ -5,13 +5,13 @@ import Leaderboard from "./components/Leaderboard";
 import Header from "./components/Header";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Home from "./components/Home";
-import PhotoPage from "./components/PhotoPage";
+import GameLevel from "./components/GameLevel";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/levels/:id" element={<PhotoPage />} />
+        <Route path="/levels/:id" element={<GameLevel />} />
         <Route
           path="/"
           element={

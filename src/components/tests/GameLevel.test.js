@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import PhotoPage from "../PhotoPage";
+import GameLevel from "../GameLevel";
 
 jest.mock("../Characters.js", () => ({ characters }) => (
   <div data-testid="characters">{JSON.stringify(characters)}</div>
@@ -32,7 +32,7 @@ jest.mock("../../levels.js", () => [
   },
 ]);
 
-jest.mock("../PhotoLevelInstructions.js", () => ({ onStart, level }) => (
+jest.mock("../GameLevelInstructions.js", () => ({ onStart, level }) => (
   <div data-testid="instructions">
     <div data-testid="level-string">{JSON.stringify(level)}</div>
     <button type="button" onClick={onStart} data-testid="mock-start-game">
@@ -45,7 +45,7 @@ it("should get correct level based on initial entry", () => {
   render(
     <MemoryRouter initialEntries={["/levels/1"]}>
       <Routes>
-        <Route path="/levels/:id" element={<PhotoPage />} />
+        <Route path="/levels/:id" element={<GameLevel />} />
       </Routes>
     </MemoryRouter>
   );
@@ -66,7 +66,7 @@ it("hides instructions when start game button is clicked", () => {
   render(
     <MemoryRouter initialEntries={["/levels/0"]}>
       <Routes>
-        <Route path="/levels/:id" element={<PhotoPage />} />
+        <Route path="/levels/:id" element={<GameLevel />} />
       </Routes>
     </MemoryRouter>
   );
@@ -82,7 +82,7 @@ it("passes in correct level to instructions", () => {
   render(
     <MemoryRouter initialEntries={["/levels/0"]}>
       <Routes>
-        <Route path="/levels/:id" element={<PhotoPage />} />
+        <Route path="/levels/:id" element={<GameLevel />} />
       </Routes>
     </MemoryRouter>
   );

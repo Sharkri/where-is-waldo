@@ -1,9 +1,9 @@
 import { PropTypes } from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import "../css/PhotoLevel.css";
+import "../css/LevelPreviewCard.css";
 
-function PhotoLevel({ level }) {
+function LevelPreviewCard({ level }) {
   return (
     <Link
       to={`levels/${level.id}`}
@@ -18,7 +18,7 @@ function PhotoLevel({ level }) {
   );
 }
 
-PhotoLevel.propTypes = {
+LevelPreviewCard.propTypes = {
   level: PropTypes.shape({
     photo: PropTypes.node.isRequired,
     name: PropTypes.string.isRequired,
@@ -26,4 +26,4 @@ PhotoLevel.propTypes = {
   }).isRequired,
 };
 
-export default PhotoLevel;
+export default LevelPreviewCard;
