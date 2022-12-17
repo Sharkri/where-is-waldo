@@ -12,6 +12,11 @@ function GameLevel() {
   const [isStarted, setIsStarted] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
+  if (!isStarted) {
+    // Stop scroll if game not started
+    document.body.style.overflow = "hidden";
+  } else document.body.style.overflow = "unset";
+
   return (
     <>
       {!isStarted && (

@@ -1,3 +1,7 @@
+[data-is-started="false"] {
+  overflow: hidden;
+}
+
 .game-level > header {
   display: flex;
   align-items: center;
