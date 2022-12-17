@@ -25,6 +25,8 @@ function GameLevel() {
   };
 
   const handleImageClick = (e) => {
+    if (!isStarted) return;
+
     setIsDropdownOpen(!isDropdownOpen);
     const rect = e.target.getBoundingClientRect();
     setCoords({

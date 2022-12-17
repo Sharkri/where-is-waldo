@@ -140,6 +140,9 @@ describe("Dropdown", () => {
         </Routes>
       </MemoryRouter>
     );
+    // Start the game first
+    userEvent.click(screen.getByTestId("mock-start-game"));
+
     // Should not show up immediately
     expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
 
@@ -155,5 +158,24 @@ describe("Dropdown", () => {
     expect(options[0].value).toBe("0");
   });
 });
+
+it("should not allow user to play if game not started", () => {
+  render(
+    <MemoryRouter initialEntries={["/levels/1234"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  // Should not show up immediately
+  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+
+  const gameImage = screen.getByRole("button", { name: "test level" });
+
+  userEvent.click(gameImage, { clientX: 50, clientY: 34 });
+  // Dropdown shouldn't appear to click on characters
+  expect(screen.queryByRole("option")).not.toBeInTheDocument();
+});
+
 // will implement later
 it.todo("when game ends, interval should be cleared");
