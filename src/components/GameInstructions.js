@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import React from "react";
-import Characters from "./Characters";
 import "../css/GameInstructions.css";
+import Character from "./Character";
 
 function GameInstructions({ level, onStart }) {
   return (
@@ -17,7 +17,9 @@ function GameInstructions({ level, onStart }) {
         <div className="game-instructions-info">
           <h1 className="game-instructions-level-name">{level.name}</h1>
           <div className="game-info-characters">
-            <Characters characters={level.characters} />
+            {level.characters.map((character) => (
+              <Character character={character} />
+            ))}
           </div>
           <button type="button" onClick={onStart} className="start-game">
             Start Game

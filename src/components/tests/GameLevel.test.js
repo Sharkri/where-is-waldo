@@ -42,6 +42,13 @@ jest.mock("../GameInstructions.js", () => ({ onStart, level }) => (
   </div>
 ));
 
+jest.mock(
+  "../Header.js",
+  () =>
+    ({ children }) =>
+      children
+);
+
 it("hides instructions when start game button is clicked", () => {
   render(
     <MemoryRouter initialEntries={["/levels/0"]}>

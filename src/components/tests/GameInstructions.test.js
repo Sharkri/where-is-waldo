@@ -6,8 +6,8 @@ import userEvent from "@testing-library/user-event";
 import GameInstructions from "../GameInstructions";
 import "@testing-library/jest-dom";
 
-jest.mock("../Characters.js", () => ({ characters }) => (
-  <div data-testid="characters">{JSON.stringify(characters)}</div>
+jest.mock("../Character.js", () => ({ character }) => (
+  <div data-testid="character">{character.name}</div>
 ));
 
 const fakeLevel = {
@@ -48,10 +48,10 @@ it("should render level title and photo", () => {
   );
 });
 
-it("should pass in correct props to characters component", () => {
+it("should render characters", () => {
   render(<GameInstructions level={fakeLevel} onStart={mockOnStart} />);
 
-  expect(JSON.parse(screen.getByTestId("characters").textContent)).toEqual(
-    fakeLevel.characters
-  );
+  const characters = screen.getAllByTestId("character");
+
+  expect(characters[0].textContent).toEqual("Fake Character");
 });
