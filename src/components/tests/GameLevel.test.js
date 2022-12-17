@@ -124,6 +124,21 @@ it("should display timer in real time", () => {
   expect(screen.getByTestId("time-elapsed").textContent).toBe("1000");
 });
 
+it("should show dropdown of characters on click of image", () => {
+  render(
+    <MemoryRouter initialEntries={["/levels/1234"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  expect(screen.queryByRole("option")).not.toBeInTheDocument();
+  const gameImage = screen.getByRole("button", { name: "test level" });
+  userEvent.click(gameImage);
+  const options = screen.getAllByRole("option");
+  expect(options[0].textContent).toBe("john doe");
+  expect(options[0].value).toBe("0");
+});
+
 // will implement later
-it.todo("should show dropdown of characters on click of image");
 it.todo("when game ends, interval should be cleared");

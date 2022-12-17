@@ -14,6 +14,7 @@ function GameLevel() {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const onStart = () => {
     setIsStarted(true);
@@ -49,8 +50,22 @@ function GameLevel() {
           <GameTimer startTime={startTime} currentTime={currentTime} />
         </Header>
         <div className="game-image-container">
-          <img src={level.photo} alt={level.name} />
+          <input
+            type="image"
+            src={level.photo}
+            alt={level.name}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          />
         </div>
+        {isDropdownOpen && (
+          <select>
+            {level.characters.map((character) => (
+              <option value={character.id} key={character.id}>
+                {character.name}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
     </>
   );

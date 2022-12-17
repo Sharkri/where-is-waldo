@@ -31,6 +31,6 @@
   margin: 0 8px;
 }
 
-.game-image-container img {
+.game-image-container input[type="image"] {
   width: 100%;
 }
