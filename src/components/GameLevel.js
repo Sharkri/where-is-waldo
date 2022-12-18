@@ -70,6 +70,7 @@ function GameLevel() {
             src={level.photo}
             alt={level.name}
             onClick={handleImageClick}
+            draggable={false}
           />
           {isDropdownOpen && (
             <Dropdown x={coords.x} y={coords.y} containerSize={containerSize}>

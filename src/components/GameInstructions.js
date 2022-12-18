@@ -11,6 +11,7 @@ function GameInstructions({ level, onStart }) {
           <img
             src={level.photo}
             alt={level.name}
+            draggable={false}
             className="game-instructions-image"
           />
         </div>
