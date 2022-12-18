@@ -185,5 +185,18 @@ it("should not allow user to play if game not started", () => {
   expect(screen.queryByRole("option")).not.toBeInTheDocument();
 });
 
+it("should hide overflow when game started", () => {
+  render(
+    <MemoryRouter initialEntries={["/levels/1234"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  expect(document.body).toHaveStyle({ overflow: "hidden" });
+  userEvent.click(screen.getByTestId("mock-start-game"));
+  expect(document.body).toHaveStyle({ overflow: "unset" });
+});
+
 // will implement later
 it.todo("when game ends, interval should be cleared");

@@ -31,7 +31,6 @@ function GameLevel() {
   // Work out the x and y coord as a percentage of the width.
   const getActualCoords = () => {
     const originalImg = { height: 822, width: 640 };
-
     // Gets original image's x and y percentage
     const percentage = {
       x: (originalX / originalImg.width) * 100,
@@ -44,8 +43,8 @@ function GameLevel() {
   };
 
   useEffect(() => {
-    if (containerSize) console.log(getActualCoords());
-  }, containerSize);
+    if (containerSize) getActualCoords();
+  }, [containerSize]);
 
   const handleImageClick = (e) => {
     if (!isStarted) return;
@@ -111,4 +110,3 @@ function GameLevel() {
 }
 
 export default GameLevel;
-// http://localhost:3000/levels/0?x=1238&y=1472

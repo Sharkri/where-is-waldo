@@ -1,9 +1,7 @@
-import retro from "./images/retro.png";
-
 const levels = [
   {
     name: "Retro Level",
-    photo: retro,
+    photo: "retro.png",
     characters: [
       {
         name: "Toad",
