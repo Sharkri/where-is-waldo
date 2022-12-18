@@ -12,12 +12,21 @@ function GameTimer({ startTime, currentTime }) {
   duration.ms = Math.floor(
     Number.parseInt((currentTime - startTime) % 1000, 10) / 10
   ).toFixed(0);
+
+  let formattedTimer = "";
   // Pad all times with a zero
   Object.keys(duration).forEach((timeUnit) => {
     duration[timeUnit] = padZero(duration[timeUnit]);
+
+    if (
+      duration[timeUnit] !== "00" &&
+      !["minutes", "seconds", "ms"].includes(timeUnit)
+    )
+      formattedTimer += `${duration[timeUnit]}:`;
   });
 
-  const formattedTimer = `${duration.minutes}:${duration.seconds}:${duration.ms}`;
+  formattedTimer += `${duration.minutes}:${duration.seconds}:${duration.ms}`;
+
   return <div className="game-timer">{formattedTimer}</div>;
 }
 

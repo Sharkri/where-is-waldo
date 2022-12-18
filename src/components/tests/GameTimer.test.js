@@ -31,3 +31,22 @@ it("should pad zero", () => {
 
   expect(screen.getByText("05:05:05"));
 });
+
+it("should work for long duration", () => {
+  intervalToDuration.mockReturnValueOnce({ hours: 1, seconds: 0, minutes: 2 });
+  render(<GameTimer startTime={new Date(0)} currentTime={new Date(50)} />);
+
+  expect(screen.getByText("01:02:00:05"));
+});
+
+it("should work for EVEN longer duration", () => {
+  intervalToDuration.mockReturnValueOnce({
+    days: 2,
+    hours: 5,
+    seconds: 11,
+    minutes: 33,
+  });
+  render(<GameTimer startTime={new Date(0)} currentTime={new Date(255)} />);
+
+  expect(screen.getByText("02:05:33:11:25"));
+});
