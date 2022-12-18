@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { PropTypes } from "prop-types";
 
-function Dropdown({ x, y, children }) {
+function Dropdown({ x, y, children, containerSize }) {
+  const selectRef = useRef(null);
+
+  const [position, setPosition] = useState({ left: 0, top: 0 });
+
+  useEffect(() => {
+    const select = selectRef.current;
+
+    function willElemWidthOverflow(startWidth, elementWidth) {
+      return startWidth + elementWidth > containerSize.width;
+    }
+
+    function willElemHeightOverflow(startHeight, elementHeight) {
+      return startHeight + elementHeight > containerSize.height;
+    }
+
+    const selectWidth = select.scrollWidth;
+    const selectHeight = select.scrollHeight;
+    // if select is going to overflow then push it to other side
+    const left = willElemWidthOverflow(x, selectWidth) ? x - selectWidth : x;
+    const top = willElemHeightOverflow(y, selectHeight) ? y - selectHeight : y;
+    setPosition({ left, top });
+  }, []);
+
   return (
     <select
       className="dropdown-select"
-      style={{ position: "absolute", left: x, top: y, zIndex: 5 }}
+      style={{
+        position: "absolute",
+        left: position.left,
+        top: position.top,
+        zIndex: 5,
+      }}
+      ref={selectRef}
     >
       {children}
     </select>
@@ -20,6 +49,10 @@ Dropdown.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   children: PropTypes.node,
+  containerSize: PropTypes.shape({
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Dropdown;

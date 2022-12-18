@@ -11,10 +11,11 @@ jest.mock("../Character.js", () => ({ character }) => (
   <div>{character.name}</div>
 ));
 
-jest.mock("../Dropdown.js", () => ({ children, x, y }) => (
+jest.mock("../Dropdown.js", () => ({ children, x, y, containerSize }) => (
   <>
     {children}
     <div data-testid="xy">{`${x}, ${y}`}</div>
+    <div data-testid="container">{JSON.stringify(containerSize)}</div>
   </>
 ));
 
@@ -140,6 +141,7 @@ describe("Dropdown", () => {
         </Routes>
       </MemoryRouter>
     );
+
     // Start the game first
     userEvent.click(screen.getByTestId("mock-start-game"));
 
@@ -148,7 +150,16 @@ describe("Dropdown", () => {
 
     const gameImage = screen.getByRole("button", { name: "test level" });
 
-    userEvent.click(gameImage, { clientX: 50, clientY: 34 });
+    jest.spyOn(gameImage, "scrollHeight", "get").mockImplementation(() => 100);
+    userEvent.click(gameImage, {
+      clientX: 50,
+      clientY: 34,
+    });
+    // Passes in correct container (gameImage)
+    expect(JSON.parse(screen.getByTestId("container").textContent)).toEqual({
+      height: 100, // Mock height of 100
+      width: 0,
+    });
 
     expect(screen.getByTestId("xy").textContent).toBe("50, 34");
 
@@ -167,9 +178,6 @@ it("should not allow user to play if game not started", () => {
       </Routes>
     </MemoryRouter>
   );
-  // Should not show up immediately
-  expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
-
   const gameImage = screen.getByRole("button", { name: "test level" });
 
   userEvent.click(gameImage, { clientX: 50, clientY: 34 });

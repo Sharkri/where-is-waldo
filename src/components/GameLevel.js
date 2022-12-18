@@ -17,6 +17,7 @@ function GameLevel() {
   const [currentTime, setCurrentTime] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [containerSize, setContainerSize] = useState(null);
 
   const onStart = () => {
     setIsStarted(true);
@@ -26,9 +27,10 @@ function GameLevel() {
 
   const handleImageClick = (e) => {
     if (!isStarted) return;
-
+    const image = e.target;
+    setContainerSize({ height: image.scrollHeight, width: image.scrollWidth });
     setIsDropdownOpen(!isDropdownOpen);
-    const rect = e.target.getBoundingClientRect();
+    const rect = image.getBoundingClientRect();
     setCoords({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
@@ -70,7 +72,7 @@ function GameLevel() {
             onClick={handleImageClick}
           />
           {isDropdownOpen && (
-            <Dropdown x={coords.x} y={coords.y}>
+            <Dropdown x={coords.x} y={coords.y} containerSize={containerSize}>
               {level.characters.map((character) => (
                 <option value={character.id} key={character.id}>
                   {character.name}
