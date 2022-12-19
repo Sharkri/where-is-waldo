@@ -20,8 +20,16 @@
 //   },
 // ];
 
-import { getCollectionDocs } from "../backend/backend";
+import { getCollectionDocs, getImage } from "../backend/backend";
 
-const getLevels = async () => getCollectionDocs("/levels");
+const getLevels = async () => {
+  const levels = await getCollectionDocs("/levels");
+  // Fetch level images
+  return Promise.all(
+    levels.map(async (level) =>
+      Object.assign(level, { photo: await getImage(level.photo) })
+    )
+  );
+};
 
 export default getLevels;
