@@ -20,7 +20,7 @@
 //   },
 // ];
 
-import { getCollectionDocs } from "../backend";
+import { getCollectionDocs } from "../backend/backend";
 
 const getLevels = async () => getCollectionDocs("/levels");
 

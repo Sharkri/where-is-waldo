@@ -1,4 +1,4 @@
-import { getImage } from "../backend";
+import { getImage } from "../backend/backend";
 import getLevels from "./levels";
 
 export default async function getLevelById(id) {

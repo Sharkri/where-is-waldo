@@ -10,7 +10,7 @@ jest.mock(
     ])
 );
 
-jest.mock("../../backend.js", () => ({
+jest.mock("../../backend/backend.js", () => ({
   getImage: (src) => Promise.resolve(`test${src}`),
 }));
 
