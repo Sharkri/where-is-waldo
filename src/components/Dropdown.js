@@ -34,6 +34,7 @@ function Dropdown({ x, y, children, containerSize }) {
         top: position.top,
         zIndex: 5,
       }}
+      size={children?.length || 1}
       ref={selectRef}
     >
       {children}
