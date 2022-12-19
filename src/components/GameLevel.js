@@ -10,7 +10,7 @@ import Dropdown from "./Dropdown";
 
 function GameLevel() {
   const { id } = useParams();
-  const level = getLevelById(Number(id));
+  const [level, setLevel] = useState(null);
   const [isStarted, setIsStarted] = useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [startTime, setStartTime] = useState(0);
@@ -18,6 +18,10 @@ function GameLevel() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [containerSize, setContainerSize] = useState(null);
+
+  useEffect(() => {
+    getLevelById(Number(id)).then((z) => setLevel(z));
+  }, []);
 
   // STORE COORDS IN FIREBASE LATER
   const [originalX, originalY] = [623, 742];
@@ -58,11 +62,10 @@ function GameLevel() {
       y: e.clientY - rect.top,
     });
   };
+  // Stop scroll if game not started
+  document.body.style.overflow = isStarted ? "unset" : "hidden";
 
-  if (!isStarted) {
-    // Stop scroll if game not started
-    document.body.style.overflow = "hidden";
-  } else document.body.style.overflow = "unset";
+  if (level == null) return <div>Loading...</div>;
 
   return (
     <>

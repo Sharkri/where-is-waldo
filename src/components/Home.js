@@ -1,9 +1,11 @@
 import React from "react";
 import LevelPreviewCard from "./LevelPreviewCard";
 import "../css/Home.css";
-import levels from "../levels";
+// import getLevels from "../helper/levels";
 
 function Home() {
+  // CHANGE LATER
+  const levels = [];
   return (
     <div className="home">
       {levels.map((level) => (
