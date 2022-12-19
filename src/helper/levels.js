@@ -24,11 +24,22 @@ import { getCollectionDocs, getImage } from "../backend/backend";
 
 const getLevels = async () => {
   const levels = await getCollectionDocs("/levels");
+
   // Fetch level images
   return Promise.all(
-    levels.map(async (level) =>
-      Object.assign(level, { photo: await getImage(level.photo) })
-    )
+    levels.map(async (level) => {
+      const newLevel = level;
+      // Fetch game level image
+      newLevel.photo = await getImage(level.photo);
+      newLevel.characters = await Promise.all(
+        newLevel.characters.map(async (character) =>
+          // Set character image to fetched one
+          Object.assign(character, { photo: getImage(character.photo) })
+        )
+      );
+
+      return newLevel;
+    })
   );
 };
 

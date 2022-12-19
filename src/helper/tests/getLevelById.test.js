@@ -10,10 +10,6 @@ jest.mock(
     ])
 );
 
-jest.mock("../../backend/backend.js", () => ({
-  getImage: (src) => Promise.resolve(`test${src}`),
-}));
-
 it("should get level by id", async () => {
   expect((await getLevelById(0)).name).toBe("first one");
   expect((await getLevelById(1)).name).toBe("number 2");
@@ -22,5 +18,5 @@ it("should get level by id", async () => {
 
 it("should get image from backend.js", async () => {
   const level = await getLevelById(0);
-  expect(level.photo).toBe("testxd.png");
+  expect(level.photo).toBe("xd.png");
 });

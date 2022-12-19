@@ -22,4 +22,5 @@ it("should fetch the correct collection docs", async () => {
 
   expect(getCollectionDocs).toHaveBeenCalledWith("/levels");
   expect(getImage).toHaveBeenCalledWith("also_a_test.png");
+  expect(getImage).toHaveBeenCalledWith("mario.jpeg");
 });
