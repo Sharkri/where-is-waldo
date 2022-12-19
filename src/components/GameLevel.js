@@ -26,32 +26,29 @@ function GameLevel() {
     })();
   }, []);
 
-  // STORE COORDS IN FIREBASE LATER
-  // const [originalX, originalY] = [623, 742];
-
   const onStart = () => {
     setIsStarted(true);
     setStartTime(Date.now());
     setInterval(() => setCurrentTime(Date.now()), 1);
   };
-  // WILL USE LATER
-  // // Work out the x and y coord as a percentage of the width.
-  // const getActualCoords = () => {
-  //   const originalImg = { height: 822, width: 640 };
-  //   // Gets original image's x and y percentage
-  //   const percentage = {
-  //     x: (originalX / originalImg.width) * 100,
-  //     y: (originalY / originalImg.height) * 100,
-  //   };
-  //   // Convert x and y to decimal and then times by width/height
-  //   const x = (percentage.x / 100) * containerSize.width;
-  //   const y = (percentage.y / 100) * containerSize.height;
-  //   console.log(x, y);
-  // };
 
-  // useEffect(() => {
-  //   if (containerSize) getActualCoords();
-  // }, [containerSize]);
+  // Work out the x and y coord as a percentage of the width.
+  const getActualCoords = () => {
+    const originalImg = { height: 822, width: 640 };
+    // Gets original image's x and y percentage
+    const percentage = {
+      x: (level.characters[0].x / originalImg.width) * 100,
+      y: (level.characters[0].y / originalImg.height) * 100,
+    };
+    // Convert x and y to decimal and then times by width/height
+    const x = (percentage.x / 100) * containerSize.width;
+    const y = (percentage.y / 100) * containerSize.height;
+    console.log(x, y);
+  };
+
+  useEffect(() => {
+    if (containerSize) getActualCoords();
+  }, [containerSize]);
 
   const handleImageClick = (e) => {
     if (!isStarted) return;
@@ -103,9 +100,19 @@ function GameLevel() {
           {isDropdownOpen && (
             <Dropdown x={coords.x} y={coords.y} containerSize={containerSize}>
               {level.characters.map((character) => (
-                <option value={character.id} key={character.id}>
-                  {character.name}
-                </option>
+                <li
+                  data-id={character.id}
+                  key={character.id}
+                  className="character-list-item"
+                >
+                  <button type="submit" className="character-button-submit">
+                    <img
+                      src={character.photo}
+                      alt={`character ${character.name}`}
+                    />
+                    <span className="character-name">{character.name}</span>
+                  </button>
+                </li>
               ))}
             </Dropdown>
           )}

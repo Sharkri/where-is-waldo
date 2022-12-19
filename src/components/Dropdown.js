@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PropTypes } from "prop-types";
+import "../css/Dropdown.css";
 
 function Dropdown({ x, y, children, containerSize }) {
   const selectRef = useRef(null);
@@ -26,19 +27,18 @@ function Dropdown({ x, y, children, containerSize }) {
   }, []);
 
   return (
-    <select
+    <ul
       className="dropdown-select"
       style={{
         position: "absolute",
         left: position.left,
         top: position.top,
-        zIndex: 5,
       }}
       size={children?.length || 1}
       ref={selectRef}
     >
       {children}
-    </select>
+    </ul>
   );
 }
 

@@ -38,3 +38,21 @@
 .game-image-container input[type="image"] {
   width: 100%;
 }
+
+.character-button-submit {
+  color: var(--main-text-color);
+  background-color: var(--main-bg);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.character-button-submit > img {
+  width: min(8.4vw, 44px);
+}
+
+.character-button-submit > .character-name {
+  font-size: min(4.15vw, 21px);
+}

@@ -154,7 +154,7 @@ describe("Dropdown", () => {
 
     // List of characters does not show up immediately
     expect(
-      screen.queryByRole("option", {
+      screen.queryByRole("listitem", {
         name: "character name",
       })
     ).not.toBeInTheDocument();
@@ -168,10 +168,10 @@ describe("Dropdown", () => {
 
     expect(screen.getByTestId("xy").textContent).toBe("50, 34");
 
-    const option = screen.getByRole("option", { name: "character name" });
-    expect(option.textContent).toBe("character name");
+    const character = screen.getByRole("listitem");
+    expect(character.textContent).toBe("character name");
     // value should be character's id
-    expect(option.value).toBe("0");
+    expect(character).toHaveAttribute("data-id", "0");
   });
 });
 
@@ -190,16 +190,14 @@ it("should not allow user to play if game not started", async () => {
   );
 
   // Game hasn't started yet, should not allow user to play the game.
-  expect(screen.queryByRole("option")).not.toBeInTheDocument();
+  expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
   // Game has started!
   userEvent.click(screen.getByTestId("mock-start-game"));
 
   // Now dropdown should be able to appear
   userEvent.click(screen.queryByRole("button", { name: "fake level" }));
 
-  expect(
-    screen.getByRole("option", { name: "character name" })
-  ).toBeInTheDocument();
+  expect(screen.getByRole("listitem")).toBeInTheDocument();
 });
 
 it("should hide overflow when game started", async () => {

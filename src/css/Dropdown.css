@@ -1,0 +1,5 @@
+.dropdown-select {
+  z-index: 5;
+  padding: 12px;
+  background-color: var(--main-bg);
+}

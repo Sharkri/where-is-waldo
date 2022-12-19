@@ -18,8 +18,8 @@ it("should place dropdown on where user clicks", () => {
   render(
     <Dropdown x={5} y={10} containerSize={{ height: 1234, width: 2000 }} />
   );
-  expect(screen.getByRole("combobox").style).toHaveProperty("top", "10px");
-  expect(screen.getByRole("combobox").style).toHaveProperty("left", "5px");
+  expect(screen.getByRole("list").style).toHaveProperty("top", "10px");
+  expect(screen.getByRole("list").style).toHaveProperty("left", "5px");
 });
 
 it("should render children of dropdown", () => {
