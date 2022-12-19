@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import React from "react";
@@ -19,31 +19,20 @@ jest.mock("../Dropdown.js", () => ({ children, x, y, containerSize }) => (
   </>
 ));
 
-jest.mock("../../levels.js", () => [
-  {
-    id: 0,
-    photo: "levelzero.png",
-    name: "level zero",
-    characters: [],
-  },
-
-  {
-    id: 1234,
-    photo: "unknown.png",
-    name: "test level",
-    characters: [
-      {
-        name: "john doe",
-        photo: "johndoe.jpg",
-        id: 0,
-      },
-    ],
-  },
-]);
+jest.mock(
+  "../../helper/getLevelById.js",
+  () => (id) =>
+    Promise.resolve({
+      photo: "fake_level.png",
+      name: "fake level",
+      id,
+      characters: [{ name: "character name", photo: "johndoe.png", id: 0 }],
+    })
+);
 
 jest.mock("../GameInstructions.js", () => ({ onStart, level }) => (
   <div data-testid="instructions">
-    <div data-testid="level">{level.id}</div>
+    <div data-testid="instructions-level">{level.name}</div>
     <button type="button" onClick={onStart} data-testid="mock-start-game">
       start game
     </button>
@@ -61,7 +50,7 @@ jest.mock("../GameTimer.js", () => ({ startTime, currentTime }) => (
   <div data-testid="time-elapsed">{currentTime - startTime}</div>
 ));
 
-it("hides instructions when start game button is clicked", () => {
+it("hides instructions when start game button is clicked", async () => {
   render(
     <MemoryRouter initialEntries={["/levels/0"]}>
       <Routes>
@@ -69,15 +58,18 @@ it("hides instructions when start game button is clicked", () => {
       </Routes>
     </MemoryRouter>
   );
-  expect(screen.queryByTestId("instructions")).toBeInTheDocument();
-  // simulate game started
-  const startGame = screen.getByTestId("mock-start-game");
-  userEvent.click(startGame);
-  // check if it instructions are still visible
+
+  await waitFor(() =>
+    expect(screen.getByTestId("instructions")).toBeInTheDocument()
+  );
+
+  // Start game, now instructions should disappear
+  userEvent.click(screen.getByTestId("mock-start-game"));
+
   expect(screen.queryByTestId("instructions")).not.toBeInTheDocument();
 });
 
-it("passes in correct level to instructions", () => {
+it("gives correct level to game instructions", async () => {
   render(
     <MemoryRouter initialEntries={["/levels/1234"]}>
       <Routes>
@@ -86,10 +78,14 @@ it("passes in correct level to instructions", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getByTestId("level").textContent).toBe("1234");
+  await waitFor(() =>
+    expect(screen.getByTestId("instructions-level").textContent).toBe(
+      "fake level"
+    )
+  );
 });
 
-it("should toggle open characters list", () => {
+it("should toggle open characters list", async () => {
   render(
     <MemoryRouter initialEntries={["/levels/1234"]}>
       <Routes>
@@ -97,21 +93,29 @@ it("should toggle open characters list", () => {
       </Routes>
     </MemoryRouter>
   );
-  // Characters should be appear by default
-  expect(screen.queryByText("john doe")).not.toBeInTheDocument();
+  // Wait for all state updates
+  await waitFor(() =>
+    screen.getByRole("button", {
+      name: "open characters list",
+    })
+  );
+
+  // Characters list shouldn't appear by default
+  expect(screen.queryByText("character name")).not.toBeInTheDocument();
 
   const openCharactersList = screen.getByRole("button", {
     name: "open characters list",
   });
 
+  // Open characters list clicked, character should now show up
   userEvent.click(openCharactersList);
-  expect(screen.getByText("john doe")).toBeInTheDocument();
-
+  expect(screen.getByText("character name")).toBeInTheDocument();
+  // If clicked again, toggle back to showing nothing
   userEvent.click(openCharactersList);
-  expect(screen.queryByText("john doe")).not.toBeInTheDocument();
+  expect(screen.queryByText("character name")).not.toBeInTheDocument();
 });
 
-it("should display timer in real time", () => {
+it("should display timer in real time", async () => {
   jest.useFakeTimers();
 
   render(
@@ -121,8 +125,11 @@ it("should display timer in real time", () => {
       </Routes>
     </MemoryRouter>
   );
-  // Timer should not have ticked yet
-  expect(screen.getByTestId("time-elapsed").textContent).toBe("0");
+
+  await waitFor(() =>
+    // Timer should not have ticked yet
+    expect(screen.getByTestId("time-elapsed").textContent).toBe("0")
+  );
 
   // Start game (Timer should now begin)
   userEvent.click(screen.getByTestId("mock-start-game"));
@@ -133,7 +140,7 @@ it("should display timer in real time", () => {
 });
 
 describe("Dropdown", () => {
-  it("should show dropdown of characters on click of image with x and y coords", () => {
+  it("should show dropdown of characters on click of image with x and y coords", async () => {
     render(
       <MemoryRouter initialEntries={["/levels/1234"]}>
         <Routes>
@@ -143,34 +150,32 @@ describe("Dropdown", () => {
     );
 
     // Start the game first
-    userEvent.click(screen.getByTestId("mock-start-game"));
+    await waitFor(() => userEvent.click(screen.getByTestId("mock-start-game")));
 
-    // Should not show up immediately
-    expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+    // List of characters does not show up immediately
+    expect(
+      screen.queryByRole("option", {
+        name: "character name",
+      })
+    ).not.toBeInTheDocument();
 
-    const gameImage = screen.getByRole("button", { name: "test level" });
-
-    jest.spyOn(gameImage, "scrollHeight", "get").mockImplementation(() => 100);
+    const gameImage = screen.getByRole("button", { name: /fake level/i });
+    // Click at coordinates (50, 34)
     userEvent.click(gameImage, {
       clientX: 50,
       clientY: 34,
     });
-    // Passes in correct container (gameImage)
-    expect(JSON.parse(screen.getByTestId("container").textContent)).toEqual({
-      height: 100, // Mock height of 100
-      width: 0,
-    });
 
     expect(screen.getByTestId("xy").textContent).toBe("50, 34");
 
-    const options = screen.getAllByRole("option");
-    expect(options[0].textContent).toBe("john doe");
+    const option = screen.getByRole("option", { name: "character name" });
+    expect(option.textContent).toBe("character name");
     // value should be character's id
-    expect(options[0].value).toBe("0");
+    expect(option.value).toBe("0");
   });
 });
 
-it("should not allow user to play if game not started", () => {
+it("should not allow user to play if game not started", async () => {
   render(
     <MemoryRouter initialEntries={["/levels/1234"]}>
       <Routes>
@@ -178,14 +183,26 @@ it("should not allow user to play if game not started", () => {
       </Routes>
     </MemoryRouter>
   );
-  const gameImage = screen.getByRole("button", { name: "test level" });
 
-  userEvent.click(gameImage, { clientX: 50, clientY: 34 });
-  // Dropdown shouldn't appear to click on characters
+  // Attempt to open the list of possible characters
+  await waitFor(() =>
+    userEvent.click(screen.queryByRole("button", { name: "fake level" }))
+  );
+
+  // Game hasn't started yet, should not allow user to play the game.
   expect(screen.queryByRole("option")).not.toBeInTheDocument();
+  // Game has started!
+  userEvent.click(screen.getByTestId("mock-start-game"));
+
+  // Now dropdown should be able to appear
+  userEvent.click(screen.queryByRole("button", { name: "fake level" }));
+
+  expect(
+    screen.getByRole("option", { name: "character name" })
+  ).toBeInTheDocument();
 });
 
-it("should hide overflow when game started", () => {
+it("should hide overflow when game started", async () => {
   render(
     <MemoryRouter initialEntries={["/levels/1234"]}>
       <Routes>
@@ -194,9 +211,27 @@ it("should hide overflow when game started", () => {
     </MemoryRouter>
   );
   expect(document.body).toHaveStyle({ overflow: "hidden" });
-  userEvent.click(screen.getByTestId("mock-start-game"));
+
+  await waitFor(() => userEvent.click(screen.queryByTestId("mock-start-game")));
+
   expect(document.body).toHaveStyle({ overflow: "unset" });
+});
+
+it("should show loading screen when is loading", async () => {
+  render(
+    <MemoryRouter initialEntries={["/levels/1234"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+  expect(screen.getByText("Loading...")).toBeInTheDocument();
+
+  await waitFor(() => userEvent.click(screen.queryByTestId("mock-start-game")));
+
+  expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
 });
 
 // will implement later
 it.todo("when game ends, interval should be cleared");
+it.todo("when character is found, remove from dropdown list");

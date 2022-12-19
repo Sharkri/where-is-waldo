@@ -20,35 +20,38 @@ function GameLevel() {
   const [containerSize, setContainerSize] = useState(null);
 
   useEffect(() => {
-    getLevelById(Number(id)).then((z) => setLevel(z));
+    (async function setLvl() {
+      const lvl = await getLevelById(Number(id));
+      setLevel(lvl);
+    })();
   }, []);
 
   // STORE COORDS IN FIREBASE LATER
-  const [originalX, originalY] = [623, 742];
+  // const [originalX, originalY] = [623, 742];
 
   const onStart = () => {
     setIsStarted(true);
     setStartTime(Date.now());
     setInterval(() => setCurrentTime(Date.now()), 1);
   };
+  // WILL USE LATER
+  // // Work out the x and y coord as a percentage of the width.
+  // const getActualCoords = () => {
+  //   const originalImg = { height: 822, width: 640 };
+  //   // Gets original image's x and y percentage
+  //   const percentage = {
+  //     x: (originalX / originalImg.width) * 100,
+  //     y: (originalY / originalImg.height) * 100,
+  //   };
+  //   // Convert x and y to decimal and then times by width/height
+  //   const x = (percentage.x / 100) * containerSize.width;
+  //   const y = (percentage.y / 100) * containerSize.height;
+  //   console.log(x, y);
+  // };
 
-  // Work out the x and y coord as a percentage of the width.
-  const getActualCoords = () => {
-    const originalImg = { height: 822, width: 640 };
-    // Gets original image's x and y percentage
-    const percentage = {
-      x: (originalX / originalImg.width) * 100,
-      y: (originalY / originalImg.height) * 100,
-    };
-    // Convert x and y to decimal and then times by width/height
-    const x = (percentage.x / 100) * containerSize.width;
-    const y = (percentage.y / 100) * containerSize.height;
-    console.log(x, y);
-  };
-
-  useEffect(() => {
-    if (containerSize) getActualCoords();
-  }, [containerSize]);
+  // useEffect(() => {
+  //   if (containerSize) getActualCoords();
+  // }, [containerSize]);
 
   const handleImageClick = (e) => {
     if (!isStarted) return;
