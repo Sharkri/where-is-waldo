@@ -31,6 +31,7 @@
   color: var(--main-text-color);
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
+  font-size: min(6vw, 27px);
 }
 
 .level-preview-card:hover .level-preview-card-name {
