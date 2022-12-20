@@ -19,6 +19,8 @@ jest.mock("../Dropdown.js", () => ({ children, x, y, containerSize }) => (
   </>
 ));
 
+jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
+
 jest.mock(
   "../../helper/getLevelById.js",
   () => (id) =>

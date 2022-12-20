@@ -20,6 +20,8 @@ jest.mock("../LevelPreviewCard.js", () => ({ level }) => (
   </div>
 ));
 
+jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
+
 it("should map through levels and pass in correct props", async () => {
   render(<Home />);
 

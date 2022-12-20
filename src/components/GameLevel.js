@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
 import getLevelById from "../helper/getLevelById";
@@ -7,6 +7,7 @@ import GameInstructions from "./GameInstructions";
 import Character from "./Character";
 import GameTimer from "./GameTimer";
 import Dropdown from "./Dropdown";
+import LoadingScreen from "./LoadingScreen";
 
 function GameLevel() {
   const { id } = useParams();
@@ -17,7 +18,11 @@ function GameLevel() {
   const [currentTime, setCurrentTime] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [containerSize, setContainerSize] = useState(null);
+  const imageRef = useRef(null);
+  const [containerSize, setContainerSize] = useState({
+    height: imageRef.current ? imageRef.current.scrollHeight : null,
+    width: imageRef.current ? imageRef.current.scrollWidth : null,
+  });
 
   useEffect(() => {
     (async function setLvl() {
@@ -47,7 +52,7 @@ function GameLevel() {
   };
 
   useEffect(() => {
-    if (containerSize) getActualCoords();
+    if (containerSize.height && containerSize.width) getActualCoords();
   }, [containerSize]);
 
   const handleImageClick = (e) => {
@@ -65,7 +70,7 @@ function GameLevel() {
   // Stop scroll if game not started
   document.body.style.overflow = isStarted ? "unset" : "hidden";
 
-  if (level == null) return <div>Loading...</div>;
+  if (level == null) return <LoadingScreen />;
 
   return (
     <>
@@ -96,6 +101,7 @@ function GameLevel() {
             alt={level.name}
             onClick={handleImageClick}
             draggable={false}
+            ref={imageRef}
           />
 
           {isDropdownOpen && (

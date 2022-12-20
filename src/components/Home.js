@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import LevelPreviewCard from "./LevelPreviewCard";
 import "../css/Home.css";
 import getLevels from "../helper/levels";
+import LoadingScreen from "./LoadingScreen";
 
 function Home() {
   // CHANGE LATER
@@ -11,7 +12,7 @@ function Home() {
     getLevels().then(setLevels);
   }, []);
 
-  if (levels == null) return <div>Loading...</div>;
+  if (levels == null) return <LoadingScreen />;
 
   return (
     <div className="home">
