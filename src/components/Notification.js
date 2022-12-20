@@ -17,8 +17,8 @@ Notification.propTypes = {
   message: PropTypes.string.isRequired,
   isShowing: PropTypes.bool.isRequired,
   position: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
+    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   }).isRequired,
 };
 

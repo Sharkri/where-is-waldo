@@ -28,7 +28,14 @@ jest.mock(
       photo: "fake_level.png",
       name: "fake level",
       id,
-      characters: [{ name: "character name", photo: "johndoe.png", id: 0 }],
+      characters: [
+        {
+          name: "character name",
+          photo: "johndoe.png",
+          id: 0,
+          coords: { x: { start: 25, end: 26 }, y: { start: 64, end: 69 } },
+        },
+      ],
     })
 );
 
@@ -50,6 +57,13 @@ jest.mock(
 
 jest.mock("../GameTimer.js", () => ({ startTime, currentTime }) => (
   <div data-testid="time-elapsed">{currentTime - startTime}</div>
+));
+
+jest.mock("../Notification.js", () => ({ message, isShowing }) => (
+  <>
+    <div>{message}</div>
+    <div data-testid="isShowing">{isShowing.toString()}</div>
+  </>
 ));
 
 it("hides instructions when start game button is clicked", async () => {
