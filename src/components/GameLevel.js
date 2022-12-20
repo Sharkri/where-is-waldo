@@ -68,6 +68,8 @@ function GameLevel() {
   const inRange = (start, end, value) => value >= start && value <= end;
 
   const dispatch = (message, time) => {
+    // If notification is already showing
+    if (isNotificationShowing) return;
     setNotificationText(message);
     setIsNotificationShowing(true);
 
