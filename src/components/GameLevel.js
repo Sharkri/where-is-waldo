@@ -97,15 +97,16 @@ function GameLevel() {
             onClick={handleImageClick}
             draggable={false}
           />
+
           {isDropdownOpen && (
             <Dropdown x={coords.x} y={coords.y} containerSize={containerSize}>
               {level.characters.map((character) => (
-                <li
-                  data-id={character.id}
-                  key={character.id}
-                  className="character-list-item"
-                >
-                  <button type="submit" className="character-button-submit">
+                <li key={character.id} className="character-list-item">
+                  <button
+                    type="submit"
+                    className="character-button-submit"
+                    data-id={character.id}
+                  >
                     <img
                       src={character.photo}
                       alt={`character ${character.name}`}

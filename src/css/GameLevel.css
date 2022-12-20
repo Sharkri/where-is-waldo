@@ -39,20 +39,40 @@
   width: 100%;
 }
 
+.game-image-container > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 5px;
+}
+
+.character-list-item {
+  transition: 0.3s;
+}
+
+.character-list-item:hover {
+  transform: scale(1.02);
+  background-color: var(--secondary-main-bg);
+}
+
 .character-button-submit {
-  color: var(--main-text-color);
-  background-color: var(--main-bg);
+  color: inherit;
+  background-color: inherit;
   border: none;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
+  gap: 14px;
+  padding: 12px 16px;
 }
 
 .character-button-submit > img {
-  width: min(8.4vw, 44px);
+  width: min(1.75rem, 7.75vw);
+  object-fit: contain;
+  height: min(1.75rem, 7.75vw);
+  max-width: 100%;
 }
 
 .character-button-submit > .character-name {
-  font-size: min(4.15vw, 21px);
+  font-size: min(1rem, 4vw);
+  font-weight: 600;
 }

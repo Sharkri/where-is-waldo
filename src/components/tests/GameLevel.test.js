@@ -170,8 +170,6 @@ describe("Dropdown", () => {
 
     const character = screen.getByRole("listitem");
     expect(character.textContent).toBe("character name");
-    // value should be character's id
-    expect(character).toHaveAttribute("data-id", "0");
   });
 });
 
