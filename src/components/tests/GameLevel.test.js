@@ -7,10 +7,6 @@ import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import GameLevel from "../GameLevel";
 
-jest.mock("../Character.js", () => ({ character }) => (
-  <div>{character.name}</div>
-));
-
 jest.mock("../Dropdown.js", () => ({ children, x, y, containerSize }) => (
   <>
     {children}
@@ -49,15 +45,18 @@ jest.mock("../GameInstructions.js", () => ({ onStart, level }) => (
 ));
 
 jest.mock(
-  "../Header.js",
+  "../GameLevelHeader.js",
   () =>
-    ({ children }) =>
-      children
+    ({ characters, startTime, currentTime }) =>
+      (
+        <>
+          <div data-testid="header-characters">
+            {JSON.stringify(characters)}
+          </div>
+          <div data-testid="time-elapsed">{currentTime - startTime}</div>
+        </>
+      )
 );
-
-jest.mock("../GameTimer.js", () => ({ startTime, currentTime }) => (
-  <div data-testid="time-elapsed">{currentTime - startTime}</div>
-));
 
 jest.mock("../Notification.js", () => ({ message, isShowing }) => (
   <>
@@ -101,36 +100,6 @@ it("gives correct level to game instructions", async () => {
   );
 });
 
-it("should toggle open characters list", async () => {
-  render(
-    <MemoryRouter initialEntries={["/levels/1234"]}>
-      <Routes>
-        <Route path="/levels/:id" element={<GameLevel />} />
-      </Routes>
-    </MemoryRouter>
-  );
-  // Wait for all state updates
-  await waitFor(() =>
-    screen.getByRole("button", {
-      name: "open characters list",
-    })
-  );
-
-  // Characters list shouldn't appear by default
-  expect(screen.queryByText("character name")).not.toBeInTheDocument();
-
-  const openCharactersList = screen.getByRole("button", {
-    name: "open characters list",
-  });
-
-  // Open characters list clicked, character should now show up
-  userEvent.click(openCharactersList);
-  expect(screen.getByText("character name")).toBeInTheDocument();
-  // If clicked again, toggle back to showing nothing
-  userEvent.click(openCharactersList);
-  expect(screen.queryByText("character name")).not.toBeInTheDocument();
-});
-
 it("should display timer in real time", async () => {
   jest.useFakeTimers();
 
@@ -153,6 +122,29 @@ it("should display timer in real time", async () => {
   act(() => jest.advanceTimersByTime(1000));
   // Timer should have been ticked to 1000 ms
   expect(screen.getByTestId("time-elapsed").textContent).toBe("1000");
+});
+
+it("should display characters in header", async () => {
+  render(
+    <MemoryRouter initialEntries={["/levels/0"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  await waitFor(() =>
+    expect(
+      JSON.parse(screen.getByTestId("header-characters").textContent)
+    ).toEqual([
+      {
+        name: "character name",
+        photo: "johndoe.png",
+        id: 0,
+        coords: { x: { start: 25, end: 26 }, y: { start: 64, end: 69 } },
+      },
+    ])
+  );
 });
 
 describe("Dropdown", () => {

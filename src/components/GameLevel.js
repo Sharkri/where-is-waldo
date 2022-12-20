@@ -1,20 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "./Header";
 import getLevelById from "../helper/getLevelById";
 import "../css/GameLevel.css";
 import GameInstructions from "./GameInstructions";
-import Character from "./Character";
-import GameTimer from "./GameTimer";
 import Dropdown from "./Dropdown";
 import LoadingScreen from "./LoadingScreen";
 import Notification from "./Notification";
+import GameLevelHeader from "./GameLevelHeader";
 
 function GameLevel() {
   const { id } = useParams();
   const [level, setLevel] = useState(null);
   const [isStarted, setIsStarted] = useState(false);
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -108,30 +105,12 @@ function GameLevel() {
     <>
       {!isStarted && <GameInstructions onStart={onStart} level={level} />}
       <div className="game-level">
-        <Header>
-          <div className="characters-dropdown">
-            <button
-              type="button"
-              onClick={() => setIsOptionsOpen(!isOptionsOpen)}
-            >
-              open characters list
-            </button>
-            {isOptionsOpen && (
-              <div className="options">
-                {level.characters.map((character) => (
-                  <Character character={character} key={character.id} />
-                ))}
-              </div>
-            )}
-          </div>
-          <GameTimer startTime={startTime} currentTime={currentTime} />
+        <GameLevelHeader
+          startTime={startTime}
+          currentTime={currentTime}
+          characters={level.characters}
+        />
 
-          <Notification
-            message={notificationText}
-            isShowing={isNotificationShowing}
-            position={{ x: "50%", y: "25" }}
-          />
-        </Header>
         <div className="game-image-container">
           <input
             type="image"
@@ -165,6 +144,11 @@ function GameLevel() {
             </form>
           )}
         </div>
+        <Notification
+          message={notificationText}
+          position={{ x: "50%", y: 0 }}
+          isShowing={isNotificationShowing}
+        />
       </div>
     </>
   );
