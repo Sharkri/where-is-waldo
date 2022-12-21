@@ -68,8 +68,8 @@ function GameLevel() {
   const inRange = (start, end, value) => value >= start && value <= end;
 
   const dispatch = (message, isSuccessful, time) => {
-    // If notification is already showing
-    if (isNotificationShowing && !isSuccessful) return;
+    // If notification is already showing and same message
+    if (isNotificationShowing && notificationText === message) return;
     setNotificationText(message);
     setNotificationSuccess(isSuccessful);
     setIsNotificationShowing(true);
