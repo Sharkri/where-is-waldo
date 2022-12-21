@@ -1,5 +1,4 @@
 .dropdown-select {
   z-index: 5;
   background-color: var(--main-bg);
-  overflow: auto;
 }

@@ -51,7 +51,7 @@
 }
 
 .character-list-item:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
   background-color: var(--secondary-main-bg);
 }
 
