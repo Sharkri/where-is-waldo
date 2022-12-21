@@ -114,6 +114,11 @@ function GameLevel() {
         />
 
         <div className="game-image-container">
+          <Notification
+            message={notificationText}
+            isShowing={isNotificationShowing}
+            success={notificationSuccess}
+          />
           <input
             type="image"
             src={level.photo}
@@ -122,7 +127,6 @@ function GameLevel() {
             draggable={false}
             ref={imageRef}
           />
-
           {isDropdownOpen && (
             <form action="" onSubmit={handleCharacterClick}>
               <Dropdown
@@ -146,12 +150,6 @@ function GameLevel() {
             </form>
           )}
         </div>
-        <Notification
-          message={notificationText}
-          position={{ x: "50%", y: 0 }}
-          isShowing={isNotificationShowing}
-          success={notificationSuccess}
-        />
       </div>
     </>
   );

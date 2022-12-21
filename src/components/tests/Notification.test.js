@@ -14,12 +14,9 @@ it("should display notification", () => {
   );
 
   expect(screen.getByText("Hello!")).toBeInTheDocument();
-  expect(screen.getByText("Hello!").parentElement).toHaveStyle({
-    left: 5,
-    top: 2,
-    // for some reason color gets converted to hex
-    backgroundColor: "#00800",
-  });
+  expect(
+    screen.getByText("Hello!").parentElement.style.backgroundColor
+  ).not.toBe("red");
 });
 
 it("should not display notification if isShowing is false", () => {
