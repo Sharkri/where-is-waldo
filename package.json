@@ -23,7 +23,8 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "resetMocks": false
+    "resetMocks": false,
+    "clearMocks": true
   },
   "browserslist": {
     "production": [

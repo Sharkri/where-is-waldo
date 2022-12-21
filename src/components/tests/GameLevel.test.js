@@ -7,6 +7,8 @@ import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import GameLevel from "../GameLevel";
 import Dropdown from "../Dropdown";
+import GameInstructions from "../GameInstructions";
+import GameLevelHeader from "../GameLevelHeader";
 
 jest.mock("../Dropdown.js", () =>
   jest.fn(({ children }) => <div data-testid="DropdownContent">{children}</div>)
@@ -32,27 +34,20 @@ jest.mock(
     })
 );
 
-jest.mock("../GameInstructions.js", () => ({ onStart, level }) => (
-  <div data-testid="instructions">
-    <div data-testid="instructions-level">{level.name}</div>
-    <button type="button" onClick={onStart} data-testid="mock-start-game">
-      start game
-    </button>
-  </div>
-));
+jest.mock("../GameInstructions.js", () =>
+  jest.fn(({ onStart }) => (
+    <div data-testid="instructions">
+      <button type="button" onClick={onStart} data-testid="mock-start-game">
+        start game
+      </button>
+    </div>
+  ))
+);
 
-jest.mock(
-  "../GameLevelHeader.js",
-  () =>
-    ({ characters, startTime, currentTime }) =>
-      (
-        <>
-          <div data-testid="header-characters">
-            {JSON.stringify(characters)}
-          </div>
-          <div data-testid="time-elapsed">{currentTime - startTime}</div>
-        </>
-      )
+jest.mock("../GameLevelHeader.js", () =>
+  jest.fn(({ startTime, currentTime }) => (
+    <div data-testid="time-elapsed">{currentTime - startTime}</div>
+  ))
 );
 
 it("hides instructions when start game button is clicked", async () => {
@@ -83,10 +78,16 @@ it("gives correct level to game instructions", async () => {
     </MemoryRouter>
   );
 
-  await waitFor(() =>
-    expect(screen.getByTestId("instructions-level").textContent).toBe(
-      "fake level"
-    )
+  await waitFor(() => screen.getByTestId("instructions"));
+
+  expect(GameInstructions).toBeCalledWith(
+    expect.objectContaining({
+      level: expect.objectContaining({
+        name: "fake level",
+        id: 1234,
+      }),
+    }),
+    expect.anything()
   );
 });
 
@@ -123,18 +124,20 @@ it("should display characters in header", async () => {
     </MemoryRouter>
   );
 
-  await waitFor(() =>
-    expect(
-      JSON.parse(screen.getByTestId("header-characters").textContent)
-    ).toEqual([
-      {
-        name: "character name",
-        photo: "johndoe.png",
-        id: 0,
-        coords: { x: { start: 25, end: 26 }, y: { start: 64, end: 69 } },
-      },
-    ])
-  );
+  await waitFor(() => {
+    expect(GameLevelHeader).toHaveBeenCalledWith(
+      expect.objectContaining({
+        characters: expect.arrayContaining([
+          expect.objectContaining({
+            name: "character name",
+            photo: "johndoe.png",
+            id: 0,
+          }),
+        ]),
+      }),
+      expect.anything()
+    );
+  });
 });
 
 describe("Dropdown", () => {

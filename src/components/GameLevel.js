@@ -34,6 +34,7 @@ function GameLevel() {
   const onStart = () => {
     setIsStarted(true);
     setStartTime(Date.now());
+    setCurrentTime(Date.now());
     setInterval(() => setCurrentTime(Date.now()), 1);
   };
 
