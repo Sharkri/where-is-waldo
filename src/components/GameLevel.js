@@ -18,7 +18,9 @@ function GameLevel() {
   const [isNotificationShowing, setIsNotificationShowing] = useState(false);
   const [notificationText, setNotificationText] = useState("");
   const [notificationSuccess, setNotificationSuccess] = useState(false);
-
+  const availableCharacters = level?.characters.filter(
+    (character) => !character.found
+  );
   const [coordsClicked, setCoordsClicked] = useState({ x: 0, y: 0 });
   const imageRef = useRef(null);
   const containerSize = {
@@ -94,6 +96,7 @@ function GameLevel() {
       inRange(startX, endX, coordsClicked.x) &&
       inRange(startY, endY, coordsClicked.y)
     ) {
+      character.found = true;
       dispatch(`You found ${character.name}`, true, 5000);
     } else dispatch("Try again.", false, 5000);
   };
@@ -134,7 +137,7 @@ function GameLevel() {
                 y={coordsClicked.y}
                 containerSize={containerSize}
               >
-                {level.characters.map((character) => (
+                {availableCharacters.map((character) => (
                   <li key={character.id} className="character-list-item">
                     <button
                       type="submit"

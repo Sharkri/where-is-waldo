@@ -20,7 +20,7 @@ function GameLevelHeader({ characters, startTime, currentTime }) {
         {isCharactersOpen && (
           <ul className="options">
             {characters.map((character) => (
-              <li key={character.id}>
+              <li key={character.id} data-found={!!character.found}>
                 <Character character={character} />
               </li>
             ))}

@@ -24,7 +24,7 @@ jest.mock("../GameTimer.js", () => ({ startTime, currentTime }) => (
 ));
 
 const mockCharacters = [
-  { name: "Sonic", photo: "sonic.jpg", id: 0 },
+  { name: "Sonic", photo: "sonic.jpg", id: 0, found: true },
   { name: "test", photo: "test.png", id: 1 },
 ];
 
@@ -43,7 +43,9 @@ it("should toggle open/close characters dropdown", () => {
 
   expect(charactersList.children.length).toBe(2);
   expect(charactersList.children[0].textContent).toBe("Sonic");
+  expect(charactersList.children[0]).toHaveAttribute("data-found", "true");
   expect(charactersList.children[1].textContent).toBe("test");
+  expect(charactersList.children[1]).toHaveAttribute("data-found", "false");
 
   userEvent.click(screen.getByRole("button", { name: "open characters list" }));
 
