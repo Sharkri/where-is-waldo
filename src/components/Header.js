@@ -3,9 +3,9 @@ import "../css/Header.css";
 import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
-function Header({ children }) {
+function Header({ children, className }) {
   return (
-    <header>
+    <header className={className}>
       <ul className="links">
         <li>
           <Link to="/" aria-label="home">
@@ -23,10 +23,12 @@ function Header({ children }) {
 
 Header.defaultProps = {
   children: null,
+  className: "",
 };
 
 Header.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export default Header;

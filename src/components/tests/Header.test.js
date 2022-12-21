@@ -17,3 +17,16 @@ it("should have correct href to leaderboard and home page", () => {
   const homeLink = screen.getByRole("link", { name: /Home/i });
   expect(homeLink).toHaveAttribute("href", "/");
 });
+
+it("should have render children and also className", () => {
+  render(
+    <MemoryRouter>
+      <Header className="test-class-name">
+        <div>some text</div>
+      </Header>
+    </MemoryRouter>
+  );
+
+  expect(screen.getByRole("banner").className).toBe("test-class-name");
+  expect(screen.getByText("some text")).toBeInTheDocument();
+});
