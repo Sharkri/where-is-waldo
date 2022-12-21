@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import getLevelById from "../helper/getLevelById";
 import "../css/GameLevel.css";
 import GameInstructions from "./GameInstructions";
-import Dropdown from "./Dropdown";
 import LoadingScreen from "./LoadingScreen";
 import Notification from "./Notification";
 import GameLevelHeader from "./GameLevelHeader";
+import CharactersDropdown from "./CharactersDropdown";
 
 function GameLevel() {
   const { id } = useParams();
@@ -18,9 +18,6 @@ function GameLevel() {
   const [isNotificationShowing, setIsNotificationShowing] = useState(false);
   const [notificationText, setNotificationText] = useState("");
   const [notificationSuccess, setNotificationSuccess] = useState(false);
-  const availableCharacters = level?.characters.filter(
-    (character) => !character.found
-  );
   const [coordsClicked, setCoordsClicked] = useState({ x: 0, y: 0 });
   const imageRef = useRef(null);
   const containerSize = {
@@ -131,26 +128,12 @@ function GameLevel() {
             ref={imageRef}
           />
           {isDropdownOpen && (
-            <form action="" onSubmit={handleCharacterClick}>
-              <Dropdown
-                x={coordsClicked.x}
-                y={coordsClicked.y}
-                containerSize={containerSize}
-              >
-                {availableCharacters.map((character) => (
-                  <li key={character.id} className="character-list-item">
-                    <button
-                      type="submit"
-                      className="character-button-submit"
-                      data-id={character.id}
-                    >
-                      <img src={character.photo} alt="character" />
-                      <span className="character-name">{character.name}</span>
-                    </button>
-                  </li>
-                ))}
-              </Dropdown>
-            </form>
+            <CharactersDropdown
+              containerSize={containerSize}
+              onCharacterClick={handleCharacterClick}
+              coordinates={coordsClicked}
+              characters={level.characters}
+            />
           )}
         </div>
       </div>
