@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/GameLevel.css";
+import "../css/CharactersDropdown.css";
 import { PropTypes } from "prop-types";
 import Dropdown from "./Dropdown";
 
@@ -14,7 +14,11 @@ function CharactersDropdown({
   );
 
   return (
-    <form action="" onSubmit={onCharacterClick}>
+    <form
+      action=""
+      onSubmit={onCharacterClick}
+      className="game-level-characters-dropdown"
+    >
       <Dropdown
         x={coordinates.x}
         y={coordinates.y}

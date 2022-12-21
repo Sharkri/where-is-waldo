@@ -10,7 +10,7 @@ function GameLevelHeader({ characters, startTime, currentTime }) {
 
   return (
     <Header className="game-level-header">
-      <div className="characters-dropdown">
+      <div className="characters-reference">
         <button
           type="button"
           onClick={() => setIsCharactersOpen(!isCharactersOpen)}
