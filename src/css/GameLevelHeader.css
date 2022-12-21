@@ -1,0 +1,19 @@
+.game-level-header {
+  display: flex;
+  align-items: center;
+}
+
+.characters-dropdown {
+  position: relative;
+}
+
+.characters-dropdown > .options {
+  position: absolute;
+  left: 100%;
+  background-color: var(--main-bg);
+  padding: 18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

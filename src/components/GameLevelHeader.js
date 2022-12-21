@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PropTypes } from "prop-types";
 import Header from "./Header";
-import "../css/GameLevel.css";
+import "../css/GameLevelHeader.css";
 import Character from "./Character";
 import GameTimer from "./GameTimer";
 
@@ -9,7 +9,7 @@ function GameLevelHeader({ characters, startTime, currentTime }) {
   const [isCharactersOpen, setIsCharactersOpen] = useState(false);
 
   return (
-    <Header>
+    <Header className="game-level-header">
       <div className="characters-dropdown">
         <button
           type="button"
