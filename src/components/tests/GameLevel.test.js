@@ -6,14 +6,11 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import GameLevel from "../GameLevel";
+import Dropdown from "../Dropdown";
 
-jest.mock("../Dropdown.js", () => ({ children, x, y, containerSize }) => (
-  <>
-    {children}
-    <div data-testid="xy">{`${x}, ${y}`}</div>
-    <div data-testid="container">{JSON.stringify(containerSize)}</div>
-  </>
-));
+jest.mock("../Dropdown.js", () =>
+  jest.fn(({ children }) => <div data-testid="DropdownContent">{children}</div>)
+);
 
 jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
 
@@ -57,13 +54,6 @@ jest.mock(
         </>
       )
 );
-
-jest.mock("../Notification.js", () => ({ message, isShowing }) => (
-  <>
-    <div>{message}</div>
-    <div data-testid="isShowing">{isShowing.toString()}</div>
-  </>
-));
 
 it("hides instructions when start game button is clicked", async () => {
   render(
@@ -161,23 +151,45 @@ describe("Dropdown", () => {
     await waitFor(() => userEvent.click(screen.getByTestId("mock-start-game")));
 
     // List of characters does not show up immediately
-    expect(
-      screen.queryByRole("listitem", {
-        name: "character name",
-      })
-    ).not.toBeInTheDocument();
+    expect(Dropdown).not.toBeCalled();
 
     const gameImage = screen.getByRole("button", { name: /fake level/i });
+
+    // Define mock height and width
+    Object.defineProperty(Object.getPrototypeOf(gameImage), "scrollHeight", {
+      value: 102,
+    });
+    Object.defineProperty(Object.getPrototypeOf(gameImage), "scrollWidth", {
+      value: 260,
+    });
+
     // Click at coordinates (50, 34)
     userEvent.click(gameImage, {
       clientX: 50,
       clientY: 34,
     });
 
-    expect(screen.getByTestId("xy").textContent).toBe("50, 34");
+    // Check if dropdown appeared
+    expect(screen.getByTestId("DropdownContent")).toBeInTheDocument();
+    expect(screen.getByText("character name")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "character" })).toHaveAttribute(
+      "src",
+      "johndoe.png"
+    );
 
-    const character = screen.getByRole("listitem");
-    expect(character.textContent).toBe("character name");
+    // Check if dropdown called with correct arguments
+    expect(Dropdown).toBeCalledWith(
+      expect.objectContaining({
+        x: 50,
+        y: 34,
+        containerSize: { height: 102, width: 260 },
+      }),
+      expect.anything()
+    );
+
+    // Should toggle close dropdown
+    userEvent.click(gameImage);
+    expect(screen.queryByTestId("DropdownContent")).not.toBeInTheDocument();
   });
 });
 

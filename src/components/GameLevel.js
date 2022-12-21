@@ -135,7 +135,7 @@ function GameLevel() {
                       className="character-button-submit"
                       data-id={character.id}
                     >
-                      <img src={character.photo} alt="" />
+                      <img src={character.photo} alt="character" />
                       <span className="character-name">{character.name}</span>
                     </button>
                   </li>
