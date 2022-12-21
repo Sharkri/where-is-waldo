@@ -104,40 +104,41 @@ function GameLevel() {
   if (level == null) return <LoadingScreen />;
 
   return (
-    <>
+    <div className="game-level">
       {!isStarted && <GameInstructions onStart={onStart} level={level} />}
-      <div className="game-level">
-        <GameLevelHeader
-          startTime={startTime}
-          currentTime={currentTime}
-          characters={level.characters}
+
+      <GameLevelHeader
+        startTime={startTime}
+        currentTime={currentTime}
+        characters={level.characters}
+      />
+
+      <div className="game-image-container">
+        <Notification
+          message={notificationText}
+          isShowing={isNotificationShowing}
+          success={notificationSuccess}
         />
 
-        <div className="game-image-container">
-          <Notification
-            message={notificationText}
-            isShowing={isNotificationShowing}
-            success={notificationSuccess}
+        <input
+          type="image"
+          src={level.photo}
+          alt={level.name}
+          onClick={handleImageClick}
+          draggable={false}
+          ref={imageRef}
+        />
+
+        {isDropdownOpen && (
+          <CharactersDropdown
+            containerSize={containerSize}
+            onCharacterClick={handleCharacterClick}
+            coordinates={coordsClicked}
+            characters={level.characters}
           />
-          <input
-            type="image"
-            src={level.photo}
-            alt={level.name}
-            onClick={handleImageClick}
-            draggable={false}
-            ref={imageRef}
-          />
-          {isDropdownOpen && (
-            <CharactersDropdown
-              containerSize={containerSize}
-              onCharacterClick={handleCharacterClick}
-              coordinates={coordsClicked}
-              characters={level.characters}
-            />
-          )}
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
 
