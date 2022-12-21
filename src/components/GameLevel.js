@@ -17,6 +17,8 @@ function GameLevel() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationShowing, setIsNotificationShowing] = useState(false);
   const [notificationText, setNotificationText] = useState("");
+  const [notificationSuccess, setNotificationSuccess] = useState(false);
+
   const [coordsClicked, setCoordsClicked] = useState({ x: 0, y: 0 });
   const imageRef = useRef(null);
   const containerSize = {
@@ -65,10 +67,11 @@ function GameLevel() {
 
   const inRange = (start, end, value) => value >= start && value <= end;
 
-  const dispatch = (message, time) => {
+  const dispatch = (message, isSuccessful, time) => {
     // If notification is already showing
-    if (isNotificationShowing) return;
+    if (isNotificationShowing && !isSuccessful) return;
     setNotificationText(message);
+    setNotificationSuccess(isSuccessful);
     setIsNotificationShowing(true);
 
     setTimeout(() => {
@@ -91,10 +94,8 @@ function GameLevel() {
       inRange(startX, endX, coordsClicked.x) &&
       inRange(startY, endY, coordsClicked.y)
     ) {
-      dispatch(`You found ${character.name}`, 5000);
-    } else dispatch("Try again.", 5000);
-
-    setIsNotificationShowing(true);
+      dispatch(`You found ${character.name}`, true, 5000);
+    } else dispatch("Try again.", false, 5000);
   };
 
   // Stop scroll if game not started
@@ -149,6 +150,7 @@ function GameLevel() {
           message={notificationText}
           position={{ x: "50%", y: 0 }}
           isShowing={isNotificationShowing}
+          success={notificationSuccess}
         />
       </div>
     </>
