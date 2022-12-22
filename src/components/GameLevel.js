@@ -27,6 +27,8 @@ function GameLevel() {
     height: imageRef.current ? imageRef.current.scrollHeight : null,
     width: imageRef.current ? imageRef.current.scrollWidth : null,
   };
+  const originalImg = new Image();
+  originalImg.src = level?.photo;
 
   useEffect(() => {
     (async function setLvl() {
@@ -44,11 +46,10 @@ function GameLevel() {
 
   // Work out the x and y coord as a percentage of the width.
   const getActualCoords = (x, y) => {
-    const originalImg = { height: 822, width: 640 };
     // Gets original image's x and y percentage
     const percentage = {
-      x: (x / originalImg.width) * 100,
-      y: (y / originalImg.height) * 100,
+      x: (x / originalImg.naturalWidth) * 100,
+      y: (y / originalImg.naturalHeight) * 100,
     };
     // Convert x and y to decimal and then times by width/height
     const actualX = (percentage.x / 100) * containerSize.width;
@@ -102,7 +103,7 @@ function GameLevel() {
       character.found = true;
       setFoundList([
         ...foundList,
-        { x: startX, y: startY, name: character.name },
+        { x: startX, y: startY, name: character.name, id: character.id },
       ]);
       dispatch(`You found ${character.name}`, true, 5000);
     } else dispatch("Try again.", false, 5000);
