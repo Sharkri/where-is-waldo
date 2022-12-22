@@ -1,6 +1,6 @@
 import React from "react";
 import { PropTypes } from "prop-types";
-import "../css/GameLevel.css";
+import "../css/GameImage.css";
 
 function GameImage({ photo, name, onImageClick, foundList }) {
   return (
@@ -11,15 +11,18 @@ function GameImage({ photo, name, onImageClick, foundList }) {
         alt={name}
         onClick={onImageClick}
         draggable={false}
+        className="input-game-image"
       />
 
-      {foundList.map(({ x, y, id }) => (
+      {foundList.map((found) => (
         <div
-          className="circle"
-          data-testid="circle"
-          style={{ position: "absolute", left: x, top: y }}
-          key={id}
-        />
+          className="found-item"
+          data-testid="found-item"
+          style={{ position: "absolute", left: found.x, top: found.y }}
+          key={found.id}
+        >
+          {found.name}
+        </div>
       ))}
     </>
   );
@@ -33,6 +36,7 @@ GameImage.propTypes = {
     PropTypes.shape({
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

@@ -20,6 +20,7 @@ function GameLevel() {
   const [notificationText, setNotificationText] = useState("");
   const [notificationSuccess, setNotificationSuccess] = useState(false);
   const [coordsClicked, setCoordsClicked] = useState({ x: 0, y: 0 });
+  const [foundList, setFoundList] = useState([]);
   const imageRef = useRef(null);
   const containerSize = {
     height: imageRef.current ? imageRef.current.scrollHeight : null,
@@ -95,6 +96,10 @@ function GameLevel() {
       inRange(startY, endY, coordsClicked.y)
     ) {
       character.found = true;
+      setFoundList([
+        ...foundList,
+        { x: startX, y: startY, name: character.name },
+      ]);
       dispatch(`You found ${character.name}`, true, 5000);
     } else dispatch("Try again.", false, 5000);
   };
@@ -121,12 +126,12 @@ function GameLevel() {
           success={notificationSuccess}
         />
 
-        <div className="game-image-container" ref={imageRef}>
+        <div className="game-image" ref={imageRef}>
           <GameImage
             photo={level.photo}
             name={level.name}
             onImageClick={handleImageClick}
-            foundList={[]}
+            foundList={foundList}
           />
         </div>
 

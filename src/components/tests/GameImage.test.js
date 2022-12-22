@@ -6,8 +6,8 @@ import "@testing-library/jest-dom";
 
 const onImageClick = jest.fn();
 const foundList = [
-  { x: 2, y: 5, id: 22412 },
-  { x: 53, y: 69, id: 12345 },
+  { x: 2, y: 5, id: 22412, name: "bob" },
+  { x: 53, y: 69, id: 12345, name: "robert" },
 ];
 
 it("should show image", () => {
@@ -41,7 +41,7 @@ it("should call onImageClick", () => {
   expect(onImageClick).toHaveBeenCalledTimes(1);
 });
 
-it("should display a circle at each found item", () => {
+it("should display found items", () => {
   render(
     <GameImage
       photo="test.png"
@@ -51,12 +51,15 @@ it("should display a circle at each found item", () => {
     />
   );
 
-  const circles = screen.getAllByTestId("circle");
+  const found = screen.getAllByTestId("found-item");
 
-  expect(circles).toHaveLength(2);
+  expect(found).toHaveLength(2);
 
-  expect(circles[0].style.left).toBe("2px");
-  expect(circles[0].style.top).toBe("5px");
-  expect(circles[1].style.left).toBe("53px");
-  expect(circles[1].style.top).toBe("69px");
+  expect(found[0].style.left).toBe("2px");
+  expect(found[0].style.top).toBe("5px");
+  expect(found[0]).toHaveTextContent("bob");
+
+  expect(found[1].style.left).toBe("53px");
+  expect(found[1].style.top).toBe("69px");
+  expect(found[1]).toHaveTextContent("robert");
 });

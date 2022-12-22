@@ -5,13 +5,15 @@ import { PropTypes } from "prop-types";
 function Notification({ isShowing, message, success }) {
   if (isShowing) {
     return (
-      <div
-        className="notification"
-        style={{
-          backgroundColor: success ? "green" : "red",
-        }}
-      >
-        {message}
+      <div className="notification-container">
+        <div
+          className="notification"
+          style={{
+            backgroundColor: success ? "green" : "red",
+          }}
+        >
+          {message}
+        </div>
       </div>
     );
   }

@@ -1,0 +1,9 @@
+.found-item {
+  background-color: black;
+  font-weight: bold;
+  padding: 4px;
+}
+
+.input-game-image {
+  display: block;
+}
