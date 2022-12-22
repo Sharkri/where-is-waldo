@@ -7,6 +7,7 @@ import LoadingScreen from "./LoadingScreen";
 import Notification from "./Notification";
 import GameLevelHeader from "./GameLevelHeader";
 import CharactersDropdown from "./CharactersDropdown";
+import GameImage from "./GameImage";
 
 function GameLevel() {
   const { id } = useParams();
@@ -120,14 +121,14 @@ function GameLevel() {
           success={notificationSuccess}
         />
 
-        <input
-          type="image"
-          src={level.photo}
-          alt={level.name}
-          onClick={handleImageClick}
-          draggable={false}
-          ref={imageRef}
-        />
+        <div className="game-image-container" ref={imageRef}>
+          <GameImage
+            photo={level.photo}
+            name={level.name}
+            onImageClick={handleImageClick}
+            foundList={[]}
+          />
+        </div>
 
         {isDropdownOpen && (
           <CharactersDropdown

@@ -50,6 +50,12 @@ jest.mock("../GameLevelHeader.js", () =>
   ))
 );
 
+jest.mock("../GameImage.js", () =>
+  jest.fn(({ onImageClick, photo, name }) => (
+    <input type="image" src={photo} alt={name} onClick={onImageClick} />
+  ))
+);
+
 it("hides instructions when start game button is clicked", async () => {
   render(
     <MemoryRouter initialEntries={["/levels/0"]}>
@@ -159,12 +165,20 @@ describe("Characters Dropdown", () => {
     const gameImage = screen.getByRole("button", { name: /fake level/i });
 
     // Define mock height and width
-    Object.defineProperty(Object.getPrototypeOf(gameImage), "scrollHeight", {
-      value: 102,
-    });
-    Object.defineProperty(Object.getPrototypeOf(gameImage), "scrollWidth", {
-      value: 260,
-    });
+    Object.defineProperty(
+      Object.getPrototypeOf(gameImage.parentElement),
+      "scrollHeight",
+      {
+        value: 102,
+      }
+    );
+    Object.defineProperty(
+      Object.getPrototypeOf(gameImage.parentElement),
+      "scrollWidth",
+      {
+        value: 260,
+      }
+    );
 
     const [mockX, mockY] = [50, 34];
 
@@ -181,13 +195,13 @@ describe("Characters Dropdown", () => {
       expect.objectContaining({
         coordinates: { x: mockX, y: mockY },
         containerSize: { height: 102, width: 260 },
-        characters: [
+        characters: expect.arrayContaining([
           expect.objectContaining({
             name: "character name",
             photo: "johndoe.png",
             id: 0,
           }),
-        ],
+        ]),
       }),
       expect.anything()
     );
