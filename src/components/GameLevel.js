@@ -21,6 +21,7 @@ function GameLevel() {
   const [notificationSuccess, setNotificationSuccess] = useState(false);
   const [coordsClicked, setCoordsClicked] = useState({ x: 0, y: 0 });
   const [foundList, setFoundList] = useState([]);
+  const [currentTimeout, setCurrentTimeout] = useState(null);
   const imageRef = useRef(null);
   const containerSize = {
     height: imageRef.current ? imageRef.current.scrollHeight : null,
@@ -74,10 +75,13 @@ function GameLevel() {
     setNotificationText(message);
     setNotificationSuccess(isSuccessful);
     setIsNotificationShowing(true);
+    // if current ongoing setTimeout, clear it first
+    if (currentTimeout != null) clearTimeout(currentTimeout);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsNotificationShowing(false);
     }, time);
+    setCurrentTimeout(timeoutId);
   };
 
   const handleCharacterClick = (event) => {
