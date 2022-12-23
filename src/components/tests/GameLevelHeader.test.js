@@ -37,7 +37,7 @@ it("should toggle open/close characters dropdown", () => {
     />
   );
 
-  userEvent.click(screen.getByRole("button", { name: "open characters list" }));
+  userEvent.click(screen.getByRole("button", { name: "1" }));
 
   const charactersList = screen.getByRole("list");
 
@@ -47,7 +47,7 @@ it("should toggle open/close characters dropdown", () => {
   expect(charactersList.children[1].textContent).toBe("test");
   expect(charactersList.children[1]).toHaveAttribute("data-found", "false");
 
-  userEvent.click(screen.getByRole("button", { name: "open characters list" }));
+  userEvent.click(screen.getByRole("button", { name: "1" }));
 
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });

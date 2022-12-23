@@ -1,15 +1,31 @@
 .game-level-header {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  gap: 6px;
 }
 
 .characters-reference {
   position: relative;
 }
 
+.characters-reference > button {
+  width: min(2.2rem, 7.8vw);
+  height: min(2.2rem, 7.8vw);
+
+  background-color: var(--primary-btn-color);
+  cursor: pointer;
+  color: inherit;
+  border-radius: 50%;
+  border: none;
+  font-family: monospace;
+  font-size: min(1.4rem, 5.5vw);
+  font-weight: 700;
+}
+
 .characters-reference > .options {
   position: absolute;
-  left: 100%;
+  right: 100%;
   background-color: var(--main-bg);
   padding: 18px;
   border-radius: 12px;

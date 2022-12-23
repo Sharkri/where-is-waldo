@@ -1,6 +1,7 @@
 import { intervalToDuration } from "date-fns";
 import React from "react";
 import { PropTypes } from "prop-types";
+import "../css/GameTimer.css";
 
 function padZero(num) {
   return num.toString().padStart(2, "0");
@@ -25,7 +26,7 @@ function GameTimer({ startTime, currentTime }) {
 
   formattedTimer += `${duration.minutes}:${duration.seconds}:${duration.ms}`;
 
-  return <div className="game-timer">{formattedTimer}</div>;
+  return <p className="game-timer">{formattedTimer}</p>;
 }
 
 GameTimer.propTypes = {

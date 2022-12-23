@@ -7,15 +7,17 @@ import GameTimer from "./GameTimer";
 
 function GameLevelHeader({ characters, startTime, currentTime }) {
   const [isCharactersOpen, setIsCharactersOpen] = useState(false);
+  const charactersLeft = characters.filter((character) => !character.found);
 
   return (
     <Header className="game-level-header">
+      <GameTimer startTime={startTime} currentTime={currentTime} />
       <div className="characters-reference">
         <button
           type="button"
           onClick={() => setIsCharactersOpen(!isCharactersOpen)}
         >
-          open characters list
+          {charactersLeft.length}
         </button>
         {isCharactersOpen && (
           <ul className="options">
@@ -27,7 +29,6 @@ function GameLevelHeader({ characters, startTime, currentTime }) {
           </ul>
         )}
       </div>
-      <GameTimer startTime={startTime} currentTime={currentTime} />
     </Header>
   );
 }
