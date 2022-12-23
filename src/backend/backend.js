@@ -6,7 +6,6 @@ import getFirebaseConfig from "./firebase-config";
 
 async function getCollectionDocs(collectionName) {
   const { docs } = await getDocs(collection(getFirestore(), collectionName));
-
   return docs.map((document) => document.data());
 }
 
