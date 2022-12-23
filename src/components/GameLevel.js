@@ -37,6 +37,13 @@ function GameLevel() {
     })();
   }, []);
 
+  // Hide dropdown on resize since x and y coords will be different
+  useEffect(() => {
+    const onResize = () => setIsDropdownOpen(false);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   const onStart = () => {
     setIsStarted(true);
     setStartTime(Date.now());
@@ -103,7 +110,7 @@ function GameLevel() {
       character.found = true;
       setFoundList([
         ...foundList,
-        { x: startX, y: startY, name: character.name, id: character.id },
+        { x: x.start, y: y.start, name: character.name, id: character.id },
       ]);
       dispatch(`You found ${character.name}`, true, 5000);
     } else dispatch("Try again.", false, 5000);
@@ -136,7 +143,10 @@ function GameLevel() {
             photo={level.photo}
             name={level.name}
             onImageClick={handleImageClick}
-            foundList={foundList}
+            foundList={foundList.map(({ x, y, ...rest }) => ({
+              ...getActualCoords(x, y),
+              ...rest,
+            }))}
           />
         </div>
 
