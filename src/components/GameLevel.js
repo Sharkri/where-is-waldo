@@ -39,10 +39,8 @@ function GameLevel() {
 
   // Hide dropdown on resize since x and y coords will be different
   useEffect(() => {
-    const onResize = () => setIsDropdownOpen(false);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+    setIsDropdownOpen(false);
+  }, [containerSize.height, containerSize.width]);
 
   const onStart = () => {
     setIsStarted(true);
