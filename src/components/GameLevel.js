@@ -32,7 +32,7 @@ function GameLevel() {
 
   useEffect(() => {
     (async function setLvl() {
-      const lvl = await getLevelById(Number.isNaN(id) ? id : Number(id));
+      const lvl = await getLevelById(Number(id) || id);
       setLevel(lvl);
     })();
   }, []);
