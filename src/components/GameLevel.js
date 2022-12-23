@@ -24,8 +24,8 @@ function GameLevel() {
   const [currentTimeout, setCurrentTimeout] = useState(null);
   const imageRef = useRef(null);
   const containerSize = {
-    height: imageRef.current ? imageRef.current.scrollHeight : null,
-    width: imageRef.current ? imageRef.current.scrollWidth : null,
+    height: imageRef?.current?.scrollHeight,
+    width: imageRef?.current?.scrollWidth,
   };
   const originalImg = new Image();
   originalImg.src = level?.photo;
@@ -41,7 +41,7 @@ function GameLevel() {
     setIsStarted(true);
     setStartTime(Date.now());
     setCurrentTime(Date.now());
-    setInterval(() => setCurrentTime(Date.now()), 1);
+    setInterval(() => setCurrentTime(Date.now()), 25);
   };
 
   // Work out the x and y coord as a percentage of the width.
