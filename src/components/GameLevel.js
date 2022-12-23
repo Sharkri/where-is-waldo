@@ -124,8 +124,8 @@ function GameLevel() {
     } else dispatch("Try again.", false, 5000);
   };
 
-  // Stop scroll if game not started
-  document.body.style.overflow = isStarted ? "unset" : "hidden";
+  // Only allow scroll if game is started
+  document.body.style.overflow = isStarted && !isGameOver ? "unset" : "hidden";
 
   if (level == null) return <LoadingScreen />;
 
