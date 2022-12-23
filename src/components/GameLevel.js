@@ -8,11 +8,13 @@ import Notification from "./Notification";
 import GameLevelHeader from "./GameLevelHeader";
 import CharactersDropdown from "./CharactersDropdown";
 import GameImage from "./GameImage";
+import GameEnd from "./GameEnd";
 
 function GameLevel() {
   const { id } = useParams();
   const [level, setLevel] = useState(null);
   const [isStarted, setIsStarted] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -22,6 +24,7 @@ function GameLevel() {
   const [coordsClicked, setCoordsClicked] = useState({ x: 0, y: 0 });
   const [foundList, setFoundList] = useState([]);
   const [currentTimeout, setCurrentTimeout] = useState(null);
+  const [timer, setTimer] = useState(null);
   const imageRef = useRef(null);
   const containerSize = {
     height: imageRef?.current?.scrollHeight,
@@ -46,8 +49,17 @@ function GameLevel() {
     setIsStarted(true);
     setStartTime(Date.now());
     setCurrentTime(Date.now());
-    setInterval(() => setCurrentTime(Date.now()), 25);
+    const intervalId = setInterval(() => setCurrentTime(Date.now()), 25);
+    setTimer(intervalId);
   };
+
+  useEffect(() => {
+    // if game is over
+    if (foundList.length === level?.characters?.length) {
+      setIsGameOver(true);
+      clearInterval(timer);
+    }
+  }, [foundList.length]);
 
   // Work out the x and y coord as a percentage of the width.
   const getActualCoords = (x, y) => {
@@ -64,7 +76,6 @@ function GameLevel() {
 
   const handleImageClick = (e) => {
     if (!isStarted) return;
-
     setIsDropdownOpen(!isDropdownOpen);
     const rect = e.target.getBoundingClientRect();
     setCoordsClicked({
@@ -105,7 +116,6 @@ function GameLevel() {
       inRange(startX, endX, coordsClicked.x) &&
       inRange(startY, endY, coordsClicked.y)
     ) {
-      character.found = true;
       setFoundList([
         ...foundList,
         { x: x.start, y: y.start, name: character.name, id: character.id },
@@ -122,7 +132,9 @@ function GameLevel() {
   return (
     <div className="game-level">
       {!isStarted && <GameInstructions onStart={onStart} level={level} />}
-
+      {isGameOver && (
+        <GameEnd levelId={level.id} start={startTime} end={currentTime} />
+      )}
       <GameLevelHeader
         startTime={startTime}
         currentTime={currentTime}

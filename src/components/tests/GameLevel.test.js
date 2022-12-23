@@ -14,6 +14,8 @@ jest.mock("../CharactersDropdown.js", () =>
   jest.fn(() => <div data-testid="CharactersDropdown" />)
 );
 
+jest.mock("../GameEnd.js", () => jest.fn());
+
 jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
 
 jest.mock(
@@ -164,22 +166,6 @@ describe("Characters Dropdown", () => {
 
     const gameImage = screen.getByRole("button", { name: /fake level/i });
 
-    // Define mock height and width
-    Object.defineProperty(
-      Object.getPrototypeOf(gameImage.parentElement),
-      "scrollHeight",
-      {
-        value: 102,
-      }
-    );
-    Object.defineProperty(
-      Object.getPrototypeOf(gameImage.parentElement),
-      "scrollWidth",
-      {
-        value: 260,
-      }
-    );
-
     const [mockX, mockY] = [50, 34];
 
     // Click at coordinates (50, 34)
@@ -194,7 +180,7 @@ describe("Characters Dropdown", () => {
     expect(CharactersDropdown).toBeCalledWith(
       expect.objectContaining({
         coordinates: { x: mockX, y: mockY },
-        containerSize: { height: 102, width: 260 },
+        containerSize: { height: 0, width: 0 },
         characters: expect.arrayContaining([
           expect.objectContaining({
             name: "character name",
