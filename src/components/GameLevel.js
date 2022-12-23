@@ -103,7 +103,6 @@ function GameLevel() {
 
   const handleCharacterClick = (event) => {
     event.preventDefault();
-
     setIsDropdownOpen(false);
     const { submitter } = event.nativeEvent;
     const submitterId = +submitter.dataset.id;
@@ -116,10 +115,14 @@ function GameLevel() {
       inRange(startX, endX, coordsClicked.x) &&
       inRange(startY, endY, coordsClicked.y)
     ) {
-      setFoundList([
-        ...foundList,
-        { x: x.start, y: y.start, name: character.name, id: character.id },
-      ]);
+      character.found = true;
+      const foundListItem = {
+        x: x.start,
+        y: y.start,
+        name: character.name,
+        id: character.id,
+      };
+      setFoundList([...foundList, foundListItem]);
       dispatch(`You found ${character.name}`, true, 5000);
     } else dispatch("Try again.", false, 5000);
   };
