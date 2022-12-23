@@ -9,9 +9,7 @@ function padZero(num) {
 function GameTimer({ startTime, currentTime }) {
   const duration = intervalToDuration({ start: startTime, end: currentTime });
   // Manually add ms since duration doesn't give it
-  duration.ms = Math.floor(
-    Number.parseInt((currentTime - startTime) % 1000, 10) / 10
-  ).toFixed(0);
+  duration.ms = Math.round(((currentTime - startTime) % 1000) / 10);
 
   let formattedTimer = "";
   // Pad all times with a zero
