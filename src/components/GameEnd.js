@@ -3,8 +3,9 @@ import { PropTypes } from "prop-types";
 import "../css/Dropdown.css";
 import formatTimeDuration from "../helper/formatTimeDuration";
 import submitToLeaderboard from "../helper/submitToLeaderboard";
+import getLevelById from "../helper/getLevelById";
 
-function GameEnd({ start, end, level }) {
+function GameEnd({ start, end, levelId }) {
   const [name, setName] = useState("");
 
   return (
@@ -12,15 +13,15 @@ function GameEnd({ start, end, level }) {
       <p>You finished in {formatTimeDuration(start, end)}!</p>
       <form
         action=""
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          const newLevel = { ...level };
+          const level = await getLevelById(levelId);
           // if leaderboard doesn't exist yet
-          if (!newLevel.leaderboard) newLevel.leaderboard = [];
+          if (!level.leaderboard) level.leaderboard = [];
           // push new entry to leaderboard
-          newLevel.leaderboard.push({ name, start, end });
+          level.leaderboard.push({ name, start, end });
 
-          submitToLeaderboard(level.id, newLevel);
+          submitToLeaderboard(levelId, level);
         }}
       >
         <label htmlFor="name">
@@ -42,9 +43,7 @@ function GameEnd({ start, end, level }) {
 GameEnd.propTypes = {
   start: PropTypes.instanceOf(Date).isRequired,
   end: PropTypes.instanceOf(Date).isRequired,
-  level: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  }).isRequired,
+  levelId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 export default GameEnd;
