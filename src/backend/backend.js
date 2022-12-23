@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { getPerformance } from "firebase/performance";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import getFirebaseConfig from "./firebase-config";
@@ -15,7 +21,13 @@ async function getImage(url) {
   return imageUrl;
 }
 
+async function updateCollectionDoc(path, value) {
+  // Update an entry in the Firebase database.
+  const reference = doc(getFirestore(), path);
+  await updateDoc(reference, value);
+}
+
 initializeApp(getFirebaseConfig());
 getPerformance();
 
-export { getCollectionDocs, getImage };
+export { getCollectionDocs, getImage, updateCollectionDoc };
