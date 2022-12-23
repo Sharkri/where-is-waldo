@@ -1,7 +1,11 @@
 .found-item {
-  background-color: black;
+  background-color: rgba(0, 128, 0, 0.5);
   font-weight: bold;
-  padding: 4px;
+  color: white;
+  padding: 3.9px;
+  border-radius: 4px;
+  font-size: min(1vw, 14px);
+  overflow-wrap: anywhere;
 }
 
 .input-game-image {
