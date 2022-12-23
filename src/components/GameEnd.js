@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PropTypes } from "prop-types";
-import "../css/Dropdown.css";
+import "../css/GameEnd.css";
 import formatTimeDuration from "../helper/formatTimeDuration";
 import submitToLeaderboard from "../helper/submitToLeaderboard";
 import getLevelById from "../helper/getLevelById";
@@ -9,7 +9,7 @@ function GameEnd({ start, end, levelId }) {
   const [name, setName] = useState("");
 
   return (
-    <div>
+    <div className="game-end modal">
       <p>You finished in {formatTimeDuration(start, end)}!</p>
       <form
         action=""

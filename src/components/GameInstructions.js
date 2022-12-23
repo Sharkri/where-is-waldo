@@ -5,7 +5,7 @@ import Character from "./Character";
 
 function GameInstructions({ level, onStart }) {
   return (
-    <div className="game-instructions">
+    <div className="game-instructions modal">
       <div className="game-instructions-content">
         <div className="game-instructions-image-container">
           <img
