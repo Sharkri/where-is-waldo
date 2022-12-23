@@ -9,11 +9,17 @@ function Header({ children, className }) {
       <ul className="links">
         <li>
           <Link to="/" aria-label="home">
-            <i className="fa-solid fa-house" />
+            <i className="fa-solid fa-house" title="Homepage" />
           </Link>
         </li>
         <li>
-          <Link to="/leaderboard">Leaderboard</Link>
+          <Link to="/leaderboard">
+            <span className="leaderboard-link-text">Leaderboard</span>
+            <i
+              className="fa-solid fa-ranking-star leaderboard-link-icon"
+              title="Leaderboard"
+            />
+          </Link>
         </li>
       </ul>
       {children}

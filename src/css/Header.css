@@ -15,3 +15,16 @@ header {
 .links > li > * {
   color: var(--main-text-color);
 }
+
+i.leaderboard-link-icon {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .leaderboard-link-text {
+    display: none;
+  }
+  i.leaderboard-link-icon {
+    display: inline-block;
+  }
+}
