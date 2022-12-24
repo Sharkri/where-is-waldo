@@ -14,9 +14,7 @@ it("should display notification", () => {
   );
 
   expect(screen.getByText("Hello!")).toBeInTheDocument();
-  expect(
-    screen.getByText("Hello!").parentElement.style.backgroundColor
-  ).not.toBe("red");
+  expect(screen.getByTestId("notification").dataset.success).toBe("true");
 });
 
 it("should not display notification if isShowing is false", () => {
@@ -41,5 +39,5 @@ it("should display unsuccessful", () => {
     />
   );
 
-  expect(screen.getByText("Hello!").style.backgroundColor).toBe("red");
+  expect(screen.getByTestId("notification").dataset.success).toBe("false");
 });

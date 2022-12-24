@@ -8,11 +8,11 @@ function Notification({ isShowing, message, success }) {
       <div className="notification-container">
         <div
           className="notification"
-          style={{
-            backgroundColor: success ? "green" : "red",
-          }}
+          data-success={success}
+          data-testid="notification"
         >
-          {message}
+          <i className={`fa-solid fa-${success ? "check" : "xmark"}`} />
+          <p className="notification-message">{message}</p>
         </div>
       </div>
     );
