@@ -18,7 +18,7 @@ function Home() {
           aria-label="link to level"
           key={level.id}
         >
-          <LevelPreviewCard level={level} />
+          <LevelPreviewCard level={level} showCharacters />
         </Link>
       ))}
     </div>

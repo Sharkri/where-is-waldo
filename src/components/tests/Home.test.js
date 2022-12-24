@@ -17,11 +17,14 @@ jest.mock(
 
 jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
 
-jest.mock("../LevelPreviewCard.js", () => ({ level }) => (
-  <div data-testid="photo-level">
-    {level.name}, {level.photo}
-  </div>
-));
+jest.mock("../LevelPreviewCard.js", () => ({ level, showCharacters }) => {
+  if (!showCharacters) return null;
+  return (
+    <div data-testid="photo-level">
+      {level.name}, {level.photo}
+    </div>
+  );
+});
 
 it("should map through levels and pass in correct props", async () => {
   render(

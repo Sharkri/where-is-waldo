@@ -17,13 +17,30 @@ const mockLevel = {
 it("should show photo, characters, and level name", () => {
   render(
     <MemoryRouter>
-      <LevelPreviewCard level={mockLevel} />
+      <LevelPreviewCard level={mockLevel} showCharacters />
     </MemoryRouter>
   );
 
   const img = screen.getByRole("img", { name: mockLevel.name });
+
   expect(img).toHaveAttribute("src", mockLevel.photo);
   expect(screen.getByText("insert level name here")).toBeInTheDocument();
+
+  const characters = screen.getAllByRole("img", { name: "character" });
+  expect(characters[0]).toHaveAttribute("src", "john.png");
+  expect(characters[1]).toHaveAttribute("src", "doe.jpg");
+});
+
+it("should not show characters", () => {
+  render(
+    <MemoryRouter>
+      <LevelPreviewCard level={mockLevel} showCharacters={false} />
+    </MemoryRouter>
+  );
+
+  expect(
+    screen.queryByRole("img", { name: "character" })
+  ).not.toBeInTheDocument();
 });
 
 describe("bad inputs", () => {

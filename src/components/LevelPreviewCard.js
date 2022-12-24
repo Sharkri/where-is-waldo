@@ -2,9 +2,12 @@ import { PropTypes } from "prop-types";
 import React from "react";
 import "../css/LevelPreviewCard.css";
 
-function LevelPreviewCard({ level }) {
+function LevelPreviewCard({ level, showCharacters }) {
   return (
-    <div className="level-preview-card">
+    <div
+      className="level-preview-card"
+      data-characters-showing={showCharacters}
+    >
       <div className="level-preview-card-image-container">
         <img
           src={level.photo}
@@ -15,14 +18,15 @@ function LevelPreviewCard({ level }) {
       <div className="level-preview-card-info">
         <p className="level-preview-card-name">{level.name}</p>
         <div className="level-preview-card-character-photos">
-          {level.characters.map(({ photo, id }) => (
-            <img
-              src={photo}
-              alt="character"
-              className="level-preview-card-character-photo"
-              key={id}
-            />
-          ))}
+          {showCharacters &&
+            level.characters.map(({ photo, id }) => (
+              <img
+                src={photo}
+                alt="character"
+                className="level-preview-card-character-photo"
+                key={id}
+              />
+            ))}
         </div>
       </div>
     </div>
@@ -37,6 +41,7 @@ LevelPreviewCard.propTypes = {
       PropTypes.shape({ photo: PropTypes.node.isRequired })
     ),
   }).isRequired,
+  showCharacters: PropTypes.bool.isRequired,
 };
 
 export default LevelPreviewCard;
