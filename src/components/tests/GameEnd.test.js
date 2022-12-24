@@ -22,14 +22,16 @@ jest.mock("react-router-dom", () => ({
 
 const mockLevel = {
   id: "foobar",
-  leaderboard: [{ name: "baz", start: 1000, end: 2000 }],
+  leaderboard: [
+    { name: "baz", startTime: 1000, endTime: 2000, dateSubmitted: 52 },
+  ],
 };
 
 it("should show time taken", () => {
   render(
     <GameEnd
-      start={new Date(250)}
-      end={new Date(1000)}
+      startTime={new Date(250)}
+      endTime={new Date(1000)}
       levelId={mockLevel.id}
     />
   );
@@ -38,10 +40,11 @@ it("should show time taken", () => {
 
 it("renders correct input values and submits properly", async () => {
   getLevelById.mockReturnValue(Promise.resolve(mockLevel));
+  Date.now = () => 12345;
   render(
     <GameEnd
-      start={new Date(250)}
-      end={new Date(1000)}
+      startTime={new Date(250)}
+      endTime={new Date(1000)}
       levelId={mockLevel.id}
     />
   );
@@ -58,8 +61,13 @@ it("renders correct input values and submits properly", async () => {
     expect.objectContaining({
       id: "foobar",
       leaderboard: [
-        { name: "baz", start: 1000, end: 2000 },
-        { name: "jimmy", start: new Date(250), end: new Date(1000) },
+        { name: "baz", startTime: 1000, endTime: 2000, dateSubmitted: 52 },
+        {
+          name: "jimmy",
+          startTime: new Date(250),
+          endTime: new Date(1000),
+          dateSubmitted: 12345,
+        },
       ],
     })
   );

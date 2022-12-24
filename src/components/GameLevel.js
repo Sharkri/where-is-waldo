@@ -136,7 +136,11 @@ function GameLevel() {
     <div className="game-level">
       {!isStarted && <GameInstructions onStart={onStart} level={level} />}
       {isGameOver && (
-        <GameEnd levelId={level.id} start={startTime} end={currentTime} />
+        <GameEnd
+          levelId={level.id}
+          startTime={startTime}
+          endTime={currentTime}
+        />
       )}
       <GameLevelHeader
         startTime={startTime}

@@ -6,7 +6,7 @@ import formatTimeDuration from "../helper/formatTimeDuration";
 import submitToLeaderboard from "../helper/submitToLeaderboard";
 import getLevelById from "../helper/getLevelById";
 
-function GameEnd({ start, end, levelId }) {
+function GameEnd({ startTime, endTime, levelId }) {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -18,7 +18,12 @@ function GameEnd({ start, end, levelId }) {
     // if leaderboard doesn't exist yet
     if (!level.leaderboard) level.leaderboard = [];
     // push new entry to leaderboard
-    level.leaderboard.push({ name, start, end });
+    level.leaderboard.push({
+      name,
+      startTime,
+      endTime,
+      dateSubmitted: Date.now(),
+    });
 
     await submitToLeaderboard(levelId, level);
     navigate("/leaderboard");
@@ -28,7 +33,7 @@ function GameEnd({ start, end, levelId }) {
     <div className="game-end modal">
       <div className="game-end-content">
         <h2 className="time-finished-in">
-          You finished in {formatTimeDuration(start, end)}!
+          You finished in {formatTimeDuration(startTime, endTime)}!
         </h2>
         <form
           action=""
@@ -65,9 +70,9 @@ function GameEnd({ start, end, levelId }) {
 }
 
 GameEnd.propTypes = {
-  start: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+  startTime: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
     .isRequired,
-  end: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+  endTime: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
     .isRequired,
   levelId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
