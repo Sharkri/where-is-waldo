@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
+import uniqid from "uniqid";
 import GameEnd from "../GameEnd";
 import submitToLeaderboard from "../../helper/submitToLeaderboard";
 import getLevelById from "../../helper/getLevelById";
@@ -29,9 +30,12 @@ const mockLevel = {
       endTime: 2000,
       dateSubmitted: 52,
       place: 1,
+      id: 0,
     },
   ],
 };
+
+jest.mock("uniqid", () => jest.fn());
 
 it("should show time taken", () => {
   render(
@@ -47,6 +51,8 @@ it("should show time taken", () => {
 it("renders correct input values and submits properly", async () => {
   getLevelById.mockReturnValue(Promise.resolve(mockLevel));
   Date.now = () => 12345;
+  uniqid.mockReturnValueOnce("12");
+
   render(
     <GameEnd
       startTime={new Date(250)}
@@ -73,6 +79,7 @@ it("renders correct input values and submits properly", async () => {
           endTime: 2000,
           dateSubmitted: 52,
           place: 1,
+          id: 0,
         },
         {
           name: "jimmy",
@@ -80,6 +87,7 @@ it("renders correct input values and submits properly", async () => {
           endTime: new Date(1000),
           dateSubmitted: 12345,
           place: 2,
+          id: "12",
         },
       ],
     })

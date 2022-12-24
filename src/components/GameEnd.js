@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { PropTypes } from "prop-types";
 import "../css/GameEnd.css";
 import { useNavigate } from "react-router-dom";
+import uniqid from "uniqid";
 import formatTimeDuration from "../helper/formatTimeDuration";
 import submitToLeaderboard from "../helper/submitToLeaderboard";
 import getLevelById from "../helper/getLevelById";
@@ -24,6 +25,7 @@ function GameEnd({ startTime, endTime, levelId }) {
       endTime,
       dateSubmitted: Date.now(),
       place: level.leaderboard.length + 1,
+      id: uniqid(),
     });
 
     await submitToLeaderboard(levelId, level);
