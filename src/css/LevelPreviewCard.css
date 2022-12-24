@@ -42,6 +42,7 @@
 
 .level-preview-card-name {
   color: var(--main-text-color);
+  margin: auto;
 }
 
 .level-preview-card:hover .level-preview-card-image {

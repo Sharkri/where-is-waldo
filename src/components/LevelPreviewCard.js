@@ -17,9 +17,9 @@ function LevelPreviewCard({ level, showCharacters }) {
       </div>
       <div className="level-preview-card-info">
         <p className="level-preview-card-name">{level.name}</p>
-        <div className="level-preview-card-character-photos">
-          {showCharacters &&
-            level.characters.map(({ photo, id }) => (
+        {showCharacters && (
+          <div className="level-preview-card-character-photos">
+            {level.characters.map(({ photo, id }) => (
               <img
                 src={photo}
                 alt="character"
@@ -27,7 +27,8 @@ function LevelPreviewCard({ level, showCharacters }) {
                 key={id}
               />
             ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
