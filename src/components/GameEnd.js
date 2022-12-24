@@ -7,42 +7,57 @@ import getLevelById from "../helper/getLevelById";
 
 function GameEnd({ start, end, levelId }) {
   const [name, setName] = useState("");
+  const updateLeaderboard = async (e) => {
+    e.preventDefault();
+    const level = await getLevelById(levelId);
+    // if leaderboard doesn't exist yet
+    if (!level.leaderboard) level.leaderboard = [];
+    // push new entry to leaderboard
+    level.leaderboard.push({ name, start, end });
+
+    submitToLeaderboard(levelId, level);
+  };
 
   return (
     <div className="game-end modal">
-      <p>You finished in {formatTimeDuration(start, end)}!</p>
-      <form
-        action=""
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const level = await getLevelById(levelId);
-          // if leaderboard doesn't exist yet
-          if (!level.leaderboard) level.leaderboard = [];
-          // push new entry to leaderboard
-          level.leaderboard.push({ name, start, end });
+      <div className="game-end-content">
+        <h2 className="time-finished-in">
+          You finished in {formatTimeDuration(start, end)}!
+        </h2>
+        <form
+          action=""
+          onSubmit={updateLeaderboard}
+          className="submit-score-form"
+        >
+          <p>Submit your score on the global leaderboard!</p>
 
-          submitToLeaderboard(levelId, level);
-        }}
-      >
-        <label htmlFor="name">
-          Name:
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
+          <label htmlFor="name" className="name-label">
+            <span>Name:</span>
+            <input
+              type="text"
+              id="name"
+              placeholder="Don't use your real name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
 
-        <button type="submit">Submit Score</button>
-      </form>
+          <div className="game-end-buttons">
+            <button type="submit" className="submit-to-leaderboard">
+              Submit Score
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
 
 GameEnd.propTypes = {
-  start: PropTypes.instanceOf(Date).isRequired,
-  end: PropTypes.instanceOf(Date).isRequired,
+  start: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+    .isRequired,
+  end: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+    .isRequired,
   levelId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
