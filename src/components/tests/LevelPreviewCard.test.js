@@ -22,17 +22,6 @@ it("should show photo and level name", () => {
   expect(screen.getByText("insert level name here")).toBeInTheDocument();
 });
 
-it("renders correct link", () => {
-  render(
-    <MemoryRouter>
-      <LevelPreviewCard level={mockLevel} />
-    </MemoryRouter>
-  );
-
-  const link = screen.getByRole("link", { name: "link to level" });
-  expect(link).toHaveAttribute("href", "/levels/0");
-});
-
 describe("bad inputs", () => {
   beforeEach(() => jest.spyOn(console, "error"));
   afterEach(() => expect(console.error).toBeCalled());
@@ -56,20 +45,6 @@ describe("bad inputs", () => {
       name: "actually a string",
       photo: () => "not an image src!!",
       id: 0,
-    };
-
-    render(
-      <MemoryRouter>
-        <LevelPreviewCard level={level} />
-      </MemoryRouter>
-    );
-  });
-
-  it("should give warning for id that isn't of type string nor number", () => {
-    const level = {
-      name: "also actually a string",
-      photo: "./image.png",
-      id: () => {},
     };
 
     render(

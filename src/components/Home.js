@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import LevelPreviewCard from "./LevelPreviewCard";
 import "../css/Home.css";
 import LoadingScreen from "./LoadingScreen";
@@ -12,7 +13,14 @@ function Home() {
   return (
     <div className="home">
       {levels.map((level) => (
-        <LevelPreviewCard level={level} key={level.id} />
+        <Link
+          to={`levels/${level.id}`}
+          className="level-preview-card"
+          aria-label="link to level"
+          key={level.id}
+        >
+          <LevelPreviewCard level={level} />
+        </Link>
       ))}
     </div>
   );

@@ -3,6 +3,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
 import Home from "../Home";
 
 jest.mock(
@@ -14,17 +15,20 @@ jest.mock(
     ])
 );
 
+jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
+
 jest.mock("../LevelPreviewCard.js", () => ({ level }) => (
   <div data-testid="photo-level">
     {level.name}, {level.photo}
   </div>
 ));
 
-jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
-
 it("should map through levels and pass in correct props", async () => {
-  render(<Home />);
-
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  );
   await waitFor(() => screen.getAllByTestId("photo-level"));
 
   const levels = screen.getAllByTestId("photo-level");
@@ -35,11 +39,28 @@ it("should map through levels and pass in correct props", async () => {
 });
 
 it("should show loading screen", async () => {
-  render(<Home />);
-
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  );
   expect(screen.getByText("Loading...")).toBeInTheDocument();
 
   await waitFor(() => screen.getAllByTestId("photo-level"));
 
   expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
+});
+
+it("renders correct links", async () => {
+  render(
+    <MemoryRouter>
+      <Home />
+    </MemoryRouter>
+  );
+
+  await waitFor(() => screen.getAllByRole("link"));
+
+  const links = screen.getAllByRole("link", { name: "link to level" });
+  expect(links[0]).toHaveAttribute("href", "/levels/0");
+  expect(links[1]).toHaveAttribute("href", "/levels/1");
 });
