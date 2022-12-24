@@ -19,3 +19,7 @@
 .leaderboard-level > .level-preview-card {
   max-width: 200px;
 }
+
+.no-submissions {
+  text-align: center;
+}

@@ -60,3 +60,18 @@ it("should display leaderboard table", async () => {
     expect.anything()
   );
 });
+
+it("should render a no scores submitted message when given an empty leaderboard", async () => {
+  useLevels.mockReturnValue([
+    {
+      leaderboard: [],
+      name: "test level",
+      id: 1,
+    },
+  ]);
+
+  render(<Leaderboard />);
+
+  expect(screen.getByText("No submissions yet, be the first!"));
+  expect(LeaderboardTable).not.toBeCalled();
+});

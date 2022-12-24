@@ -34,8 +34,10 @@ function Leaderboard() {
           </button>
         ))}
       </div>
-      {activeLevel != null && (
+      {activeLevel && activeLevel.leaderboard.length ? (
         <LeaderboardTable leaderboard={activeLevel.leaderboard} />
+      ) : (
+        <p className="no-submissions">No submissions yet, be the first!</p>
       )}
     </div>
   );
