@@ -52,6 +52,7 @@
 .level-preview-card-character-photos {
   display: flex;
   gap: 8px;
+  margin: auto;
 }
 
 .level-preview-card-character-photo {

@@ -8,7 +8,7 @@
 }
 
 .character > .character-image {
-  height: min(10vw, 60px);
+  height: min(8vw, 44px);
 }
 
 .character:hover {
