@@ -23,6 +23,7 @@ function Leaderboard() {
           type="button"
           key={level.id}
           aria-label="level"
+          className="leaderboard-level"
           onClick={() => {
             setActiveLevel(level);
           }}
