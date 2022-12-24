@@ -1,56 +1,62 @@
+/* eslint-disable react/function-component-definition */
+/* eslint-disable react/prop-types */
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import useLevels from "../../helper/useLevels";
 import Leaderboard from "../Leaderboard";
+import LeaderboardTable from "../LeaderboardTable";
+import LevelPreviewCard from "../LevelPreviewCard";
 
-// eslint-disable-next-line react/function-component-definition, react/prop-types
-jest.mock("../LeaderboardSubmission.js", () => ({ submission }) => (
-  <tr>
-    <td data-testid="submission">
-      {
-        // eslint-disable-next-line react/prop-types
-        submission.name
-      }
-    </td>
-  </tr>
-));
-
+jest.mock("../LeaderboardTable.js", () => jest.fn());
+jest.mock("../LevelPreviewCard.js", () => jest.fn());
 jest.mock("../../helper/useLevels.js", () => jest.fn());
 
-it("should render a list of leaderboard submissions", () => {
-  useLevels.mockReturnValueOnce([
+it("should render level preview cards", () => {
+  useLevels.mockReturnValueOnce([{ name: "test level", id: 1 }]);
+
+  render(<Leaderboard />);
+
+  expect(LevelPreviewCard).toHaveBeenCalledWith(
     {
-      place: 1,
-      name: "Alice",
-      startTime: new Date(0),
-      endTime: new Date(12345),
-      dateSubmitted: new Date("1/2/1970"),
+      level: expect.objectContaining({ name: "test level", id: 1 }),
+    },
+    expect.anything()
+  );
+});
+
+it("should display leaderboard table", async () => {
+  useLevels.mockReturnValue([
+    {
+      leaderboard: [{ name: "Alice" }, { name: "John" }],
+      name: "test level",
       id: 1,
     },
+
     {
-      place: 2,
-      name: "John",
-      startTime: new Date(0),
-      endTime: new Date(12346),
-      dateSubmitted: new Date("1/2/1971"),
+      leaderboard: [{ name: "Robert" }, { name: "Jones" }],
+      name: "test level 2",
       id: 2,
-    },
-    {
-      place: 3,
-      name: "Bob",
-      startTime: new Date(0),
-      endTime: new Date(12347),
-      dateSubmitted: new Date("1/2/1991"),
-      id: 3,
     },
   ]);
 
   render(<Leaderboard />);
 
-  const submissions = screen.getAllByTestId("submission");
+  // should display the first leaderboard table by default
+  expect(LeaderboardTable).toHaveBeenCalledWith(
+    {
+      leaderboard: [{ name: "Alice" }, { name: "John" }],
+    },
+    expect.anything()
+  );
 
-  expect(submissions.length).toBe(3);
-  expect(submissions[0].textContent).toBe("Alice");
-  expect(submissions[1].textContent).toBe("John");
-  expect(submissions[2].textContent).toBe("Bob");
+  // click on second level
+  userEvent.click(screen.getAllByRole("button", { name: "level" })[1]);
+
+  expect(LeaderboardTable).toHaveBeenCalledWith(
+    {
+      leaderboard: [{ name: "Robert" }, { name: "Jones" }],
+    },
+    expect.anything()
+  );
 });

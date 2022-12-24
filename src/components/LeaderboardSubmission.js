@@ -10,11 +10,11 @@ function getNumberWithOrdinal(number) {
 }
 
 function LeaderboardSubmission({ submission }) {
-  const formattedDate = format(submission.dateSubmitted, "MMM d, y");
-  const distanceToNow = formatDistanceToNowStrict(
-    new Date(submission.dateSubmitted),
-    { addSuffix: true }
-  );
+  const dateSubmitted = new Date(submission.dateSubmitted);
+  const formattedDate = format(dateSubmitted, "MMM d, y");
+  const distanceToNow = formatDistanceToNowStrict(dateSubmitted, {
+    addSuffix: true,
+  });
 
   return (
     <tr className="leaderboard-submission">
@@ -36,9 +36,18 @@ LeaderboardSubmission.propTypes = {
   submission: PropTypes.shape({
     place: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    startTime: PropTypes.instanceOf(Date).isRequired,
-    endTime: PropTypes.instanceOf(Date).isRequired,
-    dateSubmitted: PropTypes.instanceOf(Date).isRequired,
+    startTime: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.number,
+    ]).isRequired,
+
+    endTime: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number])
+      .isRequired,
+
+    dateSubmitted: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.number,
+    ]).isRequired,
   }).isRequired,
 };
 
