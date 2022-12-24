@@ -7,7 +7,9 @@ import getLevelById from "../helper/getLevelById";
 
 function GameEnd({ start, end, levelId }) {
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const updateLeaderboard = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const level = await getLevelById(levelId);
     // if leaderboard doesn't exist yet
@@ -39,11 +41,16 @@ function GameEnd({ start, end, levelId }) {
               placeholder="Don't use your real name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </label>
 
           <div className="game-end-buttons">
-            <button type="submit" className="submit-to-leaderboard">
+            <button
+              type="submit"
+              className="submit-to-leaderboard"
+              disabled={isLoading}
+            >
               Submit Score
             </button>
           </div>

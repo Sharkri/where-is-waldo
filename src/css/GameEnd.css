@@ -67,3 +67,7 @@
   border-radius: 6px;
   color: inherit;
 }
+
+.submit-to-leaderboard:disabled {
+  filter: brightness(60%);
+}
