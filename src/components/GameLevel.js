@@ -27,8 +27,8 @@ function GameLevel() {
   const [timer, setTimer] = useState(null);
   const imageRef = useRef(null);
   const containerSize = {
-    height: imageRef?.current?.scrollHeight,
-    width: imageRef?.current?.scrollWidth,
+    height: imageRef.current?.scrollHeight,
+    width: imageRef.current?.scrollWidth,
   };
   const originalImg = new Image();
   originalImg.src = level?.photo;
@@ -75,7 +75,7 @@ function GameLevel() {
   };
 
   const handleImageClick = (e) => {
-    if (!isStarted) return;
+    if (!isStarted || isGameOver) return;
     setIsDropdownOpen(!isDropdownOpen);
     const rect = e.target.getBoundingClientRect();
     setCoordsClicked({
@@ -156,10 +156,15 @@ function GameLevel() {
             photo={level.photo}
             name={level.name}
             onImageClick={handleImageClick}
-            foundList={foundList.map(({ x, y, ...rest }) => ({
-              ...getActualCoords(x, y),
-              ...rest,
-            }))}
+            foundList={
+              // Hide found list if game is over
+              isGameOver
+                ? []
+                : foundList.map(({ x, y, ...rest }) => ({
+                    ...getActualCoords(x, y),
+                    ...rest,
+                  }))
+            }
           />
         </div>
 
