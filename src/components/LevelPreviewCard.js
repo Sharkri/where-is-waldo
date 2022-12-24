@@ -5,13 +5,15 @@ import "../css/LevelPreviewCard.css";
 function LevelPreviewCard({ level }) {
   return (
     <div className="level-preview-card">
-      <h1 className="level-preview-card-name">{level.name}</h1>
       <div className="level-preview-card-image-container">
         <img
           src={level.photo}
           alt={level.name}
           className="level-preview-card-image"
         />
+      </div>
+      <div className="level-preview-card-info">
+        <p className="level-preview-card-name">{level.name}</p>
       </div>
     </div>
   );

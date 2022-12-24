@@ -12,6 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   --main-bg: #1c2128;
   --secondary-main-bg: #2d333b;
+  --hover-color: #353c46;
   --btn-bg-color: #444c56;
   --primary-btn-color: #347d39;
   --main-text-color: #cdd9e5;

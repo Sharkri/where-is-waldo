@@ -7,37 +7,38 @@
   border: none;
   /* Change to block since links are inline */
   display: block;
+  background-color: var(--secondary-main-bg);
+  transition: 0.4s ease 0s;
+}
+
+.level-preview-card:hover {
+  background-color: var(--hover-color);
 }
 
 .level-preview-card-image-container {
   overflow: hidden;
-  border-radius: inherit;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 }
 
 .level-preview-card-image {
   width: 100%;
-  border-radius: inherit;
-  transition: 250ms;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  transition: 280ms ease-in-out;
   display: block;
+  transition: transform 0.4s ease 0s;
 }
 
-.level-preview-card-name {
-  position: absolute;
+.level-preview-card-info {
   display: flex;
   justify-content: center;
   width: 100%;
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.2s ease-in-out;
-  color: var(--main-text-color);
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-  font-size: min(6vw, 27px);
+  padding: 16px;
 }
 
-.level-preview-card:hover .level-preview-card-name {
-  visibility: visible;
-  opacity: 1;
+.level-preview-card-name {
+  color: var(--main-text-color);
 }
 
 .level-preview-card:hover .level-preview-card-image {
