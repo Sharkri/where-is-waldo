@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { PropTypes } from "prop-types";
 import "../css/GameEnd.css";
+import { useNavigate } from "react-router-dom";
 import formatTimeDuration from "../helper/formatTimeDuration";
 import submitToLeaderboard from "../helper/submitToLeaderboard";
 import getLevelById from "../helper/getLevelById";
@@ -8,6 +9,8 @@ import getLevelById from "../helper/getLevelById";
 function GameEnd({ start, end, levelId }) {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const updateLeaderboard = async (e) => {
     setIsLoading(true);
     e.preventDefault();
@@ -17,7 +20,8 @@ function GameEnd({ start, end, levelId }) {
     // push new entry to leaderboard
     level.leaderboard.push({ name, start, end });
 
-    submitToLeaderboard(levelId, level);
+    await submitToLeaderboard(levelId, level);
+    navigate("/leaderboard");
   };
 
   return (

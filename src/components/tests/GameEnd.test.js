@@ -14,6 +14,12 @@ jest.mock("../../helper/submitToLeaderboard.js", () => jest.fn());
 
 jest.mock("../../helper/getLevelById.js", () => jest.fn());
 
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  useNavigate: () => mockNavigate,
+}));
+
 const mockLevel = {
   id: "foobar",
   leaderboard: [{ name: "baz", start: 1000, end: 2000 }],
@@ -57,4 +63,6 @@ it("renders correct input values and submits properly", async () => {
       ],
     })
   );
+  // navigates to leaderboard after finish
+  expect(mockNavigate).toBeCalledWith("/leaderboard");
 });

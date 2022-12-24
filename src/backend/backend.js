@@ -24,7 +24,7 @@ async function getImage(url) {
 async function updateCollectionDoc(path, value) {
   // Update an entry in the Firebase database.
   const reference = doc(getFirestore(), path);
-  await updateDoc(reference, value);
+  return updateDoc(reference, value);
 }
 
 initializeApp(getFirebaseConfig());
