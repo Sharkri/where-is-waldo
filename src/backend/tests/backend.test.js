@@ -6,12 +6,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import {
-  getCollectionDocs,
-  getImage,
-  updateCollectionDoc,
-  ,
-} from "../backend";
+import { getCollectionDocs, getImage, updateCollectionDoc } from "../backend";
 
 jest.mock("firebase/app", () => ({ initializeApp: jest.fn() }));
 jest.mock("firebase/performance", () => ({ getPerformance: jest.fn() }));
