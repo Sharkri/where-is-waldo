@@ -34,6 +34,10 @@ function LevelPreviewCard({ level, showCharacters }) {
   );
 }
 
+LevelPreviewCard.defaultProps = {
+  showCharacters: false,
+};
+
 LevelPreviewCard.propTypes = {
   level: PropTypes.shape({
     photo: PropTypes.node.isRequired,
@@ -42,7 +46,7 @@ LevelPreviewCard.propTypes = {
       PropTypes.shape({ photo: PropTypes.node.isRequired })
     ),
   }).isRequired,
-  showCharacters: PropTypes.bool.isRequired,
+  showCharacters: PropTypes.bool,
 };
 
 export default LevelPreviewCard;
