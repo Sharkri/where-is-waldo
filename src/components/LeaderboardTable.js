@@ -1,7 +1,7 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import LeaderboardSubmission from "./LeaderboardSubmission";
-import "../css/Leaderboard.css";
+import "../css/LeaderboardTable.css";
 
 function LeaderboardTable({ leaderboard }) {
   return (

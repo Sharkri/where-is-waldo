@@ -1,0 +1,49 @@
+.leaderboard-table {
+  margin: auto;
+  text-align: center;
+}
+
+.leaderboard-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+td,
+th {
+  outline: 1px solid var(--main-text-color);
+  padding: 10px 20px;
+}
+
+td {
+  font-weight: 500;
+}
+
+th {
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background-color: var(--secondary-main-bg);
+}
+
+/* First place */
+.leaderboard-submission:first-child > .submission-place {
+  color: gold;
+}
+
+/* Second place */
+.leaderboard-submission:nth-child(2) > .submission-place {
+  color: silver;
+}
+
+/* Third place */
+.leaderboard-submission:nth-child(3) > .submission-place {
+  color: #cd7f32;
+}
+
+/* Set font weight to bold for 1st, 2nd, and 3rd  */
+
+.leaderboard-submission:first-child > .submission-place,
+.leaderboard-submission:nth-child(2) > .submission-place,
+.leaderboard-submission:nth-child(3) > .submission-place {
+  font-weight: bold;
+}
