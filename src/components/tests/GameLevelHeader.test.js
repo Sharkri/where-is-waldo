@@ -17,10 +17,8 @@ jest.mock(
       children
 );
 
-jest.mock("../GameTimer.js", () => ({ startTime, currentTime }) => (
-  <div data-testid="start-end-time">
-    {startTime} {currentTime}
-  </div>
+jest.mock("../GameTimer.js", () => ({ timeTaken }) => (
+  <div data-testid="time-taken">{timeTaken}</div>
 ));
 
 const mockCharacters = [
@@ -29,13 +27,7 @@ const mockCharacters = [
 ];
 
 it("should toggle open/close characters dropdown", () => {
-  render(
-    <GameLevelHeader
-      characters={mockCharacters}
-      startTime={0}
-      currentTime={0}
-    />
-  );
+  render(<GameLevelHeader characters={mockCharacters} timeTaken={0} />);
 
   userEvent.click(screen.getByRole("button", { name: "1" }));
 
@@ -53,13 +45,7 @@ it("should toggle open/close characters dropdown", () => {
 });
 
 it("should render game timer", () => {
-  render(
-    <GameLevelHeader
-      characters={mockCharacters}
-      startTime={552}
-      currentTime={12344}
-    />
-  );
+  render(<GameLevelHeader characters={mockCharacters} timeTaken={1234} />);
 
-  expect(screen.getByTestId("start-end-time").textContent).toBe("552 12344");
+  expect(screen.getByTestId("time-taken").textContent).toBe("1234");
 });

@@ -5,13 +5,13 @@ import "../css/GameLevelHeader.css";
 import Character from "./Character";
 import GameTimer from "./GameTimer";
 
-function GameLevelHeader({ characters, startTime, currentTime }) {
+function GameLevelHeader({ characters, timeTaken }) {
   const [isCharactersOpen, setIsCharactersOpen] = useState(false);
   const charactersLeft = characters.filter((character) => !character.found);
 
   return (
     <Header className="game-level-header">
-      <GameTimer startTime={startTime} currentTime={currentTime} />
+      <GameTimer timeTaken={timeTaken} />
       <div className="characters-reference">
         <button
           type="button"
@@ -41,12 +41,8 @@ GameLevelHeader.propTypes = {
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     })
   ).isRequired,
-  startTime: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+  timeTaken: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
     .isRequired,
-  currentTime: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.instanceOf(Date),
-  ]).isRequired,
 };
 
 export default GameLevelHeader;

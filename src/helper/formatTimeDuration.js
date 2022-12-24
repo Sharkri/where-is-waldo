@@ -44,12 +44,11 @@ function padTimeUnitWithZero(time, timeUnit) {
   return durations.join(" ");
 }
 
-export default function formatTimeDuration(start, end) {
-  const timeElapsed = end - start;
-  if (timeElapsed === 0) return "0ms";
+export default function formatTimeDuration(timeTaken) {
+  if (timeTaken === 0) return "0ms";
 
   let duration = filterZeroUnits(
-    intervalToDuration({ start, end }),
+    intervalToDuration({ start: 0, end: timeTaken }),
     "minutes",
     "seconds"
   );
@@ -62,7 +61,7 @@ export default function formatTimeDuration(start, end) {
   // pad second(s) with a leading zero. e.g.: 5s becomes 05s
   formattedDuration = padTimeUnitWithZero(formattedDuration, "s");
   // formatDuration doesn't add milliseconds so have to add it manually
-  const ms = Number.parseInt(timeElapsed % 1000, 10);
+  const ms = Number.parseInt(timeTaken % 1000, 10);
   if (ms !== 0) formattedDuration += ` ${ms}ms`;
   return formattedDuration;
 }

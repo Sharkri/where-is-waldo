@@ -7,10 +7,10 @@ function padZero(num) {
   return num.toString().padStart(2, "0");
 }
 
-function GameTimer({ startTime, currentTime }) {
-  const duration = intervalToDuration({ start: startTime, end: currentTime });
+function GameTimer({ timeTaken }) {
+  const duration = intervalToDuration({ start: 0, end: timeTaken });
   // Manually add ms since duration doesn't give it
-  duration.ms = Math.round(((currentTime - startTime) % 1000) / 10);
+  duration.ms = Math.round((timeTaken % 1000) / 10);
 
   let formattedTimer = "";
   // Pad all times with a zero
@@ -30,12 +30,8 @@ function GameTimer({ startTime, currentTime }) {
 }
 
 GameTimer.propTypes = {
-  startTime: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+  timeTaken: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
     .isRequired,
-  currentTime: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.instanceOf(Date),
-  ]).isRequired,
 };
 
 export default GameTimer;

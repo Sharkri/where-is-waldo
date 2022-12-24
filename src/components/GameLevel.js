@@ -25,6 +25,7 @@ function GameLevel() {
   const [foundList, setFoundList] = useState([]);
   const [currentTimeout, setCurrentTimeout] = useState(null);
   const [timer, setTimer] = useState(null);
+  const timeTaken = currentTime - startTime;
   const imageRef = useRef(null);
   const containerSize = {
     height: imageRef.current?.scrollHeight,
@@ -135,18 +136,8 @@ function GameLevel() {
   return (
     <div className="game-level">
       {!isStarted && <GameInstructions onStart={onStart} level={level} />}
-      {isGameOver && (
-        <GameEnd
-          levelId={level.id}
-          startTime={startTime}
-          endTime={currentTime}
-        />
-      )}
-      <GameLevelHeader
-        startTime={startTime}
-        currentTime={currentTime}
-        characters={level.characters}
-      />
+      {isGameOver && <GameEnd levelId={level.id} timeTaken={timeTaken} />}
+      <GameLevelHeader timeTaken={timeTaken} characters={level.characters} />
 
       <div className="game-image-container">
         <Notification

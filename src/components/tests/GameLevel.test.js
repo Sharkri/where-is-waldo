@@ -47,9 +47,7 @@ jest.mock("../GameInstructions.js", () =>
 );
 
 jest.mock("../GameLevelHeader.js", () =>
-  jest.fn(({ startTime, currentTime }) => (
-    <div data-testid="time-elapsed">{currentTime - startTime}</div>
-  ))
+  jest.fn(({ timeTaken }) => <div data-testid="time-elapsed">{timeTaken}</div>)
 );
 
 jest.mock("../GameImage.js", () =>

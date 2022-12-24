@@ -6,10 +6,9 @@ import uniqid from "uniqid";
 import GameEnd from "../GameEnd";
 import submitToLeaderboard from "../../helper/submitToLeaderboard";
 import getLevelById from "../../helper/getLevelById";
+import formatTimeDuration from "../../helper/formatTimeDuration";
 
-jest.mock("../../helper/formatTimeDuration.js", () =>
-  jest.fn((start, end) => end - start)
-);
+jest.mock("../../helper/formatTimeDuration.js", () => jest.fn());
 
 jest.mock("../../helper/submitToLeaderboard.js", () => jest.fn());
 
@@ -26,10 +25,8 @@ const mockLevel = {
   leaderboard: [
     {
       name: "baz",
-      startTime: 1000,
-      endTime: 2000,
+      timeTaken: 4000,
       dateSubmitted: 52,
-      place: 1,
       id: 0,
     },
   ],
@@ -38,14 +35,10 @@ const mockLevel = {
 jest.mock("uniqid", () => jest.fn());
 
 it("should show time taken", () => {
-  render(
-    <GameEnd
-      startTime={new Date(250)}
-      endTime={new Date(1000)}
-      levelId={mockLevel.id}
-    />
-  );
+  formatTimeDuration.mockReturnValueOnce(750);
+  render(<GameEnd timeTaken={new Date(750)} levelId={mockLevel.id} />);
   expect(screen.getByText("You finished in 750!"));
+  expect(formatTimeDuration).toHaveBeenCalledWith(new Date(750));
 });
 
 it("renders correct input values and submits properly", async () => {
@@ -53,13 +46,7 @@ it("renders correct input values and submits properly", async () => {
   Date.now = () => 12345;
   uniqid.mockReturnValueOnce("12");
 
-  render(
-    <GameEnd
-      startTime={new Date(250)}
-      endTime={new Date(1000)}
-      levelId={mockLevel.id}
-    />
-  );
+  render(<GameEnd timeTaken={new Date(750)} levelId={mockLevel.id} />);
   userEvent.type(screen.getByRole("textbox"), "jimmy");
   expect(screen.getByRole("textbox")).toHaveValue("jimmy");
 
@@ -75,18 +62,14 @@ it("renders correct input values and submits properly", async () => {
       leaderboard: [
         {
           name: "baz",
-          startTime: 1000,
-          endTime: 2000,
+          timeTaken: 4000,
           dateSubmitted: 52,
-          place: 1,
           id: 0,
         },
         {
           name: "jimmy",
-          startTime: new Date(250),
-          endTime: new Date(1000),
+          timeTaken: new Date(750),
           dateSubmitted: 12345,
-          place: 2,
           id: "12",
         },
       ],

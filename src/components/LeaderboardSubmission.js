@@ -23,7 +23,7 @@ function LeaderboardSubmission({ submission }) {
       </td>
       <td className="submission-name">{submission.name}</td>
       <td className="submission-time">
-        {formatTimeDuration(submission.startTime, submission.endTime)}
+        {formatTimeDuration(submission.timeTaken)}
       </td>
       <td className="submission-date" title={distanceToNow}>
         {formattedDate}
@@ -36,14 +36,10 @@ LeaderboardSubmission.propTypes = {
   submission: PropTypes.shape({
     place: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    startTime: PropTypes.oneOfType([
+    timeTaken: PropTypes.oneOfType([
       PropTypes.instanceOf(Date),
       PropTypes.number,
     ]).isRequired,
-
-    endTime: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number])
-      .isRequired,
-
     dateSubmitted: PropTypes.oneOfType([
       PropTypes.instanceOf(Date),
       PropTypes.number,
