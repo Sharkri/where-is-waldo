@@ -34,7 +34,6 @@ function LeaderboardTable({ leaderboard }) {
 LeaderboardTable.propTypes = {
   leaderboard: PropTypes.arrayOf(
     PropTypes.shape({
-      place: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       timeTaken: PropTypes.oneOfType([
         PropTypes.instanceOf(Date),
