@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LevelPreviewCard from "./LevelPreviewCard";
 import "../css/Home.css";
-import getLevels from "../helper/levels";
 import LoadingScreen from "./LoadingScreen";
+import useLevels from "../helper/useLevels";
 
 function Home() {
-  // CHANGE LATER
-  const [levels, setLevels] = useState(null);
-
-  useEffect(() => {
-    getLevels().then(setLevels);
-  }, []);
+  const levels = useLevels();
 
   if (levels == null) return <LoadingScreen />;
 

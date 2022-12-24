@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
+import useLevels from "../../helper/useLevels";
 import Leaderboard from "../Leaderboard";
 
 // eslint-disable-next-line react/function-component-definition, react/prop-types
@@ -14,8 +15,10 @@ jest.mock("../LeaderboardSubmission.js", () => ({ submission }) => (
   </tr>
 ));
 
+jest.mock("../../helper/useLevels.js", () => jest.fn());
+
 it("should render a list of leaderboard submissions", () => {
-  const leaderboard = [
+  useLevels.mockReturnValueOnce([
     {
       place: 1,
       name: "Alice",
@@ -40,9 +43,9 @@ it("should render a list of leaderboard submissions", () => {
       dateSubmitted: new Date("1/2/1991"),
       id: 3,
     },
-  ];
+  ]);
 
-  render(<Leaderboard leaderboard={leaderboard} />);
+  render(<Leaderboard />);
 
   const submissions = screen.getAllByTestId("submission");
 

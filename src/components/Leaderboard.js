@@ -1,9 +1,14 @@
 import React from "react";
-import { PropTypes } from "prop-types";
 import LeaderboardSubmission from "./LeaderboardSubmission";
 import "../css/Leaderboard.css";
+import LoadingScreen from "./LoadingScreen";
+import useLevels from "../helper/useLevels";
 
-function Leaderboard({ leaderboard }) {
+function Leaderboard() {
+  const levels = useLevels();
+
+  if (levels == null) return <LoadingScreen />;
+
   return (
     <div className="leaderboard">
       <h1 className="leaderboard-title">Leaderboard</h1>
@@ -17,7 +22,7 @@ function Leaderboard({ leaderboard }) {
           </tr>
         </thead>
         <tbody>
-          {leaderboard.map((submission) => (
+          {levels.map((submission) => (
             <LeaderboardSubmission
               submission={submission}
               key={submission.id}
@@ -28,17 +33,5 @@ function Leaderboard({ leaderboard }) {
     </div>
   );
 }
-
-Leaderboard.propTypes = {
-  leaderboard: PropTypes.arrayOf(
-    PropTypes.shape({
-      place: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      startTime: PropTypes.instanceOf(Date).isRequired,
-      endTime: PropTypes.instanceOf(Date).isRequired,
-      dateSubmitted: PropTypes.instanceOf(Date).isRequired,
-    }).isRequired
-  ).isRequired,
-};
 
 export default Leaderboard;
