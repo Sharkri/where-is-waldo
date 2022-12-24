@@ -18,19 +18,21 @@ function Leaderboard() {
   return (
     <div className="leaderboard">
       <h1 className="leaderboard-title">Leaderboard</h1>
-      {levels.map((level) => (
-        <button
-          type="button"
-          key={level.id}
-          aria-label="level"
-          className="leaderboard-level"
-          onClick={() => {
-            setActiveLevel(level);
-          }}
-        >
-          <LevelPreviewCard level={level} />
-        </button>
-      ))}
+      <div className="leaderboard-levels">
+        {levels.map((level) => (
+          <button
+            type="button"
+            key={level.id}
+            aria-label="level"
+            className="leaderboard-level"
+            onClick={() => {
+              setActiveLevel(level);
+            }}
+          >
+            <LevelPreviewCard level={level} />
+          </button>
+        ))}
+      </div>
       {activeLevel != null && (
         <LeaderboardTable leaderboard={activeLevel.leaderboard} />
       )}
