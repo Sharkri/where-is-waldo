@@ -8,9 +8,13 @@ const mockLevel = {
   name: "insert level name here",
   photo: "./dummy.png",
   id: 0,
+  characters: [
+    { photo: "john.png", id: 12345 },
+    { photo: "doe.jpg", id: 54321 },
+  ],
 };
 
-it("should show photo and level name", () => {
+it("should show photo, characters, and level name", () => {
   render(
     <MemoryRouter>
       <LevelPreviewCard level={mockLevel} />
@@ -31,6 +35,7 @@ describe("bad inputs", () => {
       name: ["NOT A STRING LOL", "ALSO NOT A STRING"],
       photo: "./image.png",
       id: 0,
+      characters: [],
     };
 
     render(
@@ -45,6 +50,7 @@ describe("bad inputs", () => {
       name: "actually a string",
       photo: () => "not an image src!!",
       id: 0,
+      characters: [],
     };
 
     render(

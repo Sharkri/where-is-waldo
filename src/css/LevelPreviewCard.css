@@ -32,9 +32,12 @@
 
 .level-preview-card-info {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
   width: 100%;
-  padding: 16px;
+  padding: 1rem;
 }
 
 .level-preview-card-name {
@@ -43,4 +46,17 @@
 
 .level-preview-card:hover .level-preview-card-image {
   transform: scale(1.17);
+}
+
+.level-preview-card-character-photos {
+  display: flex;
+  gap: 8px;
+}
+
+.level-preview-card-character-photo {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+  object-fit: contain;
+  display: block;
 }
