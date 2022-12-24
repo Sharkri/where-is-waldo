@@ -23,6 +23,7 @@ function GameEnd({ startTime, endTime, levelId }) {
       startTime,
       endTime,
       dateSubmitted: Date.now(),
+      place: level.leaderboard.length + 1,
     });
 
     await submitToLeaderboard(levelId, level);

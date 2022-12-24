@@ -23,7 +23,13 @@ jest.mock("react-router-dom", () => ({
 const mockLevel = {
   id: "foobar",
   leaderboard: [
-    { name: "baz", startTime: 1000, endTime: 2000, dateSubmitted: 52 },
+    {
+      name: "baz",
+      startTime: 1000,
+      endTime: 2000,
+      dateSubmitted: 52,
+      place: 1,
+    },
   ],
 };
 
@@ -61,12 +67,19 @@ it("renders correct input values and submits properly", async () => {
     expect.objectContaining({
       id: "foobar",
       leaderboard: [
-        { name: "baz", startTime: 1000, endTime: 2000, dateSubmitted: 52 },
+        {
+          name: "baz",
+          startTime: 1000,
+          endTime: 2000,
+          dateSubmitted: 52,
+          place: 1,
+        },
         {
           name: "jimmy",
           startTime: new Date(250),
           endTime: new Date(1000),
           dateSubmitted: 12345,
+          place: 2,
         },
       ],
     })
