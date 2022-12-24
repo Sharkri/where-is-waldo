@@ -7,6 +7,7 @@ import useLevels from "../helper/useLevels";
 
 function Home() {
   const levels = useLevels();
+  document.body.style.overflow = "unset";
 
   if (levels == null) return <LoadingScreen />;
 

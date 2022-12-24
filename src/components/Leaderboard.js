@@ -8,6 +8,7 @@ import LeaderboardTable from "./LeaderboardTable";
 function Leaderboard() {
   const levels = useLevels();
   const [activeLevel, setActiveLevel] = useState(null);
+  document.body.style.overflow = "unset";
 
   useEffect(() => {
     if (levels?.length) setActiveLevel(levels[0]);
