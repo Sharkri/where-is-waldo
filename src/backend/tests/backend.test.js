@@ -4,14 +4,13 @@ import {
   getDocs,
   doc,
   updateDoc,
-  getDoc,
 } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {
   getCollectionDocs,
   getImage,
   updateCollectionDoc,
-  getDocData,
+  ,
 } from "../backend";
 
 jest.mock("firebase/app", () => ({ initializeApp: jest.fn() }));
@@ -78,19 +77,4 @@ it("should update doc", async () => {
 
   expect(doc).toHaveBeenCalledWith("fake firestore", "fake_path/12345");
   expect(updateDoc).toHaveBeenCalledWith("fake doc", "new value");
-});
-
-it("should get a single doc", async () => {
-  // const reference = doc(getFirestore(), path);
-  // const docInfo = await getDoc(reference);
-  // return docInfo.data();
-
-  doc.mockReturnValueOnce("fake doc");
-  getFirestore.mockReturnValueOnce("fake firestore");
-  getDoc.mockReturnValueOnce(Promise.resolve({ data: () => "resolved data" }));
-
-  const result = await getDocData("/fake_path");
-
-  expect(doc).toHaveBeenCalledWith("fake firestore", "/fake_path");
-  expect(result).toBe("resolved data");
 });
