@@ -15,7 +15,6 @@ function Home() {
       {levels.map((level) => (
         <Link
           to={`levels/${level.id}`}
-          className="level-preview-card"
           aria-label="link to level"
           key={level.id}
         >
