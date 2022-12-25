@@ -6,6 +6,8 @@
   border-radius: 4px;
   font-size: min(1vw, 14px);
   overflow-wrap: anywhere;
+  max-width: 100px;
+  text-align: center;
 }
 
 .input-game-image {
