@@ -4,9 +4,10 @@ import {
   getDocs,
   doc,
   updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { getCollectionDocs, getImage, updateCollectionDoc } from "../backend";
+import { getCollectionDocs, getImage, pushToDocArray } from "../backend";
 
 jest.mock("firebase/app", () => ({ initializeApp: jest.fn() }));
 jest.mock("firebase/performance", () => ({ getPerformance: jest.fn() }));
@@ -17,6 +18,7 @@ jest.mock("firebase/firestore", () => ({
   getDoc: jest.fn(),
   doc: jest.fn(),
   updateDoc: jest.fn(),
+  arrayUnion: jest.fn(),
 }));
 jest.mock("firebase/storage", () => ({
   getStorage: jest.fn(),
@@ -62,14 +64,18 @@ it("should get image", async () => {
   expect(result).toBe("retrievedfake.png");
 });
 
-it("should update doc", async () => {
-  // const reference = doc(getFirestore(), path);
-  // await updateDoc(reference, value);
-  doc.mockReturnValueOnce("fake doc");
+it("should push to array using arrayUnion", async () => {
+  doc.mockReturnValueOnce("mock reference");
   getFirestore.mockReturnValueOnce("fake firestore");
+  arrayUnion.mockReturnValueOnce("some array value");
 
-  await updateCollectionDoc("fake_path/12345", "new value");
+  await pushToDocArray("fake_path/12345", "array_name", "some array value");
 
+  // should be called with the firestore instance and doc path
   expect(doc).toHaveBeenCalledWith("fake firestore", "fake_path/12345");
-  expect(updateDoc).toHaveBeenCalledWith("fake doc", "new value");
+
+  // should be called with reference and new changes
+  expect(updateDoc).toHaveBeenCalledWith("mock reference", {
+    array_name: "some array value",
+  });
 });

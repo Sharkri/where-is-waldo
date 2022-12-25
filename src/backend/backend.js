@@ -5,6 +5,7 @@ import {
   getDocs,
   doc,
   updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { getPerformance } from "firebase/performance";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -21,13 +22,13 @@ async function getImage(url) {
   return imageUrl;
 }
 
-async function updateCollectionDoc(path, value) {
+async function pushToDocArray(path, arrayName, value) {
   // Update an entry in the Firebase database.
   const reference = doc(getFirestore(), path);
-  return updateDoc(reference, value);
+  return updateDoc(reference, { [arrayName]: arrayUnion(value) });
 }
 
 initializeApp(getFirebaseConfig());
 getPerformance();
 
-export { getCollectionDocs, getImage, updateCollectionDoc };
+export { getCollectionDocs, getImage, pushToDocArray };

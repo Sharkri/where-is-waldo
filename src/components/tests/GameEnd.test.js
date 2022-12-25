@@ -54,27 +54,13 @@ it("renders correct input values and submits properly", async () => {
   await waitFor(() =>
     userEvent.click(screen.getByRole("button", { name: /Submit Score/i }))
   );
-  // should be called with id and the new value
-  expect(submitToLeaderboard).toHaveBeenCalledWith(
-    "foobar",
-    expect.objectContaining({
-      id: "foobar",
-      leaderboard: [
-        {
-          name: "baz",
-          timeTaken: 4000,
-          dateSubmitted: 52,
-          id: 0,
-        },
-        {
-          name: "jimmy",
-          timeTaken: new Date(750),
-          dateSubmitted: 12345,
-          id: "12",
-        },
-      ],
-    })
-  );
+  // should be called with id and the new submission
+  expect(submitToLeaderboard).toHaveBeenCalledWith("foobar", {
+    name: "jimmy",
+    timeTaken: new Date(750),
+    dateSubmitted: 12345,
+    id: "12",
+  });
   // navigates to leaderboard after finish
   expect(mockNavigate).toBeCalledWith("/leaderboard");
 });

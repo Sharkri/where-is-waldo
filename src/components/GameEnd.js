@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import uniqid from "uniqid";
 import formatTimeDuration from "../helper/formatTimeDuration";
 import submitToLeaderboard from "../helper/submitToLeaderboard";
-import getLevelById from "../helper/getLevelById";
 
 function GameEnd({ timeTaken, levelId }) {
   const [name, setName] = useState("");
@@ -14,18 +13,14 @@ function GameEnd({ timeTaken, levelId }) {
   const updateLeaderboard = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    const level = await getLevelById(levelId);
-    // if leaderboard doesn't exist yet
-    if (!level.leaderboard) level.leaderboard = [];
-    // push new entry to leaderboard
-    level.leaderboard.push({
+
+    await submitToLeaderboard(levelId, {
       name,
       timeTaken,
       dateSubmitted: Date.now(),
       id: uniqid(),
     });
 
-    await submitToLeaderboard(levelId, level);
     navigate("/leaderboard");
   };
 

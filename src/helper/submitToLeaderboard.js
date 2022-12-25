@@ -1,5 +1,5 @@
-import { updateCollectionDoc } from "../backend/backend";
+import { pushToDocArray } from "../backend/backend";
 
 export default function submitToLeaderboard(id, submission) {
-  return updateCollectionDoc(`/levels/${id}`, submission);
+  return pushToDocArray(`/levels/${id}`, "leaderboard", submission);
 }
