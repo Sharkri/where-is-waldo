@@ -19,6 +19,11 @@
 
 .leaderboard-level[data-isactive="true"] .level-preview-card {
   background-color: var(--hover-color);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.leaderboard-level[data-isactive="true"] .level-preview-card-image {
+  transform: scale(1.17);
 }
 
 /* Can't use justify-content center since scrolling is broken */
