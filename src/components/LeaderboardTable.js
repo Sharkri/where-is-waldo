@@ -10,24 +10,26 @@ function LeaderboardTable({ leaderboard }) {
   );
 
   return (
-    <table className="leaderboard-table">
-      <thead>
-        <tr>
-          <th scope="col">Place</th>
-          <th scope="col">Name</th>
-          <th scope="col">Time</th>
-          <th scope="col">Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sortedLeaderboard.map((submission, index) => (
-          <LeaderboardSubmission
-            submission={{ ...submission, place: index + 1 }}
-            key={submission.id}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className="leaderboard-table-container">
+      <table className="leaderboard-table">
+        <thead>
+          <tr>
+            <th scope="col">Place</th>
+            <th scope="col">Name</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedLeaderboard.map((submission, index) => (
+            <LeaderboardSubmission
+              submission={{ ...submission, place: index + 1 }}
+              key={submission.id}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

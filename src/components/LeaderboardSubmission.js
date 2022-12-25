@@ -21,7 +21,9 @@ function LeaderboardSubmission({ submission }) {
       <td className="submission-place">
         {getNumberWithOrdinal(submission.place)}
       </td>
-      <td className="submission-name">{submission.name}</td>
+      <td className="submission-name">
+        <span className="submission-name-text">{submission.name}</span>
+      </td>
       <td className="submission-time">
         {formatTimeDuration(submission.timeTaken)}
       </td>

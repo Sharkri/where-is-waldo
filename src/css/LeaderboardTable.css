@@ -1,3 +1,7 @@
+.leaderboard-table-container {
+  overflow: auto;
+}
+
 .leaderboard-table {
   margin: auto;
   text-align: center;
@@ -23,6 +27,19 @@ th {
   letter-spacing: 0.8px;
   text-transform: uppercase;
   background-color: var(--secondary-main-bg);
+}
+
+.submission-name {
+  overflow: hidden;
+}
+
+.submission-name-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow-wrap: anywhere;
+  text-overflow: ellipsis;
+  max-width: 225px;
 }
 
 /* First place */
