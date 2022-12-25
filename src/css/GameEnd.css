@@ -12,6 +12,13 @@
   --game-end-padding: 20px;
 }
 
+.error-text {
+  color: red;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 18px;
+}
+
 .time-finished-in {
   font-size: min(26px, 5.7vw);
   text-align: center;

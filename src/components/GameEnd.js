@@ -9,19 +9,24 @@ import submitToLeaderboard from "../helper/submitToLeaderboard";
 function GameEnd({ timeTaken, levelId }) {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isErrorActive, setIsErrorActive] = useState(false);
   const navigate = useNavigate();
   const updateLeaderboard = async (e) => {
     setIsLoading(true);
     e.preventDefault();
 
-    await submitToLeaderboard(levelId, {
-      name,
-      timeTaken,
-      dateSubmitted: Date.now(),
-      id: uniqid(),
-    });
-
-    navigate("/leaderboard");
+    try {
+      await submitToLeaderboard(levelId, {
+        name,
+        timeTaken,
+        dateSubmitted: Date.now(),
+        id: uniqid(),
+      });
+      navigate("/leaderboard");
+    } catch (error) {
+      setIsErrorActive(true);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -49,7 +54,11 @@ function GameEnd({ timeTaken, levelId }) {
               required
             />
           </label>
-
+          {isErrorActive && (
+            <span className="error-text">
+              Something went wrong. Please try again
+            </span>
+          )}
           <div className="game-end-buttons">
             <button
               type="submit"

@@ -64,3 +64,24 @@ it("renders correct input values and submits properly", async () => {
   // navigates to leaderboard after finish
   expect(mockNavigate).toBeCalledWith("/leaderboard");
 });
+
+it("shows error when error is thrown", async () => {
+  submitToLeaderboard.mockImplementation(() => {
+    throw new Error();
+  });
+
+  render(<GameEnd timeTaken={new Date(750)} levelId={mockLevel.id} />);
+  // Type into textbox since is required
+  userEvent.type(screen.getByRole("textbox"), "helo");
+  // Attempt to submit score
+  await waitFor(() =>
+    userEvent.click(screen.getByRole("button", { name: /Submit Score/i }))
+  );
+
+  // Should show error text since error is thrown in submitToLeaderboard
+  await waitFor(() =>
+    expect(
+      screen.getByText("Something went wrong. Please try again")
+    ).toBeInTheDocument()
+  );
+});
