@@ -1,6 +1,5 @@
 .level-preview-card {
   height: 100%;
-  max-width: 250px;
   position: relative;
   border-radius: 8px;
   background-color: transparent;
@@ -9,6 +8,8 @@
   display: block;
   background-color: var(--secondary-main-bg);
   transition: 0.4s ease 0s;
+  --level-preview-card-width: min(250px, 75vw);
+  max-width: var(--level-preview-card-width);
 }
 
 .level-preview-card:hover {
@@ -19,8 +20,8 @@
   overflow: hidden;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
-  max-width: 250px;
-  max-height: 300px;
+  width: var(--level-preview-card-width);
+  height: 300px;
 }
 
 .level-preview-card-image {
