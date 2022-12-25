@@ -1,15 +1,15 @@
 .leaderboard {
-  padding: 24px 0;
+  padding: 24px 12px;
   width: 100%;
   height: 100%;
-  overflow: auto;
 }
 
 .leaderboard-levels {
   display: flex;
-  justify-content: center;
   gap: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  overflow: auto;
 }
 
 .leaderboard-level {
@@ -17,8 +17,13 @@
   background-color: transparent;
 }
 
-.leaderboard-level > .level-preview-card {
-  max-width: 200px;
+/* Can't use justify-content center since scrolling is broken */
+.leaderboard-level:first-child {
+  margin-left: auto;
+}
+
+.leaderboard-level:last-child {
+  margin-right: auto;
 }
 
 .no-submissions {
