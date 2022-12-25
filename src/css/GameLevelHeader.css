@@ -34,3 +34,11 @@
   gap: 24px;
   z-index: 101;
 }
+
+.characters-reference li[data-found="true"] {
+  opacity: 0.4;
+}
+
+.characters-reference li[data-found="true"] .character-name {
+  text-decoration: line-through;
+}
