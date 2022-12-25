@@ -1,5 +1,6 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/prop-types */
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
@@ -52,6 +53,11 @@ it("should display leaderboard table", async () => {
 
   // click on second level
   userEvent.click(screen.getAllByRole("button", { name: "level" })[1]);
+
+  expect(screen.getAllByRole("button", { name: "level" })[1]).toHaveAttribute(
+    "data-isactive",
+    "true"
+  );
 
   expect(LeaderboardTable).toHaveBeenCalledWith(
     {

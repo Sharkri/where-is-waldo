@@ -26,9 +26,8 @@ function Leaderboard() {
             key={level.id}
             aria-label="level"
             className="leaderboard-level"
-            onClick={() => {
-              setActiveLevel(level);
-            }}
+            onClick={() => setActiveLevel(level)}
+            data-isactive={level.id === activeLevel?.id}
           >
             <LevelPreviewCard level={level} />
           </button>

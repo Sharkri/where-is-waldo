@@ -17,6 +17,10 @@
   background-color: transparent;
 }
 
+.leaderboard-level[data-isactive="true"] .level-preview-card {
+  background-color: var(--hover-color);
+}
+
 /* Can't use justify-content center since scrolling is broken */
 .leaderboard-level:first-child {
   margin-left: auto;
