@@ -1,15 +1,11 @@
 {
   "hosting": {
-    "public": "./public",
-    "headers": [
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
       {
-        "source": "**/*.@(js|html|css)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "max-age=0"
-          }
-        ]
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   }
