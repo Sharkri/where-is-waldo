@@ -1,7 +1,6 @@
 .character {
   display: flex;
   align-items: center;
-  justify-content: start;
   gap: 12px;
   transition: transform 0.2s ease-in-out;
   font-weight: 500;
