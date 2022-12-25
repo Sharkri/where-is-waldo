@@ -17,7 +17,7 @@ function LevelPreviewCard({ level, showCharacters }) {
       </div>
       <div className="level-preview-card-info">
         <p className="level-preview-card-name">{level.name}</p>
-        {showCharacters && (
+        {showCharacters && level.characters.length > 0 && (
           <div className="level-preview-card-character-photos">
             {level.characters.map(({ photo, id }) => (
               <img
