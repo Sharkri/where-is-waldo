@@ -50,6 +50,7 @@ function GameEnd({ timeTaken, levelId }) {
               placeholder="Don't use your real name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              maxLength="20"
               required
             />
           </label>
