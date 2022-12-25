@@ -1,14 +1,21 @@
 .character {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  gap: 8px;
+  justify-content: start;
+  gap: 12px;
   transition: transform 0.2s ease-in-out;
   font-weight: 500;
+  max-width: 200px;
 }
 
 .character > .character-image {
-  height: min(8vw, 44px);
+  height: min(2.5rem, 10vw);
+  width: min(2.5rem, 10vw);
+  object-fit: contain;
+}
+
+.character > .character-name {
+  font-size: min(4vw, 15px);
 }
 
 .character:hover {
