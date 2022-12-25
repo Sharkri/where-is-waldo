@@ -1,5 +1,5 @@
 .game-instructions-content {
-  width: clamp(280px, calc(100% - 16px), 800px);
+  width: clamp(260px, calc(100% - 16px), 800px);
   display: grid;
   grid-template-columns: 1fr 1fr;
   background-color: var(--main-bg);
