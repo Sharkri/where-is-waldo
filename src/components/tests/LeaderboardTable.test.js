@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import LeaderboardTable from "../LeaderboardTable";
@@ -44,7 +45,21 @@ it("should render a list of leaderboard submissions", () => {
   const submissions = screen.getAllByTestId("submission");
 
   expect(submissions.length).toBe(3);
-  expect(submissions[0].textContent).toBe("Alice");
-  expect(submissions[1].textContent).toBe("John");
-  expect(submissions[2].textContent).toBe("Bob");
+  expect(submissions[0]).toHaveTextContent("Alice");
+  expect(submissions[1]).toHaveTextContent("John");
+  expect(submissions[2]).toHaveTextContent("Bob");
+});
+
+it("should render a no scores submitted message when given an empty leaderboard", async () => {
+  render(<LeaderboardTable leaderboard={[]} />);
+
+  expect(screen.getByText("No submissions yet, be the first!"));
+  expect(screen.queryByRole("table")).not.toBeInTheDocument();
+});
+
+it("should render no level selected message when given undefined leaderboard", async () => {
+  render(<LeaderboardTable />);
+
+  expect(screen.getByText("No level selected."));
+  expect(screen.queryByRole("table")).not.toBeInTheDocument();
 });

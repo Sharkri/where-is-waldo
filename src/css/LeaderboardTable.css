@@ -64,3 +64,9 @@ th {
 .leaderboard-submission:nth-child(3) > .submission-place {
   font-weight: bold;
 }
+
+.no-submissions,
+.no-active-level {
+  text-align: center;
+  font-weight: 500;
+}

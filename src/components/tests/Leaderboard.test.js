@@ -43,41 +43,14 @@ it("should display leaderboard table", async () => {
 
   render(<Leaderboard />);
 
-  // should display the first leaderboard table by default
-  expect(LeaderboardTable).toHaveBeenCalledWith(
-    {
-      leaderboard: [{ name: "Alice" }, { name: "John" }],
-    },
-    expect.anything()
-  );
-
   // click on second level
-  userEvent.click(screen.getAllByRole("button", { name: "level" })[1]);
+  const secondLevel = screen.getAllByRole("button", { name: "level" })[1];
 
-  expect(screen.getAllByRole("button", { name: "level" })[1]).toHaveAttribute(
-    "data-isactive",
-    "true"
-  );
+  userEvent.click(secondLevel);
 
+  expect(secondLevel).toHaveAttribute("data-isactive", "true");
   expect(LeaderboardTable).toHaveBeenCalledWith(
-    {
-      leaderboard: [{ name: "Robert" }, { name: "Jones" }],
-    },
+    { leaderboard: [{ name: "Robert" }, { name: "Jones" }] },
     expect.anything()
   );
-});
-
-it("should render a no scores submitted message when given an empty leaderboard", async () => {
-  useLevels.mockReturnValue([
-    {
-      leaderboard: [],
-      name: "test level",
-      id: 1,
-    },
-  ]);
-
-  render(<Leaderboard />);
-
-  expect(screen.getByText("No submissions yet, be the first!"));
-  expect(LeaderboardTable).not.toBeCalled();
 });

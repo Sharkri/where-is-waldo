@@ -4,6 +4,14 @@ import LeaderboardSubmission from "./LeaderboardSubmission";
 import "../css/LeaderboardTable.css";
 
 function LeaderboardTable({ leaderboard }) {
+  if (!leaderboard) {
+    return <p className="no-active-level">No level selected.</p>;
+  }
+
+  if (!leaderboard.length) {
+    return <p className="no-submissions">No submissions yet, be the first!</p>;
+  }
+
   // sort leaderboard from least time taken to most
   const sortedLeaderboard = leaderboard.sort(
     (a, b) => a.timeTaken - b.timeTaken
@@ -33,6 +41,10 @@ function LeaderboardTable({ leaderboard }) {
   );
 }
 
+LeaderboardTable.defaultProps = {
+  leaderboard: undefined,
+};
+
 LeaderboardTable.propTypes = {
   leaderboard: PropTypes.arrayOf(
     PropTypes.shape({
@@ -46,7 +58,7 @@ LeaderboardTable.propTypes = {
         PropTypes.number,
       ]).isRequired,
     }).isRequired
-  ).isRequired,
+  ),
 };
 
 export default LeaderboardTable;
