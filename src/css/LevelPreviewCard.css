@@ -22,7 +22,9 @@
 }
 
 .level-preview-card-image {
-  width: 100%;
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   transition: 280ms ease-in-out;
