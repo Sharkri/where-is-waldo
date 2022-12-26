@@ -1,6 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
-import { act, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import React from "react";
@@ -9,6 +15,7 @@ import GameLevel from "../GameLevel";
 import CharactersDropdown from "../CharactersDropdown";
 import GameInstructions from "../GameInstructions";
 import GameLevelHeader from "../GameLevelHeader";
+import getLevelById from "../../helper/getLevelById";
 
 jest.mock("../CharactersDropdown.js", () =>
   jest.fn(() => <div data-testid="CharactersDropdown" />)
@@ -17,10 +24,9 @@ jest.mock("../CharactersDropdown.js", () =>
 jest.mock("../GameEnd.js", () => jest.fn());
 
 jest.mock("../LoadingScreen.js", () => () => <div>Loading...</div>);
-
-jest.mock(
-  "../../helper/getLevelById.js",
-  () => (id) =>
+jest.mock("../PageNotFound.js", () => () => <div>page not found</div>);
+jest.mock("../../helper/getLevelById.js", () =>
+  jest.fn((id) =>
     Promise.resolve({
       photo: "fake_level.png",
       name: "fake level",
@@ -34,6 +40,7 @@ jest.mock(
         },
       ],
     })
+  )
 );
 
 jest.mock("../GameInstructions.js", () =>
@@ -250,6 +257,20 @@ it("should show loading screen when is loading", async () => {
   expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
 });
 
-// will implement later
-it.todo("when game ends, interval should be cleared");
-it.todo("when character is found, remove from dropdown list");
+it("should show page not found when initialEntries is a not found level", async () => {
+  getLevelById.mockImplementation(() => {
+    throw new Error("No level found");
+  });
+
+  render(
+    <MemoryRouter initialEntries={["/levels/not-found-level"]}>
+      <Routes>
+        <Route path="/levels/:id" element={<GameLevel />} />
+      </Routes>
+    </MemoryRouter>
+  );
+
+  await waitFor(() =>
+    expect(screen.getByText("page not found")).toBeInTheDocument()
+  );
+});

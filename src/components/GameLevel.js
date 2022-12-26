@@ -9,6 +9,7 @@ import GameLevelHeader from "./GameLevelHeader";
 import CharactersDropdown from "./CharactersDropdown";
 import GameImage from "./GameImage";
 import GameEnd from "./GameEnd";
+import PageNotFound from "./PageNotFound";
 
 function GameLevel() {
   const { id } = useParams();
@@ -35,10 +36,16 @@ function GameLevel() {
   originalImg.src = level?.photo;
 
   useEffect(() => {
-    (async function setLvl() {
-      const lvl = await getLevelById(Number(id) || id);
-      setLevel(lvl);
-    })();
+    async function fetchLevel() {
+      try {
+        const lvl = await getLevelById(Number(id) || id);
+        setLevel(lvl);
+      } catch (error) {
+        if (error.message === "No level found") setLevel("not found");
+      }
+    }
+
+    fetchLevel();
   }, []);
 
   // Hide dropdown on resize since x and y coords will be different
@@ -131,6 +138,7 @@ function GameLevel() {
   // Only allow scroll if game is started
   document.body.style.overflow = isStarted && !isGameOver ? "unset" : "hidden";
 
+  if (level === "not found") return <PageNotFound />;
   if (level == null) return <LoadingScreen />;
 
   return (
