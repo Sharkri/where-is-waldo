@@ -1,7 +1,10 @@
 #not-found {
-  text-align: center;
-  margin-top: 50vh;
   padding: 0 3px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 #not-found i {
