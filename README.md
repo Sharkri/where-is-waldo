@@ -24,16 +24,18 @@ This app implements an interactive version of "Where's Waldo?", a game where pla
 
 ### Screenshots
 
-**Homepage**
+#### Homepage
+
 ![homepage](./assets/homepage.png)
 
-**Level**
+#### Level
 
 ![level](./assets/gameinstructions.png)
 
-**Level Complete**
+#### Level Complete
+
 ![level-end](./assets/timefinished.png)
 
-**Leaderboard**
+#### Leaderboard
 
 ![leaderboard](./assets/leaderboard.png)
