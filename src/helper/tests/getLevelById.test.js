@@ -20,3 +20,7 @@ it("should get image from backend.js", async () => {
   const level = await getLevelById(0);
   expect(level.photo).toBe("xd.png");
 });
+
+it("should throw error if no level is found", async () => {
+  await expect(getLevelById(12345)).rejects.toThrow("No level found");
+});
