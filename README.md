@@ -39,3 +39,7 @@ This app implements an interactive version of "Where's Waldo?", a game where pla
 #### Leaderboard
 
 ![leaderboard](./assets/leaderboard.png)
+
+#### 404 page
+
+![404page](./assets/notfound.png)
