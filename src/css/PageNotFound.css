@@ -21,7 +21,7 @@
 }
 
 #not-found p {
-  font-size: min(0.95rem, 3.3vw);
+  font-size: min(1rem, 3.5vw);
 }
 
 #not-found a {
