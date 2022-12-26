@@ -1,0 +1,31 @@
+#not-found {
+  text-align: center;
+  margin-top: 50vh;
+  padding: 0 3px;
+}
+
+#not-found i {
+  font-size: min(3.6rem, 11vw);
+  color: slategrey;
+  margin-bottom: 8px;
+}
+
+#not-found h1 {
+  color: #b32c35;
+  text-transform: uppercase;
+  font-size: min(2.9rem, 9.7vw);
+  margin-bottom: 12px;
+}
+
+#not-found p {
+  font-size: min(0.95rem, 3.3vw);
+}
+
+#not-found a {
+  color: inherit;
+  transition: 0.3s;
+}
+
+#not-found a:hover {
+  filter: brightness(115%);
+}
