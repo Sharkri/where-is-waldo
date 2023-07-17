@@ -8,6 +8,20 @@ import Home from "./components/Home";
 import GameLevel from "./components/GameLevel";
 import PageNotFound from "./components/PageNotFound";
 
+function GithubLink() {
+  return (
+    <a
+      href="https://github.com/Sharkri/where-is-waldo"
+      className="github-repo"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="GitHub Repo"
+    >
+      <i className="fa-brands fa-github" />
+    </a>
+  );
+}
+
 function App() {
   return (
     <div className="App">
@@ -18,7 +32,9 @@ function App() {
           path="/"
           element={
             <>
-              <Header />
+              <Header>
+                <GithubLink />
+              </Header>
               <Home />
             </>
           }
@@ -27,7 +43,9 @@ function App() {
           path="/leaderboard"
           element={
             <>
-              <Header />
+              <Header>
+                <GithubLink />
+              </Header>
               <Leaderboard />
             </>
           }
