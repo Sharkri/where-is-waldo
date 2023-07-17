@@ -131,8 +131,8 @@ function GameLevel() {
         id: character.id,
       };
       setFoundList([...foundList, foundListItem]);
-      dispatch(`You found ${character.name}`, true, 5000);
-    } else dispatch("Try again.", false, 5000);
+      dispatch(`You found ${character.name}`, true, 3000);
+    } else dispatch("Try again.", false, 3000);
   };
 
   // Only allow scroll if game is started
