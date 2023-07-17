@@ -22,7 +22,7 @@ function GameEnd({ timeTaken, levelId }) {
         dateSubmitted: Date.now(),
         id: uniqid(),
       });
-      navigate("/leaderboard");
+      navigate(`/leaderboard?level=${levelId}`);
     } catch (error) {
       setIsErrorActive(true);
       setIsLoading(false);

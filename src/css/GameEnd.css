@@ -73,7 +73,7 @@
   background-color: var(--primary);
   border: none;
   border-radius: 6px;
-  color: inherit;
+  color: white;
 }
 
 .submit-to-leaderboard:disabled {

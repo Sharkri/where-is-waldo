@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Leaderboard.css";
+import { useSearchParams } from "react-router-dom";
 import LoadingScreen from "./LoadingScreen";
 import useLevels from "../helper/useLevels";
 import LevelPreviewCard from "./LevelPreviewCard";
@@ -7,7 +8,18 @@ import LeaderboardTable from "./LeaderboardTable";
 
 function Leaderboard() {
   const levels = useLevels();
+  const [searchParams] = useSearchParams();
+  const levelId = searchParams.get("level");
+
   const [activeLevel, setActiveLevel] = useState({});
+
+  useEffect(() => {
+    if (levels == null || !levelId) return;
+
+    const level = levels.find((lvl) => lvl.id === levelId);
+    if (level) setActiveLevel(level);
+  }, [levelId, levels]);
+
   document.body.style.overflow = "unset";
 
   if (levels == null) return <LoadingScreen />;
