@@ -12,6 +12,8 @@
 
 .game-instructions-image-container {
   border-radius: inherit;
+  max-height: 90vh;
+  object-fit: cover;
 }
 
 .game-instructions-image {

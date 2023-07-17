@@ -17,4 +17,5 @@
 
 .game-image-container input[type="image"] {
   width: 100%;
+  cursor: crosshair;
 }
