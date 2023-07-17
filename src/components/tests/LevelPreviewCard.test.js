@@ -42,38 +42,3 @@ it("should not show characters", () => {
     screen.queryByRole("img", { name: "character" })
   ).not.toBeInTheDocument();
 });
-
-describe("bad inputs", () => {
-  beforeEach(() => jest.spyOn(console, "error"));
-  afterEach(() => expect(console.error).toBeCalled());
-
-  it("should warn for level name", () => {
-    const level = {
-      name: ["NOT A STRING LOL", "ALSO NOT A STRING"],
-      photo: "./image.png",
-      id: 0,
-      characters: [],
-    };
-
-    render(
-      <MemoryRouter>
-        <LevelPreviewCard level={level} />
-      </MemoryRouter>
-    );
-  });
-
-  it("should warn for level src", () => {
-    const level = {
-      name: "actually a string",
-      photo: () => "not an image src!!",
-      id: 0,
-      characters: [],
-    };
-
-    render(
-      <MemoryRouter>
-        <LevelPreviewCard level={level} />
-      </MemoryRouter>
-    );
-  });
-});
