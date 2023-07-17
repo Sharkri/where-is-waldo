@@ -70,7 +70,7 @@
 
 .submit-to-leaderboard {
   padding: 10px 12px;
-  background-color: var(--btn-bg-color);
+  background-color: var(--primary);
   border: none;
   border-radius: 6px;
   color: inherit;

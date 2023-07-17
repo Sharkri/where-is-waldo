@@ -14,7 +14,9 @@ function Leaderboard() {
 
   return (
     <div className="leaderboard">
-      <h1 className="leaderboard-title">Leaderboard</h1>
+      <h1 className="leaderboard-title">
+        {activeLevel.name || "Select a level"}
+      </h1>
       <div className="leaderboard-levels">
         {levels.map((level) => (
           <button
@@ -30,6 +32,9 @@ function Leaderboard() {
         ))}
       </div>
 
+      <h2 className="leaderboard-title">
+        {activeLevel.name && `Leaderboard - ${activeLevel.name}`}
+      </h2>
       <LeaderboardTable leaderboard={activeLevel.leaderboard} />
     </div>
   );

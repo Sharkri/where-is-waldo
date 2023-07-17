@@ -44,7 +44,7 @@
 
 .start-game {
   border: none;
-  background-color: var(--btn-bg-color);
+  background-color: var(--primary);
   color: var(--main-text-color);
   font-weight: bold;
   text-align: center;

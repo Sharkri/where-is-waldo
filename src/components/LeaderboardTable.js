@@ -22,7 +22,7 @@ function LeaderboardTable({ leaderboard }) {
       <table className="leaderboard-table">
         <thead>
           <tr>
-            <th scope="col">Place</th>
+            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Time</th>
             <th scope="col">Date</th>

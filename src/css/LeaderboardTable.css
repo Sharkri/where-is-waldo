@@ -5,6 +5,8 @@
 .leaderboard-table {
   margin: auto;
   text-align: center;
+  border-collapse: collapse;
+  border-radius: 50px;
 }
 
 .leaderboard-title {
@@ -15,17 +17,18 @@
 
 td,
 th {
-  outline: 1px solid var(--main-text-color);
-  padding: 10px 20px;
+  padding: 16px 20px;
 }
 
 td {
   font-weight: 500;
 }
 
+thead {
+  border: 1px solid;
+}
+
 th {
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
   background-color: var(--secondary-main-bg);
 }
 
@@ -40,6 +43,14 @@ th {
   overflow-wrap: anywhere;
   text-overflow: ellipsis;
   max-width: 225px;
+}
+
+.leaderboard-submission {
+  border: 1px solid #d9dde0;
+}
+
+.leaderboard-submission:first-child {
+  border-top: 0;
 }
 
 /* First place */
