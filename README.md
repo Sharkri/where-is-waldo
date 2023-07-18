@@ -2,31 +2,32 @@
 
 ### Summary
 
-This app implements an interactive version of "Where's Waldo?", a game where players try to find several characters hidden inside a picture. In this version, players are timed. Upon completion, the user may enter their name into a leaderboard stored in firebase.
+This app implements an interactive version of "Where's Waldo?", a game where players try to find several characters hidden inside a picture. In this version, players are timed. Upon completion, the user may enter their name into a leaderboard stored in Firebase.
 
 > See it live on [where-is-waldo-3e672.web.app/](https://where-is-waldo-3e672.web.app/)
+> 
+
+<img src="./assets/homepage.png" height="700"/>
 
 ### Technologies
 
 - ReactJS
 - react-router-dom
-- CSS
+- Vanilla CSS
 - Firebase
 - React Testing Library
 
 ### Features
 
 - Responsive design
-- Multiple levels stored in firebase
+- Multiple levels stored in Firebase
 - Real-time character verification
 - Global leaderboard without login
-- 2 levels to play
+- Multiple levels to play
 
 ### Screenshots
 
-#### Homepage
 
-![homepage](./assets/homepage.png)
 
 #### Level
 
